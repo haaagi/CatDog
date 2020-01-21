@@ -1,5 +1,7 @@
 package com.catdog.springboot.domain.posts;
 
+import com.catdog.springboot.domain.posts.Posts;
+import com.catdog.springboot.domain.posts.PostsRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +35,7 @@ public class PostsRepositoryTest {
         postsRepository.save(Posts.builder()
                 .title(title)
                 .content(content)
-                .author("ponyong@naver.com")
+                .author("jojoldu@gmail.com")
                 .build());
 
         //when
@@ -48,23 +50,19 @@ public class PostsRepositoryTest {
     @Test
     public void BaseTimeEntity_등록() {
         //given
-
         LocalDateTime now = LocalDateTime.of(2019, 6, 4, 0, 0, 0);
-
         postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
                 .author("author")
                 .build());
-
-        // when
+        //when
         List<Posts> postsList = postsRepository.findAll();
 
-        // then
-
+        //then
         Posts posts = postsList.get(0);
 
-        System.out.println(">>>>>>>>>>>>> createDate=" + posts.getCreatedDate() +", modifiedDate=" + posts.getModifiedDate());
+        System.out.println(">>>>>>>>> createDate=" + posts.getCreatedDate() + ", modifiedDate=" + posts.getModifiedDate());
 
         assertThat(posts.getCreatedDate()).isAfter(now);
         assertThat(posts.getModifiedDate()).isAfter(now);
