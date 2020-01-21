@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -49,6 +49,26 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
   const classes = useStyles();
 
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // email, pw 
+  const [toggle, setToggle] = useState(false);
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value)
+    console.log({email})
+  }
+
+  const onChagePassword = (e) => {
+    setPassword(e.target.value)
+    console.log({password})
+  }
+
+
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -70,6 +90,8 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={onChangeEmail}
           />
           <TextField
             variant="outlined"
@@ -81,6 +103,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={onChagePassword}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -92,6 +116,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={!(email && password)}
           >
             Sign In
           </Button>
