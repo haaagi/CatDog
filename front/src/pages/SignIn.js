@@ -49,12 +49,8 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
   const classes = useStyles();
 
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // email, pw 
-  const [toggle, setToggle] = useState(false);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value)
@@ -65,8 +61,6 @@ export default function SignIn() {
     setPassword(e.target.value)
     console.log({password})
   }
-
-
 
 
   return (
