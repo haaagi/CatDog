@@ -55,8 +55,8 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const textMap = {
-  login: '로그인',
-  register: '회원가입',
+  findID: '아이디 찾기',
+  findPW: '비밀번호 찾기',
 };
 
 /**
@@ -69,7 +69,7 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
-const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
+const FindAccountForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
   return (
     <AuthFormBlock>
@@ -78,42 +78,45 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
         <StyledInput
           autoComplete="username"
           name="username"
-          placeholder="아이디"
+          placeholder="이름"
           onChange={onChange}
           value={form.username}
         />
-        <StyledInput
-          autoComplete="new-password"
-          name="password"
-          placeholder="비밀번호"
-          type="password"
-          onChange={onChange}
-          value={form.password}
-        />
-        {type === 'register' && (
+        {type === 'findPW' && (
           <StyledInput
-            autoComplete="new-password"
-            name="passwordConfirm"
-            placeholder="비밀번호 확인"
-            type="password"
+            autoComplete="userEmail"
+            name="userEmail"
+            placeholder="이메일"
             onChange={onChange}
-            value={form.passwordConfirm}
+            value={form.userEmail}
           />
         )}
+        <StyledInput
+          autoComplete="userPhone"
+          name="userPhone"
+          placeholder="전화번호"
+          onChange={onChange}
+          value={form.userPhone}
+        />
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem' }}>
           {text}
         </ButtonWithMarginTop>
       </form>
       <Footer>
-        {type === 'login' ? (
-          <Link to="/register">회원가입</Link>
+        {type === 'findID' ? (
+          <Link to="/findPW" style={{ marginRight: '1rem' }}>
+            비밀번호 찾기
+          </Link>
         ) : (
-          <Link to="/login">로그인</Link>
+          <Link to="/findID" style={{ marginRight: '1rem' }}>
+            아이디 찾기
+          </Link>
         )}
+        <Link to="/login">로그인</Link>
       </Footer>
     </AuthFormBlock>
   );
 };
 
-export default AuthForm;
+export default FindAccountForm;

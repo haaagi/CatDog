@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WritePage from './pages/WritePage';
 import PostPage from './pages/PostPage';
+import FindIDPage from './pages/FindIDPage';
+import FindPWPage from './pages/FindPWPage';
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
       <Route component={RegisterPage} path="/register" />
       <Route component={WritePage} path="/write" />
       <Route component={PostPage} path="/@:username/:postId" />
+      <Route component={FindIDPage} path="/findID" />
+      <Route component={FindPWPage} path="/findPW" />
     </>
   );
 };
