@@ -42,4 +42,10 @@ public class IndexController {
 
         return "posts-update";
     }
+
+    @GetMapping("/user/save")
+    public String userSave() { return "user-save"; }
+
+    @GetMapping("/test/save")
+    public String testSave() { return "test-save"; }
 }
