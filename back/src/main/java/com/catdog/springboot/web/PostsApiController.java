@@ -22,6 +22,11 @@ public class PostsApiController {
 
     private final PostsService postsService;
 
+    @GetMapping("/api/v1/posts")
+    public List<PostsListResponseDto> list() {
+        return postsService.findAllDesc();
+    }
+
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
