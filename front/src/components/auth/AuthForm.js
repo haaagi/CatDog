@@ -100,6 +100,23 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             value={form.passwordConfirm}
           />
         )}
+          <StyledInput
+            autoComplete="new-password"
+            name="likeDogCat"
+            placeholder="관심있는 종"
+            type="checkbox"
+            onChange={onChange}
+            value={form.password}
+          />
+          <StyledInput
+            autoComplete="new-password"
+            name="password"
+            placeholder="비밀번호"
+            type="password"
+            onChange={onChange}
+            value={form.password}
+          />
+        
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <ButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem' }}>
           {text}
