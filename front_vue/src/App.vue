@@ -1,6 +1,7 @@
 <template>
   <v-app>
-    <h1>열심히 개발하세용</h1>
+    <router-view />
+    
   </v-app>
 </template>
 
