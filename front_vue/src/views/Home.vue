@@ -1,46 +1,18 @@
 <template>
   <div class="home">
-    <RecommendMovie :movies="movies"/>
-    <MovieList :movies="movies"/>
-    
+    <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-const HOST = process.env.VUE_APP_SERVER_HOST;
+// @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'
 
-// import router from '../router';
-const axios = require('axios'); 
-// import MovieHome from '../components/MovieHome';
 export default {
-  name: 'home', 
+  name: 'home',
   components: {
-    
-  },
-  data () {
-    return {
-      movies: [],
-    }
-  },
-  methods: {
-    },
-
-  created () {
-    const hash = sessionStorage.getItem('jwt');
-    const options = {
-        headers: {
-            Authorization:'JWT ' + hash
-        }
-    }
-    axios.get(HOST + 'api/movies/', options)
-      .then(res=> this.movies = res.data)
-      .catch(err => console.error(err))
-    
-  } 
+    HelloWorld
+  }
 }
-
-
 </script>
-
-<style>
-</style>
