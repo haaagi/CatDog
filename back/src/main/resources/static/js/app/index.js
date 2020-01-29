@@ -18,6 +18,20 @@ var main = {
         })
     },
 
+    list: function () {
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/posts',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            alert('글이 등록되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
     save: function () {
         var data = {
             title: $('#title').val(),
@@ -89,10 +103,6 @@ var main = {
             data: JSON.stringify(data)
         }).done(function () {
             alert('회원이 등록되었습니다.');
-            alert(this.name);
-            alert(this.email);
-            alert(this.picture);
-            alert(this.role);
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -118,3 +128,4 @@ var main = {
     }
 };
 main.init();
+main.list();
