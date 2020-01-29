@@ -1,10 +1,12 @@
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
+
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
 import * as authAPI from '../lib/api/auth';
+import { Map, List } from 'immutable';
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
@@ -73,6 +75,11 @@ const initialState = {
     username: '',
     password: '',
     passwordConfirm: '',
+<<<<<<< HEAD
+=======
+    likeDogCat: List([]),
+    myDogCat: List([]),
+>>>>>>> 0bba6194ddf3f8ae1895d02de77583f2d5d47ca3
   },
   login: {
     username: '',
@@ -98,7 +105,7 @@ const auth = handleActions(
         draft[form][key] = value; // 예: state.register.username을 바꾼다
       }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
-      ...state,
+      ...state,  
       [form]: initialState[form],
       authError: null, // 폼 전환 시 회원 인증 에러 초기화
     }),

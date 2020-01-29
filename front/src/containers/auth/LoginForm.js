@@ -4,6 +4,13 @@ import { withRouter } from 'react-router-dom';
 import { changeField, initializeForm, login } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
 import { check } from '../../modules/user';
+import axios from 'axios';
+
+
+var options = {
+  withCredentials: true,
+  // headers: {'Authorization': 'Bearer token-value'}
+};
 
 const LoginForm = ({ history }) => {
   const [error, setError] = useState(null);
@@ -31,6 +38,13 @@ const LoginForm = ({ history }) => {
     e.preventDefault();
     const { username, password } = form;
     dispatch(login({ username, password }));
+    axios.get('/api/v1/posts', options)
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
   };
 
   // 컴포넌트가 처음 렌더링 될 때 form 을 초기화함

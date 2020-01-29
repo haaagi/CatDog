@@ -7,9 +7,15 @@
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.9.0",
     "immer": "^3.1.3",
+<<<<<<< HEAD
     "immutable": "^3.8.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+=======
+    "immutable": "^4.0.0-rc.12",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+>>>>>>> 0bba6194ddf3f8ae1895d02de77583f2d5d47ca3
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
@@ -40,5 +46,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4000/"
+  "proxy": "http://70.12.247.57:8080/"
 }
