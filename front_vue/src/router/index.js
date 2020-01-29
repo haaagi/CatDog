@@ -38,11 +38,6 @@ const router = new VueRouter({
     name: 'userlist',
     component: UserList,
   },
-  {
-    path: '/moviedetail',
-    name: 'moviedetail',
-    component: MovieDetail,
-  },
 ]
 })
 
