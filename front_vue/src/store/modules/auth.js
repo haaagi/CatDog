@@ -106,12 +106,12 @@ const actions = {
         if (getters.isLoggedIn) {
             router.push('/home');
         } else {
-            axios.post(HOST + 'api/accounts/', userInput)
+            axios.post(HOST +'user', userInput)
                 .then(res => {
                     console.log(res)
                     if (res.status === 200) {
                         const credentials = {
-                            username: userInput.username,
+                            email: userInput.email,
                             password: userInput.password,
                         }
                         dispatch('login',credentials)

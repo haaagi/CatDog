@@ -2,7 +2,6 @@
     <div>
         <h1>왜안돼지?</h1>
         <v-app id="inspire">
-            
             <v-list three-line>
                 <template v-for="(item, index) in items">
                     <v-subheader v-if="item.header" :key="item.header" v-text="item.header" />
