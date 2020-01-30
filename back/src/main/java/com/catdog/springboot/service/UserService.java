@@ -2,7 +2,6 @@ package com.catdog.springboot.service;
 
 
 import com.catdog.springboot.domain.user.UserRepository;
-import com.catdog.springboot.web.dto.PostsSaveRequestDto;
 import com.catdog.springboot.web.dto.UserSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,6 @@ public class UserService {
     private final UserRepository userRepository;
     @Transactional
     public Long save(UserSaveRequestDto requestDto) {
-        return userRepository.save(requestDto.toEntity()).getId();
+        return userRepository.save(requestDto.toEntity()).getUid();
     }
 }

@@ -16,6 +16,9 @@ var main = {
         $('#btn-test-save').on('click', function () {
             _this.test_save();
         })
+        $('#btn-like').on('click', function () {
+            _this.likesup();
+        })
     },
 
     list: function () {
@@ -90,8 +93,11 @@ var main = {
 
     user_save: function () {
         var data = {
+            email : $('#email').val(),
+            password : $('#password').val(),
             name: $('#name').val(),
-            email: $('#email').val(),
+            nickname: $('#nickname').val(),
+            birthday: $('#birthday').val(),
             picture: $('#picture').val(),
             role: $('#role').val()
         };
@@ -121,6 +127,25 @@ var main = {
             data: JSON.stringify(data)
         }).done(function () {
             alert('글이 등록되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    likesup: function () {
+        var data = {
+            pid: $('#id').val(),
+            email: $('#author').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/posts/likesup',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            alert('좋아요!');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));

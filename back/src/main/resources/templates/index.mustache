@@ -12,8 +12,8 @@
                 <a href="/logout" class="btn btn-info active" role="button">Logout</a>
             {{/userName}}
             {{^userName}}
-                <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+<!--                <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>-->
+<!--                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>-->
             {{/userName}}
         </div>
     </div>
@@ -26,15 +26,17 @@
             <th>제목</th>
             <th>작성자</th>
             <th>최종수정일</th>
+            <th>좋아요</th>
         </tr>
         </thead>
         <tbody id="tbody">
         {{#posts}}
             <tr>
-                <td>{{id}}</td>
-                <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+                <td>{{pid}}</td>
+                <td><a href="/posts/update/{{pid}}">{{title}}</a></td>
                 <td>{{author}}</td>
                 <td>{{modifiedDate}}</td>
+                <td>{{likes}}</td>
             </tr>
         {{/posts}}
         </tbody>
