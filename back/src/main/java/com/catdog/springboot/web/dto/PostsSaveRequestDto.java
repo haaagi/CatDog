@@ -1,6 +1,7 @@
 package com.catdog.springboot.web.dto;
 
 import com.catdog.springboot.domain.posts.Posts;
+import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +20,12 @@ public class PostsSaveRequestDto {
         this.author = author;
     }
 
-    public Posts toEntity() {
+    public Posts toEntity(User user) {
         return Posts.builder()
                 .title(title)
                 .content(content)
                 .author(author)
+                .user(user)
                 .build();
     }
 }

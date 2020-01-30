@@ -1,7 +1,6 @@
 package com.catdog.springboot.web;
 
 
-import com.catdog.springboot.service.PostsService;
 import com.catdog.springboot.service.UserService;
 import com.catdog.springboot.web.dto.PostsSaveRequestDto;
 import com.catdog.springboot.web.dto.UserSaveRequestDto;

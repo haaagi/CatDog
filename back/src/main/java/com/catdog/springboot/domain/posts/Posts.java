@@ -1,15 +1,12 @@
 package com.catdog.springboot.domain.posts;
 
 import com.catdog.springboot.domain.BaseTimeEntity;
+import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -18,7 +15,7 @@ public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long pid;
 
     @Column(length = 500 , nullable = false)
     private String title;
@@ -28,8 +25,13 @@ public class Posts extends BaseTimeEntity {
 
     private String author;
 
+    @ManyToOne
+    @JoinColumn(name = "uid")
+    private User user;
+
     @Builder
-    public Posts(String title, String content, String author) {
+    public Posts(User user, String title, String content, String author) {
+        this.user = user;
         this.title = title;
         this.content = content;
         this.author = author;
