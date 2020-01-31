@@ -1,18 +1,9 @@
 package com.catdog.springboot.web;
 
 import com.catdog.springboot.service.PostsService;
-import com.catdog.springboot.web.dto.PostsListResponseDto;
-import com.catdog.springboot.web.dto.PostsResponseDto;
-import com.catdog.springboot.web.dto.PostsSaveRequestDto;
-import com.catdog.springboot.web.dto.PostsUpdateRequestDto;
+import com.catdog.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +12,11 @@ import java.util.List;
 public class PostsApiController {
 
     private final PostsService postsService;
+
+    @GetMapping("/api/v1/posts")
+    public List<PostsListResponseDto> list() {
+        return postsService.findAllAsc();
+    }
 
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
@@ -45,6 +41,11 @@ public class PostsApiController {
 
     @GetMapping("/api/v1/posts/list")
     public List<PostsListResponseDto> findAll() {
-        return postsService.findAllDesc();
+        return postsService.findAllAsc();
+    }
+
+    @PostMapping("/api/v1/posts/likesup")
+    public Long likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
+        return postsService.likesup(likesupRequestDto);
     }
 }

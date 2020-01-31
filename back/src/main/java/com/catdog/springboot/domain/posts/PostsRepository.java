@@ -12,6 +12,6 @@ public interface PostsRepository extends JpaRepository<Posts,Long> {
     // 주의점
     // Entity 클래스와 기본 Entity Repository는 함께 위치 해야 합니다.
 
-    @Query("SELECT p FROM Posts p ORDER BY p.id DESC")
-    List<Posts> findAllDesc();
+    @Query("SELECT p FROM Posts p ORDER BY p.pid ASC")
+    List<Posts> findAllAsc();
 }
