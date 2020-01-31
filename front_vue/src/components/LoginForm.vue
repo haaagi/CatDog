@@ -1,6 +1,6 @@
 <template>
-  <v-contatiner fluid>
-    <v-layout row justify-center>
+  <v-contatiner grid-list-xl text-xs-center>
+    <v-layout row wrap>
       <!-- <v-row justify="space-around" fill="height"> -->
       <!-- <v-col cols="12" sm="6"> -->
       <!-- <v-row justify="space-around"> -->
@@ -85,7 +85,7 @@
       <!-- <v-col cols="12" sm="6"> -->
       <!-- <v-card class="mx-auto" height="600" max-width="600"> -->
       <!-- <v-flex xs3> -->
-        <v-form ref="form" v-model="valid" :lazy-validation="lazy">
+        <!-- <v-form ref="form" v-model="valid" :lazy-validation="lazy">
           <v-text-field v-model="credentials.email" :rules="emailRules" label="E-mail" required></v-text-field>
           <v-text-field v-model="credentials.password" :counter="10" :rules="nameRules" label="비밀번호" required>
           </v-text-field>
@@ -107,11 +107,47 @@
           <v-btn color="warning" @click="resetValidation">
             Reset Validation
           </v-btn>
-        </v-form>
+        </v-form> -->
       <!-- </v-flex> -->
       <!-- </v-card> -->
       <!-- </v-col> -->
       <!-- </v-row> -->
+      <v-flex xs4 offset-xs4>
+           <v-card dark color="dark" elevation-24 style="padding: 20px; border: 1px; border-radius: 50px;">
+             <v-card-text>
+               <h4 class="display-2 font-weight-bold">Login</h4>
+               <hr>
+               <br>
+               <v-form>
+                 <v-text-field 
+                   clearable
+                   v-model="username"
+                   label="Username"
+                   prepend-icon="face"
+                   type="text"
+                   @click:prepend="prependClicked"
+                   color="white"
+                   @click:append-outer="appendClicked"
+                   counter="10"
+                 >
+                 </v-text-field>
+                 <v-text-field 
+                   clearable
+                   v-model="password"
+                   label="Password"
+                   prepend-icon="lock"
+                   type="password"
+                   @click:prepend="prependClicked"
+                   color="white"
+                   @click:append-outer="appendClicked"
+                 >
+                 </v-text-field>
+              </v-form>
+              <br>
+               <v-btn color="grey darken-2" large>Enter</v-btn>
+             </v-card-text>
+           </v-card>
+         </v-flex>
     </v-layout>
   </v-contatiner>
 
