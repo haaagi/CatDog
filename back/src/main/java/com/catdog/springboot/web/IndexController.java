@@ -58,6 +58,12 @@ public class IndexController {
         //model.addAttribute("userEmail", user.getEmail());
         return "posts-save";
     }
+
+    @GetMapping("/user/signin")
+    public String signIn(Model model, @LoginUser SessionUser user) {
+        return "posts-signin";
+    }
+
     @GetMapping("/posts/update/{id}")
     public String postsUpdate(@PathVariable Long id, Model model) {
         PostsResponseDto dto = postsService.findById(id);

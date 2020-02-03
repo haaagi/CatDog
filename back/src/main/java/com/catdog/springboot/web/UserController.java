@@ -1,10 +1,9 @@
 package com.catdog.springboot.web;
 
 
-import com.catdog.springboot.domain.user.User;
+import com.catdog.springboot.domain.user.LoginUser;
 import com.catdog.springboot.service.JwtService;
 import com.catdog.springboot.service.UserService;
-import com.catdog.springboot.web.dto.PostsSaveRequestDto;
 import com.catdog.springboot.web.dto.UserSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +32,12 @@ public class UserController {
         return userService.save(requestDto);
     }
 
-    @PostMapping("/user/signin")
-    public ResponseEntity<Map<String, Object>> signin (@RequestBody User user, HttpServletResponse res) {
+    @PostMapping("/jwtapi/user/signin")
+    public ResponseEntity<Map<String, Object>> signin (@RequestBody LoginUser user, HttpServletResponse res) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         try {
-            User loginUser = userService.signin(user.getEmail(), user.getPassword());
+            LoginUser loginUser = userService.signin(user.getEmail(), user.getPassword());
             String token = jwtService.create(loginUser);
             System.out.println(token);
             res.setHeader("jwt-auth-token", token);
@@ -53,8 +52,9 @@ public class UserController {
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
-    @PostMapping("/info")
-    public ResponseEntity<Map<String, Object>> getInfo(HttpServletRequest req, @RequestBody User user) {
+
+    @PostMapping("/jwtapi/info")
+    public ResponseEntity<Map<String, Object>> getInfo(HttpServletRequest req, @RequestBody LoginUser user) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         try {

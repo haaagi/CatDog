@@ -19,17 +19,23 @@ var main = {
         $('#btn-like').on('click', function () {
             _this.likesup();
         })
+        $('#btn-signin').on('click', function () {
+            _this.signin();
+        })
     },
-
-    list: function () {
+    signin: function() {
+        var data = {
+            email: $('#email').val(),
+            password: $('#password').val()
+        };
         $.ajax({
-            type: 'GET',
-            url: '/api/v1/posts',
+            type: 'POST',
+            url: '/jwtapi/user/signin',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function () {
-            alert('글이 등록되었습니다.');
+            alert('로그인 성공');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
