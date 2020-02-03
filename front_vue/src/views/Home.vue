@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import prac from '../components/prac'
+// import prac from '../components/prac'
 export default {
     name: 'Home',
     components: {
-        prac,
+        // prac,
     },
 }
 </script>

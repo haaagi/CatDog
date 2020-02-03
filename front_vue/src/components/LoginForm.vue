@@ -1,90 +1,91 @@
 <template>
-  <v-contatiner grid-list-xl text-xs-center>
-    <v-layout row wrap>
-      <!-- <v-row justify="space-around" fill="height"> -->
-      <!-- <v-col cols="12" sm="6"> -->
-      <!-- <v-row justify="space-around"> -->
-      <v-flex xs5>
-        <div class="husky">
-          <div class="mane">
-            <div class="coat"></div>
-          </div>
-          <div class="body">
-            <div class="head">
-              <div class="ear"></div>
-              <div class="ear"></div>
-              <div class="face">
-                <div class="eye"></div>
-                <div class="eye"></div>
-                <div class="nose"></div>
-                <div class="mouth">
-                  <div class="lips"></div>
-                  <div class="tongue"></div>
+    <!-- <v-contatiner grid-list-xl text-xs-center> -->
+      <v-layout row wrap>
+        <!-- <v-row justify="space-around" fill="height"> -->
+        <!-- <v-col cols="12" sm="6"> -->
+        <!-- <v-row justify="space-around"> -->
+        <v-flex xs5>
+          <div class="husky">
+            <div class="mane">
+              <div class="coat"></div>
+            </div>
+            <div class="body">
+              <div class="head">
+                <div class="ear"></div>
+                <div class="ear"></div>
+                <div class="face">
+                  <div class="eye"></div>
+                  <div class="eye"></div>
+                  <div class="nose"></div>
+                  <div class="mouth">
+                    <div class="lips"></div>
+                    <div class="tongue"></div>
+                  </div>
                 </div>
               </div>
+              <div class="torso"></div>
             </div>
-            <div class="torso"></div>
-          </div>
-          <div class="legs">
-            <div class="front-legs">
-              <div class="leg"></div>
-              <div class="leg"></div>
+            <div class="legs">
+              <div class="front-legs">
+                <div class="leg"></div>
+                <div class="leg"></div>
+              </div>
+              <div class="hind-leg">
+              </div>
             </div>
-            <div class="hind-leg">
-            </div>
-          </div>
-          <div class="tail">
             <div class="tail">
               <div class="tail">
                 <div class="tail">
                   <div class="tail">
                     <div class="tail">
-                      <div class="tail"></div>
+                      <div class="tail">
+                        <div class="tail"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <!-- </v-row> -->
+
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none">
+            <defs>
+
+
+              <filter id="squiggly-0">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0" />
+                <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="2" />
+              </filter>
+              <filter id="squiggly-1">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+              </filter>
+
+              <filter id="squiggly-2">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+              </filter>
+              <filter id="squiggly-3">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+              </filter>
+
+              <filter id="squiggly-4">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
+              </filter>
+            </defs>
+          </svg>
+        </v-flex>
+
         <!-- </v-row> -->
 
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none">
-          <defs>
+        <!-- </v-col> -->
 
-
-            <filter id="squiggly-0">
-              <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0" />
-              <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="2" />
-            </filter>
-            <filter id="squiggly-1">
-              <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
-            </filter>
-
-            <filter id="squiggly-2">
-              <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
-            </filter>
-            <filter id="squiggly-3">
-              <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
-            </filter>
-
-            <filter id="squiggly-4">
-              <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
-            </filter>
-          </defs>
-        </svg>
-      </v-flex>
-      <!-- </v-row> -->
-
-      <!-- </v-col> -->
-
-      <!-- <v-col cols="12" sm="6"> -->
-      <!-- <v-card class="mx-auto" height="600" max-width="600"> -->
-      <!-- <v-flex xs3> -->
+        <!-- <v-col cols="12" sm="6"> -->
+        <!-- <v-card class="mx-auto" height="600" max-width="600"> -->
+        <!-- <v-flex xs3> -->
         <!-- <v-form ref="form" v-model="valid" :lazy-validation="lazy">
           <v-text-field v-model="credentials.email" :rules="emailRules" label="E-mail" required></v-text-field>
           <v-text-field v-model="credentials.password" :counter="10" :rules="nameRules" label="비밀번호" required>
@@ -108,48 +109,77 @@
             Reset Validation
           </v-btn>
         </v-form> -->
-      <!-- </v-flex> -->
-      <!-- </v-card> -->
-      <!-- </v-col> -->
-      <!-- </v-row> -->
-      <v-flex xs4 offset-xs4>
-           <v-card dark color="dark" elevation-24 style="padding: 20px; border: 1px; border-radius: 50px;">
-             <v-card-text>
-               <h4 class="display-2 font-weight-bold">Login</h4>
-               <hr>
-               <br>
-               <v-form>
-                 <v-text-field 
-                   clearable
-                   v-model="username"
-                   label="Username"
-                   prepend-icon="face"
-                   type="text"
-                   @click:prepend="prependClicked"
-                   color="white"
-                   @click:append-outer="appendClicked"
-                   counter="10"
-                 >
-                 </v-text-field>
-                 <v-text-field 
-                   clearable
-                   v-model="password"
-                   label="Password"
-                   prepend-icon="lock"
-                   type="password"
-                   @click:prepend="prependClicked"
-                   color="white"
-                   @click:append-outer="appendClicked"
-                 >
-                 </v-text-field>
-              </v-form>
-              <br>
-               <v-btn color="grey darken-2" large>Enter</v-btn>
-             </v-card-text>
-           </v-card>
-         </v-flex>
-    </v-layout>
-  </v-contatiner>
+        <!-- </v-flex> -->
+        <!-- </v-card> -->
+        <!-- </v-col> -->
+        <!-- </v-row> -->
+
+        <v-flex xs4>
+          <h2>INPUT: TEXT</h2>
+
+          <div class="form-item">
+            <div class="form-group">
+              <input id="fname" type="text" class="text">
+              <label for="fname">First Name</label>
+            </div>
+            <div class="form-group">
+              <input id="lname" type="text" class="text">
+              <label for="lname">Last Name</label>
+            </div>
+          </div>
+
+          <h2>INPUT: RADIO</h2>
+
+          <div class="form-item">
+            <div class="form-group">
+              <input id="male" type="radio" class="radio" name="gender">
+              <label for="male">Male</label>
+            </div>
+            <div class="form-group">
+              <input id="female" type="radio" class="radio" name="gender">
+              <label for="female">Female</label>
+            </div>
+          </div>
+
+          <h2>INPUT: CHECKBOX</h2>
+
+          <div class="form-item cb">
+            <div class="form-group">
+              <input id="iphone" type="checkbox" class="checkbox" name="mac">
+              <label for="iphone">iphone</label>
+            </div>
+            <div class="form-group">
+              <input id="ipod" type="checkbox" class="checkbox" name="mac">
+              <label for="ipod">ipod</label>
+            </div>
+            <div class="form-group">
+              <input id="ipad" type="checkbox" class="checkbox" name="mac">
+              <label for="ipad">ipad</label>
+            </div>
+            <div class="form-group">
+              <input id="macbook" type="checkbox" class="checkbox" name="mac">
+              <label for="macbook">macbook</label>
+            </div>
+          </div>
+
+          <h2>INPUT: SELECT</h2>
+
+          <div class="form-item">
+            <div class="form-group">
+              <label for="credit" class="dropdown">
+                <select name="credit" id="credit">
+                  <option value="1"><span>Visa</span></option>
+                  <option value="2">Mastercard</option>
+                  <option value="3">American Express</option>
+                  <option value="4">Diners</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+
+
 
   <!-- <v-content>
         <v-container fluid>
@@ -216,6 +246,162 @@
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700');
+
+body {
+  background-color: #313439;
+  color: #FFFFFF;
+  font-family: 'Nunito Sans', 'FontAwesome', sans-serif;
+  
+}
+
+h2 {
+  font-size: 1.4em;
+  padding: 10px;
+  margin: 30px 0;
+  border-bottom: 1px dotted #D84E5B;
+}
+
+.container {
+  width: 80%;
+  margin: 30px auto;
+}
+
+.form-item {
+  padding: 20px;
+  display: flex;
+}
+.cb {
+  flex-direction: column;
+}
+
+.form-group {
+  width: 300px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+/* TEXT INPUT
+-------------------------------*/
+.text {
+  order: 2;
+  width: 90%;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1em;
+  color: rgba(237,237,237,.7);
+  border-bottom: 1px dotted rgba(237,237,237,.7);
+  transition: all .2s;
+}
+.text + label {
+  order: 1;
+  margin-bottom: 10px;
+  font-size: .8em;
+  text-transform: uppercase;
+  letter-spacing: .150em;
+  opacity: .7;
+  transition: all .2s;
+}
+.text:focus {
+  border-bottom: 1px dotted #D84E5B;
+  font-size: 1.2em;
+}
+.text:focus + label {
+  font-size: .7em;
+}
+
+/* RADIO INPUT
+-------------------------------*/
+.radio {
+  opacity: 0;
+}
+.radio + label {
+  display: flex;
+  align-items: center;
+}
+.radio + label:before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 100px;
+  border: 4px solid;
+  transition: all .2s;
+}
+.radio:checked + label:before {
+  transform: scale(1.3);
+  border-color: #D84E5B;
+}
+
+.checkbox {
+  opacity: 0;
+}
+.checkbox + label {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+.checkbox + label:before {
+  content: "\f096";
+  margin-right: 10px;
+  transition: all .3s;
+}
+.checkbox:checked + label:before {
+  content: "\f14a";
+  color: #D84E5B;
+  transform: scale(1.3);
+}
+
+select {
+  -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  text-indent: 0.01px;
+  text-overflow: "";
+}
+select:-ms-expand {
+  display: none;
+}
+.dropdown select {
+  padding: 10px 42px 10px 10px;
+  background: #D84E5B;
+  width: 100%;
+  color: #FFF;
+  border-radius: 0;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+  border: none;
+}
+.dropdown {   position: relative; }
+.dropdown:before {
+    content: '';
+    right: 0px;
+    top: 2px;
+    width: 36px;
+    height: 32px;
+  border-left: 1px solid rgba(237,237,237,.3);
+    position: absolute;
+    pointer-events: none;
+    display: block;
+  pointer-events: none;
+}
+.dropdown:after {
+  content: "\f078";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  pointer-events: none;
+}
+option {
+  border: none;
+  padding: 20px;
+}
   @-webkit-keyframes head {
     0% {
       -webkit-transform: rotate(0);
