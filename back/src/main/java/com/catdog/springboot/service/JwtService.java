@@ -1,6 +1,6 @@
 package com.catdog.springboot.service;
 
-import com.catdog.springboot.domain.user.User;
+import com.catdog.springboot.domain.user.LoginUser;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ public class JwtService {
     @Value("${jwt.expmin}")
     private Long expireMin;
 
-    public String create(final User user) {
+    public String create(final LoginUser user) {
         log.trace("time : {}" , expireMin);
         final JwtBuilder builder = Jwts.builder();
         builder.setHeaderParam("typ" , "JWT");

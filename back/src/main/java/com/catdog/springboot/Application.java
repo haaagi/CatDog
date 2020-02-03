@@ -21,8 +21,8 @@ public class Application implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor).addPathPatterns("/api/**")
-                .excludePathPatterns(Arrays.asList("/api/user/**"));
+        registry.addInterceptor(jwtInterceptor).addPathPatterns("/jwtapi/**")
+                .excludePathPatterns(Arrays.asList("/jwtapi/user/**"));
     }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
