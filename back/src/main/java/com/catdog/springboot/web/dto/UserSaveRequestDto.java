@@ -1,6 +1,7 @@
 package com.catdog.springboot.web.dto;
 
 
+//import com.catdog.springboot.domain.user.Role;
 import com.catdog.springboot.domain.user.Role;
 import com.catdog.springboot.domain.user.User;
 import lombok.Builder;

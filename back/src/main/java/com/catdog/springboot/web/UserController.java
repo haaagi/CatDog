@@ -40,10 +40,12 @@ public class UserController {
         try {
             User loginUser = userService.signin(user.getEmail(), user.getPassword());
             String token = jwtService.create(loginUser);
+            System.out.println(token);
             res.setHeader("jwt-auth-token", token);
             resultMap.put("status", true);
             resultMap.put("data", loginUser);
             status = HttpStatus.ACCEPTED;
+            System.out.println(loginUser.getEmail() + " " + loginUser.getPassword());
         } catch (RuntimeException e) {
 //            log.error("로그인 실패", e);
             resultMap.put("message", e.getMessage());

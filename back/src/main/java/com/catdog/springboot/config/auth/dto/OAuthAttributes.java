@@ -1,5 +1,6 @@
 package com.catdog.springboot.config.auth.dto;
 
+//import com.catdog.springboot.domain.user.Role;
 import com.catdog.springboot.domain.user.Role;
 import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
@@ -60,7 +61,7 @@ public class OAuthAttributes {
                 .name(name)
                 .email(email)
                 .picture(picture)
-                .role(Role.GUEST)
+                .role(Role.USER)
                 .build();
     }
 }
