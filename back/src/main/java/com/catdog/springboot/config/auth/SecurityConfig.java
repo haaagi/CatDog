@@ -1,5 +1,6 @@
 package com.catdog.springboot.config.auth;
 
+import com.catdog.springboot.domain.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,10 +17,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .headers().frameOptions().disable()
-                .and();
-//                .authorizeRequests()
-//                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile","/user/**", "/test/**").permitAll()
-//                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
+                .and()
+                .authorizeRequests()
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile","/user/**", "/test/**").permitAll()
+                .antMatchers("/api/v1/**").hasRole(Role.USER.name());
 //                .anyRequest().authenticated()
 //                .and()
 //                .logout()
