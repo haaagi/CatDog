@@ -7,12 +7,10 @@
 <script>
 // import prac from '../components/prac'
 export default {
-    name: 'Home',
-    components: {
-        // prac,
-    },
-}
+  name: 'Home',
+  components: {
+    // prac,
+  },
+};
 </script>
-<style>
-  
-</style>
+<style></style>

@@ -5,16 +5,14 @@
 </template>
 
 <script>
-import LoginForm from '../components/LoginForm'
+import LoginForm from '../components/LoginForm';
 
 export default {
-    name: 'Login',
-    components: {
-        LoginForm
-    },
-}
+  name: 'Login',
+  components: {
+    LoginForm,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
