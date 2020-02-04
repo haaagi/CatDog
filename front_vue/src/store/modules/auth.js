@@ -53,10 +53,12 @@ const actions = {
         else { // 로그인이 안됐다면
             commit('clearErrors');
             commit('setLoading',true);
-        if (!credentials.username) {
-            commit('pushError', 'username can not be empty');
+        if (!credentials.email) {
+            commit('pushError', 'email can not be empty');
             commit('setLoading',false);
         }
+        
+        // if (credentials.email)
         if (credentials.password.length < 8) {
             commit('pushError','password must be at least 8');
             commit('setLoading',false);
@@ -106,12 +108,12 @@ const actions = {
         if (getters.isLoggedIn) {
             router.push('/home');
         } else {
-            axios.post(HOST + 'api/accounts/', userInput)
+            axios.post(HOST +'user', userInput)
                 .then(res => {
                     console.log(res)
                     if (res.status === 200) {
                         const credentials = {
-                            username: userInput.username,
+                            email: userInput.email,
                             password: userInput.password,
                         }
                         dispatch('login',credentials)
