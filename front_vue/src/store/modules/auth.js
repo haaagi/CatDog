@@ -46,13 +46,13 @@ const actions = {
 
   login: ({ commit, getters }, credentials) => {
     if (getters.isLoggedIn) {
-      router.push('/home');
+      router.push('/main');
     } else {
       // 로그인이 안됐다면
       commit('clearErrors');
       commit('setLoading', true);
       if (!credentials.email) {
-        commit('pushError', 'email can not be empty');
+        commit('pushError', '이메일을 입력하세요');
         commit('setLoading', false);
       }
 
@@ -62,22 +62,23 @@ const actions = {
         commit('setLoading', false);
       } else {
         axios
-          .post(HOST + 'api-token-auth/', credentials)
+          .post(HOST + 'jwtapi/user/signin', credentials)
           .then(token => {
-            commit('setToken', token.data.token);
+            console.log(token.data.accessToken);
+            commit('setToken', token.data.accessToken);
             commit('setLoading', false);
-            const hash = sessionStorage.getItem('jwt');
+            // const hash = sessionStorage.getItem('jwt');
 
-            const options = {
-              headers: {
-                Authorization: 'JWT ' + hash,
-              },
-            };
-            axios.post(HOST + 'api/accounts/userinfo/', null, options).then(res => {
-              console.log(res);
-              commit('setuserinfo', res.data);
-            });
-            router.push('/home');
+            // const options = {
+            //   headers: {
+            //     Authorization: 'JWT ' + hash,
+            //   },
+            // };
+            // axios.post(HOST + 'api/accounts/userinfo/', null, options).then(res => {
+            //   console.log(res);
+            //   commit('setuserinfo', res.data);
+            // });
+            router.push('/main');
           })
           .catch(err => {
             if (!err.response) {
@@ -105,8 +106,11 @@ const actions = {
     if (getters.isLoggedIn) {
       router.push('/home');
     } else {
+      if (userInput.passwordConfirmation != userInput.password) {
+        commit('pushError', '비밀번호가 일치하지 않습니다.');
+      }
       axios
-        .post(HOST + 'user', userInput)
+        .post(HOST + 'api/v1/user', userInput)
         .then(res => {
           console.log(res);
           if (res.status === 200) {
