@@ -1,11 +1,10 @@
 package com.catdog.springboot.web;
 
-import com.catdog.springboot.domain.posts.PostsRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.posts.PostsRepository;
 import com.catdog.springboot.web.dto.PostsSaveRequestDto;
 import com.catdog.springboot.web.dto.PostsUpdateRequestDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -98,7 +97,7 @@ public class PostsApiControllerTest {
                 .author("author")
                 .build());
 
-        Long updateId = savedPosts.getId();
+        Long updateId = savedPosts.getPid();
         String expectedTitle = "title2";
         String expectedContent = "content2";
 

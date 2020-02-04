@@ -109,9 +109,9 @@ var main = {
         };
         $.ajax({
             type: 'POST',
-            url: '/api/v1/user',
             dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
+            url: '/api/v1/user',
+            contentType: 'application/json',
             data: JSON.stringify(data)
         }).done(function () {
             alert('회원이 등록되었습니다.');
