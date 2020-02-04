@@ -2,6 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
+import ModalPost from '../views/ModalPost.vue';
+import Board from '../views/Board.vue';
+import BoardDetail from '../views/BoardDetail.vue';
+import MainPage from '../views/MainPage.vue';
+import TodoPage from '../views/TodoPage.vue';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import Userdetail from '../views/Userdetail.vue';
@@ -36,6 +41,31 @@ const router = new VueRouter({
       path: '/userdetail',
       name: 'userdetail',
       component: Userdetail,
+    },
+    {
+      path: '/modal',
+      name: 'modal',
+      component: ModalPost,
+    },
+    {
+      path: '/board',
+      name: 'board',
+      component: Board,
+    },
+    {
+      path: '/boardDetail',
+      name: 'boardDetail',
+      component: BoardDetail,
+    },
+    {
+      path: '/main',
+      name: 'main',
+      component: MainPage,
+    },
+    {
+      path: '/todo',
+      name: 'todo',
+      component: TodoPage,
     },
     {
       path: '/editprofile',
