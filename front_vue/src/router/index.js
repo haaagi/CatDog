@@ -4,8 +4,12 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
+import Userdetail from '../views/Userdetail.vue'
+import EditProfile from '../views/EditProfile.vue'
+
 
 Vue.use(VueRouter)
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -29,6 +33,19 @@ const router = new VueRouter({
     name:'signup',
     component: Signup
   },
+{
+    path: '/userdetail', 
+    name:'userdetail', 
+    component: Userdetail
+  }, 
+  {
+    path: '/editprofile', 
+    name: 'editprofile', 
+    component: EditProfile
+  },
+
 ]
 })
+
+
 export default router
