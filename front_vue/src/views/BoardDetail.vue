@@ -50,8 +50,8 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-content style="height:2000px">
-      <h1>main</h1>
+    <v-content>
+      <About />
     </v-content>
     <v-content>
       <v-footer absolute color="amber" class="white--text">
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import board from '../views/Board.vue';
+import About from '../views/About.vue';
 export default {
   props: {
     source: String,
@@ -131,7 +131,7 @@ export default {
       { icon: 'keyboard', text: 'Keyboard shortcuts' },
     ],
   }),
-  comments: { board },
+  comments: { About },
 };
 </script>
 

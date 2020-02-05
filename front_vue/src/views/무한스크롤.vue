@@ -1,18 +1,39 @@
 <template>
   <div>
-    <div class="grid-layout" v-for="(word, i) in words" :key="i">
-      <v-img class="grid-item" :src="word"> </v-img>
+    <Banner />
+
+    <div class="feed-grid">
+      <div class="grid-layout">
+        <v-img
+          class="grid-item"
+          :class="[word.tag > 0.8 ? (word.tag > 0.9 ? 'span-3' : 'span-2') : '']"
+          v-for="(word, i) in words"
+          :key="i"
+          :src="word.resource"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Banner from '../components/Banner.vue';
 export default {
   data: () => ({
     bottom: false,
-    words: [],
+    words: [
+      {
+        resource: 'https://source.unsplash.com/category/nature',
+        tag: Math.random(),
+      },
+      {
+        resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      },
+    ],
     testIndex: 0,
   }),
+  components: { Banner },
   watch: {
     bottom(bottom) {
       if (bottom) {
@@ -37,13 +58,14 @@ export default {
     },
     addWord() {
       setTimeout(() => {
-        this.words.push(
-          'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
-        );
+        this.words.push({
+          resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+          tag: Math.random(),
+        });
         if (this.bottomVisible()) {
           this.addWord();
         }
-      }, 100);
+      }, 10);
     },
   },
 };
@@ -52,9 +74,9 @@ export default {
 <style scoped>
 .grid-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 15px;
-  grid-auto-rows: minmax(200px, auto);
+  grid-auto-rows: minmax(300px, auto);
   grid-auto-flow: dense;
   padding: 15px;
 }
@@ -71,6 +93,10 @@ export default {
 
 .span-3 {
   grid-column-end: span 3;
-  grid-row-end: span 4;
+  grid-row-end: span 3;
+}
+.feed-grid {
+  padding-right: 150px;
+  padding-left: 150px;
 }
 </style>
