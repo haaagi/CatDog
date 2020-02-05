@@ -7,6 +7,7 @@ import Signup from '../views/Signup.vue';
 import Userdetail from '../views/Userdetail.vue';
 import EditProfile from '../views/EditProfile.vue';
 
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
