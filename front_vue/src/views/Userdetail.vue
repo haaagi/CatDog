@@ -8,7 +8,7 @@
           </div>
 
           <div class="profile-user-settings">
-            <h1 class="profile-user-name">User ID</h1>
+            <h1 class="profile-user-name">nickname</h1>
 
             <button class="btn profile-edit-btn">Edit Profile</button>
 
