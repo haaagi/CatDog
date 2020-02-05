@@ -4,7 +4,7 @@ import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import ModalPost from '../views/ModalPost.vue';
 import Board from '../views/Board.vue';
-import BoardDetail from '../views/BoardDetail.vue';
+// import BoardDetail from '../components/common/BoardDetail.vue';
 import MainPage from '../views/MainPage.vue';
 import TodoPage from '../views/TodoPage.vue';
 import Login from '../views/Login.vue';
@@ -51,11 +51,6 @@ const router = new VueRouter({
       path: '/board',
       name: 'board',
       component: Board,
-    },
-    {
-      path: '/boardDetail',
-      name: 'boardDetail',
-      component: BoardDetail,
     },
     {
       path: '/main',

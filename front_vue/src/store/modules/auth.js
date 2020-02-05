@@ -7,6 +7,7 @@ const state = {
   errors: [],
   loading: false,
   userinfo: [],
+  start: 0,
 };
 
 const getters = {
@@ -20,6 +21,21 @@ const getters = {
   getErrors: state => state.errors,
   isLoading: state => state.loading,
   getuserinfo: state => state.userinfo,
+  isStart: state => state.start,
+  // isStart: () => {
+  //   if (!localStorage.getItem('start')) {
+  //     return 0;
+  //   } else {
+  //     return 1;
+  //   }
+  // },
+  // isStart: state => {
+  //   if (state.start === false) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // },
 };
 
 const mutations = {
@@ -28,12 +44,28 @@ const mutations = {
     state.token = token;
     sessionStorage.setItem('jwt', token);
   },
+  isToken: state => {
+    state.token = sessionStorage.getItem('jwt');
+  },
   pushError: (state, error) => state.errors.push(error),
   setuserinfo: (state, info) => (state.userinfo = info),
   clearErrors: state => (state.errors = []),
+  setStart: state => {
+    state.start = localStorage.getItem('start');
+  },
 };
 
 const actions = {
+  callStart: ({ commit }) => {
+    localStorage.setItem('start', true);
+    commit('setStart');
+  },
+  chkStart: ({ commit }) => {
+    commit('setStart');
+  },
+  chkLogin: ({ commit }) => {
+    commit('isToken');
+  },
   logout: ({ commit }) => {
     commit('setToken', null);
     sessionStorage.removeItem('jwt');
@@ -62,7 +94,7 @@ const actions = {
         commit('setLoading', false);
       } else {
         axios
-          .post(HOST + 'jwtapi/user/signin', credentials)
+          .post(HOST + 'api/user/signin', credentials)
           .then(token => {
             console.log(token.data.accessToken);
             commit('setToken', token.data.accessToken);

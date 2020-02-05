@@ -3,7 +3,7 @@
     <v-app-bar app clipped-left hide-on-scroll color="amber">
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title style="width: 300px; padding-left: 0px;">
-        <v-img src="../assets/logo2.png" alt="logo" max-height="50" contain />
+        <v-img src="../../assets/logo2.png" alt="logo" max-height="50" contain />
       </v-toolbar-title>
       <v-spacer /><v-spacer />
       <v-text-field
@@ -50,9 +50,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-content style="height:2000px">
-      <h1>main</h1>
-    </v-content>
+    <v-content style="height:2000px"> <Userdetail /> </v-content>
     <v-content>
       <v-footer absolute color="amber" class="white--text">
         <v-card flat tile class="amber lighten-1 white--text text-center">
@@ -78,8 +76,12 @@
 </template>
 
 <script>
-import board from '../views/Board.vue';
+import board from '../../views/Board.vue';
+import Userdetail from '../../views/Userdetail';
 export default {
+  components: {
+    Userdetail,
+  },
   props: {
     source: String,
   },

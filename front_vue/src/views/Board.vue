@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: 'home',
+  name: 'Board',
 
   data() {
     return {
