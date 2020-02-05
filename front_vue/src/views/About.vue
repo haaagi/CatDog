@@ -1,339 +1,102 @@
 <template>
-  <div class="panels">
-    <div class="panels__container">
-      <a href="#" class="panel">
-        <div
-          class="panel__content"
-          style="background-image: url(https://unsplash.it/1000/1100/?image=786);"
-        >
-          <h3 class="panel__title">CAT</h3>
-        </div>
-      </a>
-      <a href="#" class="panel">
-        <div
-          class="panel__content"
-          style="background-image: url(https://unsplash.it/1000/1100/?image=883)"
-        >
-          <h3 class="panel__title">DOG</h3>
-        </div>
-      </a>
+  <div>
+    <Banner />
+
+    <div class="feed-grid">
+      <div class="grid-layout">
+        <v-img
+          class="grid-item"
+          :class="[word.tag > 0.8 ? (word.tag > 0.9 ? 'span-3' : 'span-2') : '']"
+          v-for="(word, i) in words"
+          :key="i"
+          :src="word.resource"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import Banner from '../components/Banner.vue';
+export default {
+  data: () => ({
+    bottom: false,
+    words: [
+      {
+        resource: 'https://source.unsplash.com/category/nature',
+        tag: Math.random(),
+      },
+      {
+        resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      },
+    ],
+    testIndex: 0,
+  }),
+  components: { Banner },
+  watch: {
+    bottom(bottom) {
+      if (bottom) {
+        this.addWord();
+      }
+    },
+  },
+  created() {
+    window.addEventListener('scroll', () => {
+      this.bottom = this.bottomVisible();
+    });
+    this.addWord();
+  },
+  methods: {
+    bottomVisible() {
+      const docEl = document.documentElement;
+      const visibleHeight = docEl.clientHeight;
+      const pageHeight = docEl.scrollHeight;
+      const scrolled = window.scrollY;
+      const reachedBottom = visibleHeight + scrolled >= pageHeight - 30;
+      return reachedBottom || pageHeight < visibleHeight;
+    },
+    addWord() {
+      setTimeout(() => {
+        this.words.push({
+          resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+          tag: Math.random(),
+        });
+        if (this.bottomVisible()) {
+          this.addWord();
+        }
+      }, 10);
+    },
+  },
+};
 </script>
 
 <style scoped>
-/* @offsetSize * 2 means the content won't appear to move at all. Set to a lower value for squishing effects. */
-/*////////////////////////////////////////*/
-/* Layout */
-.panels {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #000;
-  pointer-events: none;
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 15px;
+  grid-auto-rows: minmax(300px, auto);
+  grid-auto-flow: dense;
+  padding: 15px;
 }
-.panels__container {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: stretch;
-  align-items: stretch;
-  height: 100%;
-  width: 120%;
-  margin: 0 -10%;
-  visibility: hidden;
+
+.grid-item {
+  padding: 1rem;
+  border-radius: 5px;
 }
-.panel {
-  display: inline-block;
-  height: 100%;
-  visibility: visible;
-  position: relative;
-  overflow: hidden;
-  -webkit-box-flex: 1;
-  flex: 1;
-  cursor: pointer;
-  text-decoration: none;
+
+.span-2 {
+  grid-column-end: span 2;
+  grid-row-end: span 2;
 }
-/*////////////////////////////////////////*/
-/* Image/Text Container */
-.panel__content {
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  flex-direction: column;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  background: center center no-repeat;
-  background-size: cover;
+
+.span-3 {
+  grid-column-end: span 3;
+  grid-row-end: span 3;
 }
-.panel__content:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #000;
-  opacity: 0.5;
-  -webkit-transition: opacity 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: opacity 1s cubic-bezier(0.6, 0, 0.2, 1);
-}
-/*////////////////////////////////////////*/
-/* Title */
-.panel__title {
-  pointer-events: auto;
-  color: #fff;
-  position: relative;
-  z-index: 1;
-  -webkit-transition: color 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: color 1s cubic-bezier(0.6, 0, 0.2, 1);
-}
-.panel__title:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #000;
-  background: rgba(0, 0, 0, 0.7);
-  border: solid 2px #ffc12d;
-  z-index: -1;
-  padding: 0.5em 1em;
-  margin: -0.5em -1em;
-  opacity: 0;
-  -webkit-transform: scale(0.9);
-  transform: scale(0.9);
-  -webkit-transition: all 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: all 1s cubic-bezier(0.6, 0, 0.2, 1);
-  -webkit-transition-property: opacity, -webkit-transform;
-  transition-property: opacity, -webkit-transform;
-  transition-property: opacity, transform;
-  transition-property: opacity, transform, -webkit-transform;
-}
-/*////////////////////////////////////////*/
-/* Hover States */
-.panel {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-transition: -webkit-transform 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: -webkit-transform 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: transform 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: transform 1s cubic-bezier(0.6, 0, 0.2, 1),
-    -webkit-transform 1s cubic-bezier(0.6, 0, 0.2, 1);
-  /* Inactive panel */
-  /* Override styles for an inactive panel AFTER the hovered panel */
-  /* Active panel */
-}
-.panel .panel__content {
-  -webkit-transform: translateX(10%);
-  transform: translateX(10%);
-  -webkit-transition: -webkit-transform 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: -webkit-transform 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: transform 1s cubic-bezier(0.6, 0, 0.2, 1);
-  transition: transform 1s cubic-bezier(0.6, 0, 0.2, 1),
-    -webkit-transform 1s cubic-bezier(0.6, 0, 0.2, 1);
-}
-.panel:last-child .panel__content {
-  -webkit-transform: translateX(-10%);
-  transform: translateX(-10%);
-}
-.panels:hover .panel {
-  -webkit-transform: translate3d(-10%, 0, 0);
-  transform: translate3d(-10%, 0, 0);
-}
-.panels:hover .panel .panel__content {
-  -webkit-transform: translateX(14%);
-  transform: translateX(14%);
-}
-.panels:hover .panel .panel__content:before {
-  opacity: 0.7;
-}
-.panels .panel:hover ~ .panel {
-  -webkit-transform: translate3d(10%, 0, 0);
-  transform: translate3d(10%, 0, 0);
-}
-.panels .panel:hover ~ .panel .panel__content {
-  -webkit-transform: translateX(-14%);
-  transform: translateX(-14%);
-}
-.panels .panel:hover {
-  z-index: 2;
-  -webkit-transform: translate3d(10%, 0, 0);
-  transform: translate3d(10%, 0, 0);
-  pointer-events: auto;
-}
-.panels .panel:hover:last-child {
-  -webkit-transform: translate3d(-10%, 0, 0);
-  transform: translate3d(-10%, 0, 0);
-}
-.panels .panel:hover .panel__content {
-  -webkit-transform: translateX(0%);
-  transform: translateX(0%);
-}
-.panels .panel:hover .panel__content:before {
-  opacity: 0;
-}
-.panels .panel:hover .panel__title {
-  color: #ffc12d;
-}
-.panels .panel:hover .panel__title:before {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
-}
-/*////////////////////////////////////////*/
-/* Vertical layout */
-.panels--stacked {
-  /* Inactive panel */
-  /* Override styles for an inactive panel AFTER the hovered panel */
-  /* Active panel */
-}
-.panels--stacked .panels__container {
-  width: 100%;
-  height: 120%;
-  margin: -10% 0;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  flex-direction: column;
-}
-.panels--stacked .panel {
-  height: 50%;
-  width: 100%;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-.panels--stacked .panel .panel__content {
-  -webkit-transform: translate3d(0, 10%, 0);
-  transform: translate3d(0, 10%, 0);
-}
-.panels--stacked .panel:last-child .panel__content {
-  -webkit-transform: translate3d(0, -10%, 0);
-  transform: translate3d(0, -10%, 0);
-}
-.panels--stacked:hover .panel {
-  -webkit-transform: translate3d(0, -10%, 0);
-  transform: translate3d(0, -10%, 0);
-}
-.panels--stacked:hover .panel .panel__content {
-  -webkit-transform: translate3d(0, 14%, 0);
-  transform: translate3d(0, 14%, 0);
-}
-.panels--stacked .panel:hover ~ .panel {
-  -webkit-transform: translate3d(0, 10%, 0);
-  transform: translate3d(0, 10%, 0);
-}
-.panels--stacked .panel:hover ~ .panel .panel__content {
-  -webkit-transform: translate3d(0, -14%, 0);
-  transform: translate3d(0, -14%, 0);
-}
-.panels--stacked .panel:hover {
-  -webkit-transform: translate3d(0, 10%, 0);
-  transform: translate3d(0, 10%, 0);
-}
-.panels--stacked .panel:hover:last-child {
-  -webkit-transform: translate3d(0, -10%, 0);
-  transform: translate3d(0, -10%, 0);
-}
-.panels--stacked .panel:hover .panel__content {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-/* Responsive */
-@media (max-width: 550px) {
-  .panels {
-    /* Inactive panel */
-    /* Override styles for an inactive panel AFTER the hovered panel */
-    /* Active panel */
-  }
-  .panels .panels__container {
-    width: 100%;
-    height: 120%;
-    margin: -10% 0;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-  }
-  .panels .panel {
-    height: 50%;
-    width: 100%;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-  .panels .panel .panel__content {
-    -webkit-transform: translate3d(0, 10%, 0);
-    transform: translate3d(0, 10%, 0);
-  }
-  .panels .panel:last-child .panel__content {
-    -webkit-transform: translate3d(0, -10%, 0);
-    transform: translate3d(0, -10%, 0);
-  }
-  .panels:hover .panel {
-    -webkit-transform: translate3d(0, -10%, 0);
-    transform: translate3d(0, -10%, 0);
-  }
-  .panels:hover .panel .panel__content {
-    -webkit-transform: translate3d(0, 14%, 0);
-    transform: translate3d(0, 14%, 0);
-  }
-  .panels .panel:hover ~ .panel {
-    -webkit-transform: translate3d(0, 10%, 0);
-    transform: translate3d(0, 10%, 0);
-  }
-  .panels .panel:hover ~ .panel .panel__content {
-    -webkit-transform: translate3d(0, -14%, 0);
-    transform: translate3d(0, -14%, 0);
-  }
-  .panels .panel:hover {
-    -webkit-transform: translate3d(0, 10%, 0);
-    transform: translate3d(0, 10%, 0);
-  }
-  .panels .panel:hover:last-child {
-    -webkit-transform: translate3d(0, -10%, 0);
-    transform: translate3d(0, -10%, 0);
-  }
-  .panels .panel:hover .panel__content {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-/*////////////////////////////////////////*/
-/* Specific Design Setup */
-@font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/oswald/v30/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYA.ttf)
-    format('truetype');
-}
-.panel__title {
-  font-family: 'Oswald', sans-serif;
-  text-transform: uppercase;
-  font-size: 2.5em;
-  letter-spacing: 0.1em;
-}
-@media (max-width: 800px) {
-  .panel__title {
-    font-size: 1.5em;
-  }
-}
-@media (max-width: 600px) {
-  .panel__title {
-    font-size: 1.25em;
-  }
-}
-html,
-body {
-  height: 100%;
+.feed-grid {
+  padding-right: 150px;
+  padding-left: 150px;
 }
 </style>
