@@ -50,7 +50,13 @@
       </v-list>
     </v-navigation-drawer>
 
+<<<<<<< HEAD:front_vue/src/components/common/BoardDetail.vue
     <v-content style="height:2000px"> <Userdetail /> </v-content>
+=======
+    <v-content>
+      <About />
+    </v-content>
+>>>>>>> feature#21:front_vue/src/views/BoardDetail.vue
     <v-content>
       <v-footer absolute color="amber" class="white--text">
         <v-card flat tile class="amber lighten-1 white--text text-center">
@@ -76,8 +82,12 @@
 </template>
 
 <script>
+<<<<<<< HEAD:front_vue/src/components/common/BoardDetail.vue
 import board from '../../views/Board.vue';
 import Userdetail from '../../views/Userdetail';
+=======
+import About from '../views/About.vue';
+>>>>>>> feature#21:front_vue/src/views/BoardDetail.vue
 export default {
   components: {
     Userdetail,
@@ -133,7 +143,7 @@ export default {
       { icon: 'keyboard', text: 'Keyboard shortcuts' },
     ],
   }),
-  comments: { board },
+  comments: { About },
 };
 </script>
 
