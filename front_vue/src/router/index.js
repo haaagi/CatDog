@@ -6,7 +6,7 @@ import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import Userdetail from '../views/Userdetail.vue';
 import EditProfile from '../views/EditProfile.vue';
-
+import Posting from '../views/Posting.vue';
 
 Vue.use(VueRouter);
 
@@ -42,6 +42,11 @@ const router = new VueRouter({
       path: '/editprofile',
       name: 'editprofile',
       component: EditProfile,
+    },
+    {
+      path: '/posting',
+      name: 'posting',
+      component: Posting,
     },
   ],
 });
