@@ -1,63 +1,26 @@
 <template>
   <div class="grid-layout">
-    <v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item span-3"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item span-3"
-      src="https://source.unsplash.com/category/nature"
-    />
-    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item span-2"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item"
-      src="https://source.unsplash.com/category/nature"
-    /><v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
-
-    <v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" /><v-img
-      class="grid-item span-3"
-      src="https://source.unsplash.com/category/nature"
-    />
+    <v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item span-3" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item span-3" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item span-2" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
+    <v-img class="grid-item" src="https://source.unsplash.com/category/nature" />
   </div>
 </template>
 
