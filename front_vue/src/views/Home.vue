@@ -1,15 +1,17 @@
 <template>
   <div class="home">
-    <prac />
+    <BoardDetail />
   </div>
 </template>
 
 <script>
-// import prac from '../components/prac'
+import BoardDetail from '../components/common/BoardDetail';
+// import Userdetail from './Userdetail';
 export default {
   name: 'Home',
   components: {
-    // prac,
+    BoardDetail,
+    // Userdetail,
   },
 };
 </script>
