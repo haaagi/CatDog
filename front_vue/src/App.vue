@@ -21,7 +21,7 @@
     </div>
     <div v-if="isStart">
       <div v-if="isLoggedIn">
-        <v-app-bar app clipped-left hide-on-scroll color="amber">
+        <v-app-bar app clipped-left hide-on-scroll color="white">
           <v-app-bar-nav-icon @click="drawer = !drawer" />
           <v-toolbar-title style="width: 300px; padding-left: 0px;">
             <v-img src="./assets/logo2.png" alt="logo" max-height="50" contain />
@@ -73,9 +73,9 @@
         </v-navigation-drawer>
       </div>
 
-      <v-content style="height:2000px"> <router-view /> </v-content>
+      <v-content> <router-view /> </v-content>
       <v-content>
-        <v-footer absolute color="amber" class="white--text">
+        <!-- <v-footer absolute color="amber" class="white--text">
           <v-card flat tile class="amber lighten-1 white--text text-center">
             <v-card-text class="white--text pt-0">
               Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus
@@ -93,7 +93,7 @@
               <strong>Vuetify</strong>
             </v-card-text>
           </v-card>
-        </v-footer>
+        </v-footer> -->
       </v-content>
     </div>
   </v-app>
