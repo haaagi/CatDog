@@ -4,7 +4,7 @@ import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.posts.PostsRepository;
 import com.catdog.springboot.domain.user.User;
 import com.catdog.springboot.domain.user.UserRepository;
-import com.catdog.springboot.likes.LikesRepository;
+import com.catdog.springboot.domain.likes.LikesRepository;
 import com.catdog.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

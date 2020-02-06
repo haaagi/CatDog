@@ -2,7 +2,7 @@ package com.catdog.springboot.web.dto;
 
 import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.user.User;
-import com.catdog.springboot.likes.Likes;
+import com.catdog.springboot.domain.likes.Likes;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
