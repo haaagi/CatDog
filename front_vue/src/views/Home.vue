@@ -1,5 +1,44 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <div v-if="!isLoggedIn">
+      <router-link to="/login">
+        <div class="home">
+          <div class="box">
+            <div class="title">
+              <span class="block"></span>
+              <div @click="callStart()">
+                <h1>CAT & DOG<span></span></h1>
+              </div>
+            </div>
+
+            <div class="role">
+              <div class="block"></div>
+              <p>MEET MY FRIEND</p>
+            </div>
+          </div>
+        </div>
+      </router-link>
+    </div>
+    <div v-if="isLoggedIn">
+      <router-link to="/main">
+        <div class="home">
+          <div class="box">
+            <div class="title">
+              <span class="block"></span>
+              <div @click="callStart()">
+                <h1>CAT & DOG<span></span></h1>
+              </div>
+            </div>
+
+            <div class="role">
+              <div class="block"></div>
+              <p>MEET MY FRIEND</p>
+            </div>
+          </div>
+        </div>
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script>
