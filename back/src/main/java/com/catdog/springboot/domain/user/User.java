@@ -36,7 +36,16 @@ public class User extends BaseTimeEntity {
     private String birthday;
 
     @Column
-    private String picture;
+    private String img;
+
+    @Column
+    private String likepet;
+
+    @Column
+    private String mypet;
+
+    @Column
+    private String phonenumber;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -48,21 +57,22 @@ public class User extends BaseTimeEntity {
 
 
     @Builder
-    public User(String email, String password,String name, String nickname,String birthday,String picture, Role role) {
+    public User(String email, String password,String name, String nickname,String birthday,String img,String likepet,String mypet, String phonenumber, Role role) {
 
         this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
         this.birthday = birthday;
+        this.img = img;
+        this.likepet = likepet;
+        this.mypet = mypet;
+        this.phonenumber = phonenumber;
         this.role = role;
-        this.picture = picture;
     }
 
-    public User update(String nickname , String picture) {
-        this.nickname = nickname;
-        this.picture = picture;
-
+    public User update( String img) {
+        this.img = img;
         return this;
     }
 

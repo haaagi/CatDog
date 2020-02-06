@@ -15,7 +15,7 @@ public class PostsApiController {
 
     @GetMapping("/api/v1/posts")
     public List<PostsListResponseDto> list() {
-        return postsService.findAllAsc();
+        return postsService.findAll();
     }
 
     @PostMapping("/api/v1/posts")
@@ -37,11 +37,6 @@ public class PostsApiController {
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
-    }
-
-    @GetMapping("/api/v1/posts/list")
-    public List<PostsListResponseDto> findAll() {
-        return postsService.findAllAsc();
     }
 
     @PostMapping("/api/v1/posts/likesup")

@@ -1,7 +1,6 @@
 package com.catdog.springboot.domain.posts;
 
 import com.catdog.springboot.domain.BaseTimeEntity;
-import com.catdog.springboot.domain.comment.Comment;
 import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,31 +17,25 @@ public class Posts extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
 
-    @Column(length = 500 , nullable = false)
-    private String title;
+    @Column
+    private String img;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column
     private String content;
-
-    private String author;
 
     @ManyToOne
     @JoinColumn(name = "uid")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "cid")
-    private Comment comment;
-    
     @Builder
-    public Posts(User user, String title, String content, String author) {
+    public Posts(User user, String img, String content) {
         this.user = user;
-        this.title = title;
+        this.img = img;
         this.content = content;
-        this.author = author;
     }
-    public void update(String title, String content) {
-        this.title = title;
+
+    public void update(String img, String content) {
+        this.img = img;
         this.content = content;
     }
 

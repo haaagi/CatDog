@@ -23,6 +23,7 @@ public class UserService {
         return userRepository.save(requestDto.toEntity()).getUid();
     }
 
+    @Transactional
     public LoginUser signin(String email, String password) {
         User user = userRepository.findByEmail(email).orElse(null);
         if(user != null && password.equals(user.getPassword())) {
@@ -35,5 +36,12 @@ public class UserService {
     }
     public String getserverInfo(){
         return "cat_dog";
+    }
+
+    @Transactional
+    public User update(String filename, String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+        System.out.println(filename);
+        return user.update(filename);
     }
 }

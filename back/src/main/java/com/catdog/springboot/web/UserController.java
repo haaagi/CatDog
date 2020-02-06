@@ -2,7 +2,7 @@ package com.catdog.springboot.web;
 
 
 import com.catdog.springboot.domain.user.LoginUser;
-import com.catdog.springboot.service.FileUploadDownloadService;
+import com.catdog.springboot.service.FileUploadService;
 import com.catdog.springboot.service.JwtService;
 import com.catdog.springboot.service.UserService;
 import com.catdog.springboot.web.dto.JwtResponseDto;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
-    private final FileUploadDownloadService uploadService;
+    private final FileUploadService uploadService;
 
     @PostMapping("/api/v1/user")
     public Long save(@RequestBody UserSaveRequestDto requestDto) {

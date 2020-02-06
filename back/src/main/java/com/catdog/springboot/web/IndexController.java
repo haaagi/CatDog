@@ -28,7 +28,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user)  {
         map = new HashMap<>();
-        List<PostsListResponseDto> posts = postsService.findAllAsc();
+        List<PostsListResponseDto> posts = postsService.findAll();
         List<Object[]> likescount = postsService.likescount();
 
         if(posts.size() > 0) {
@@ -38,7 +38,7 @@ public class IndexController {
                 map.put(Long.valueOf(key) , Long.valueOf(value));
             }
             for(int i=0; i<posts.size(); i++){
-                if(map.containsKey(posts.get(i).getPid())) posts.get(i).setLikes(map.get(posts.get(i).getPid()));
+                if(map.containsKey(posts.get(i).getLikes())) posts.get(i).setLikes(map.get(posts.get(i).getLikes()));
                 else posts.get(i).setLikes(0L);
             }
 

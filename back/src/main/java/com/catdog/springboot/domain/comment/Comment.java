@@ -13,12 +13,15 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cid; // Comment ID
+
     @ManyToOne
     @JoinColumn(name = "uid") // 유저 번호
     private User user;
+
     @ManyToOne
     @JoinColumn(name = "pid") // 게시글 번호
     private Posts posts;
+
     @Column
     private String content; // 글 내용
     @Column

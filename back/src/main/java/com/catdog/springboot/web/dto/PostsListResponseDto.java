@@ -1,25 +1,27 @@
 package com.catdog.springboot.web.dto;
 
-import com.catdog.springboot.domain.posts.Posts;
+import com.catdog.springboot.domain.comment.Comment;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 public class PostsListResponseDto {
-    private Long pid;
-    private String title;
-    private String author;
+    private String nickname;
+    private String img;
+    private String contents;
+    private List<String> hashtags;
+    private List<Comment> comments;
     private LocalDateTime modifiedDate;
     private Long likes;
 
-    public PostsListResponseDto(Posts entity) {
-        this.pid = entity.getPid();
-        this.title = entity.getTitle();
-        this.author = entity.getAuthor();
-        this.modifiedDate = entity.getModifiedDate();
-        this.likes = entity.getPid();
+    public PostsListResponseDto(Object entity) {
+//        this.nickname = entity.get();
+//        this.img = entity.getImg();
+//        this.modifiedDate = entity.getModifiedDate();
+//        this.likes = entity.getPid();
     }
 }
