@@ -10,8 +10,12 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
+    "filepond": "^4.9.5",
+    "filepond-plugin-file-validate-type": "^1.2.4",
+    "filepond-plugin-image-preview": "^4.6.1",
     "material-design-icons-iconfont": "^5.0.1",
     "vue": "^2.6.10",
+    "vue-filepond": "^6.0.2",
     "vue-infinite-scroll": "^2.0.2",
     "vue-responsive-dash": "^0.3.11",
     "vue-router": "^3.1.3",
