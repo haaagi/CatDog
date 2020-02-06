@@ -15,10 +15,9 @@ public class FileUploadController {
     @Autowired
     private FileUploadDownloadService service;
 
-    @PostMapping("/uploadFile")
+    @PostMapping("/api/user/profileimg")
     public FileUploadResponseDto uploadFile(@RequestParam("file") MultipartFile file) {
         System.out.println(file);
-
         String fileName = service.storeFile(file);
         System.out.println(fileName);
 
@@ -29,4 +28,21 @@ public class FileUploadController {
 
         return new FileUploadResponseDto(fileName, file.getContentType(), file.getSize());
     }
+
+//    @PostMapping("/api/posts/postimg")
+//    public FileUploadResponseDto uploadFile(@RequestParam("file") MultipartFile file) {
+//        System.out.println(file);
+//
+//        String fileName = service.storeFile(file);
+//        System.out.println(fileName);
+//
+//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path("/downloadFile/")
+//                .path(fileName)
+//                .toUriString();
+//
+//        return new FileUploadResponseDto(fileName, file.getContentType(), file.getSize());
+//    }
+
+
 }
