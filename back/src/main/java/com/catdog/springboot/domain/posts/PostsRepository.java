@@ -14,4 +14,7 @@ public interface PostsRepository extends JpaRepository<Posts,Long> {
 
     @Query("SELECT p FROM Posts p ORDER BY p.pid ASC")
     List<Posts> findAllAsc();
+
+    @Query(value = "select count(*) from posts where uid = ?1" , nativeQuery = true)
+    Long cnt_post(Long uid);
 }
