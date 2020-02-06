@@ -30,7 +30,7 @@ public class UserController {
         return userService.save(requestDto);
     }
 
-    @PostMapping("/jwtapi/user/signin")
+    @PostMapping("/api/user/signin")
     public ResponseEntity<?> signin (@RequestBody LoginUser user) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
