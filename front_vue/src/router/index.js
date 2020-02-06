@@ -12,6 +12,7 @@ import Signup from '../views/Signup.vue';
 import Userdetail from '../views/Userdetail.vue';
 import EditProfile from '../views/EditProfile.vue';
 import Posting from '../views/Posting.vue';
+import Health from '../views/Health.vue';
 
 Vue.use(VueRouter);
 
@@ -72,6 +73,11 @@ const router = new VueRouter({
       path: '/posting',
       name: 'posting',
       component: Posting,
+    },
+    {
+      path: '/health',
+      name: 'health',
+      component: Health,
     },
   ],
 });
