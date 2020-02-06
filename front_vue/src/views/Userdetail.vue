@@ -9,8 +9,9 @@
 
           <div class="profile-user-settings">
             <h1 class="profile-user-name">nickname</h1>
-
+            <router-link to="/editprofile">
             <button class="btn profile-edit-btn">Edit Profile</button>
+            </router-link>
 
             <button class="btn profile-settings-btn" aria-label="profile settings">
               <i class="fas fa-cog" aria-hidden="true"></i>
