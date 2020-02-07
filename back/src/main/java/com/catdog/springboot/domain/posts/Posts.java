@@ -3,6 +3,7 @@ package com.catdog.springboot.domain.posts;
 import com.catdog.springboot.domain.BaseTimeEntity;
 import com.catdog.springboot.domain.comment.Comment;
 import com.catdog.springboot.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Posts extends BaseTimeEntity {
     private String author;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "uid")
     private User user;
 

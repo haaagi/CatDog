@@ -21,8 +21,4 @@ public class Follow {
     @Column
     private Long Follow_response; // 신청 받는 사람
 
-    @ManyToOne
-    @JoinColumn(name = "uid")
-    private User user;
-
 }
