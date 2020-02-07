@@ -1,91 +1,114 @@
 <template>
-  <div>
-    <file-pond
-      name="bin"
-      ref="pond"
-      allow-multiple="false"
-      max-files="1"
-      accepted-file-types="image/jpeg, image/png"
-      v-bind:files="myFiles"
-      v-on:init="handleFilePondInit"
-      v-on:processfile="onload"
-    />
-  </div>
+  <v-app>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="headline">User Profile</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-layout>
+                <v-flex>
+                  <v-file-input
+                    type="file"
+                    id="file"
+                    show-size
+                    accept="image/*"
+                    @change="onFileSelected"
+                    counter
+                    chips
+                    multiple
+                    label="사진을 올려주세요"
+                    ref="imageFile"
+                    v-model="imageFile"
+                  ></v-file-input>
+                </v-flex>
+                <v-flex>
+                  <v-btn color="primary" text @click="onFileSelected">test</v-btn>
+                </v-flex>
+              </v-layout>
+              <v-row>
+                <v-col cols="12">
+                  <v-textarea
+                    name="input-7-1"
+                    filled
+                    label="Label"
+                    auto-grow
+                    value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                  ></v-textarea>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field label="hashtag" type="text"></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+            <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+  </v-app>
+  <!-- <v-app>
+    <v-layout>
+      <v-flex>
+        <v-file-input
+          show-size
+          counter
+          chips
+          multiple
+          label="Arquivo Geral"
+          ref="myfile"
+          v-model="imageFile"
+        ></v-file-input>
+      </v-flex>
+      <v-flex>
+        <v-btn color="primary" text @click="submitFiles">test</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-app> -->
 </template>
 
 <script>
 const axios = require('axios');
-// Import Vue FilePond
-import vueFilePond from 'vue-filepond';
-
-// Import FilePond styles
-import 'filepond/dist/filepond.min.css';
-
-// Import FilePond plugins
-// Please note that you need to install these plugins separately
-
-// Import image preview plugin styles
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-
-// Import image preview and file type validation plugins
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-
-// Create component
-const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
-
 export default {
-  name: 'app',
+  name: 'Posting',
   data() {
     return {
-      myFiles: [],
-      // server: {
-      //   url: `http://70.12.246.72:8080/api/user/profileimg/jbh@naver.com`,
-      //   process: {
-      //     method: 'POST',
-      //     headers: {
-      //       Authorization: 'JWT' + sessionStorage.getItem('jwt'),
-      //     },
-      //   },
-      // },
+      dialog: false,
+      imageFile: '',
+      postingFile: {
+        imageName: '',
+        content: '',
+        hashTag: '',
+      },
     };
   },
   methods: {
-    processHandler: (fieldName, file, metadata, load, error, progress) => {
-      // set data
-      const formData = new FormData();
-      formData.append('file', file, file.name);
-
-      // related to aborting the request
-      const CancelToken = axios.CancelToken;
-      const source = CancelToken.source();
-
-      // the request itself
-      axios({
-        method: 'post',
-        url: 'http://70.12.246.72:8080/api/user/profileimg/jbh@naver.com',
-        data: formData,
-        cancelToken: source.token,
-        onUploadProgress: e => {
-          // updating progress indicator
-          progress(e.lengthComputable, e.loaded, e.total);
-        },
-      })
-        .then(response => {
-          // passing the file id to FilePond
-          load(response.data.data.id);
-        })
-        .catch(thrown => {
-          if (axios.isCancel(thrown)) {
-            console.log('Request canceled', thrown.message);
-          } else {
-            // handle error
-          }
-        });
+    onFileSelected() {
+      this.imageFile = this.$refs.imageFile.files[0];
+      const fd = new FormData();
+      fd.append('file', this.imageFile);
+      const HOST = process.env.VUE_APP_SERVER_HOST;
+      // const hash = sessionStorage.getItem('jwt');
+      const user = sessionStorage.getItem('email');
+      // const options = {
+      //   headers: {
+      //     Authorization: 'JWT ' + hash,
+      //   },
+      // };
+      axios.post(HOST + 'api/user/profileimg/' + user, fd).then(res => {
+        console.log(res);
+      });
     },
-  },
-  components: {
-    FilePond,
   },
 };
 </script>

@@ -18,6 +18,7 @@
 
 <script>
 import Banner from '../components/Banner.vue';
+
 export default {
   data: () => ({
     bottom: false,

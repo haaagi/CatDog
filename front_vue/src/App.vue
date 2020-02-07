@@ -6,7 +6,7 @@
         <v-toolbar-title style="width: 300px; padding-left: 0px;">
           <v-img src="./assets/logo2.png" alt="logo" max-height="50" contain />
         </v-toolbar-title>
-        <v-spacer /><v-spacer />
+
         <v-text-field
           style="width: 300px;"
           placeholder="Search..."
@@ -18,7 +18,9 @@
         <v-spacer />
         <v-btn icon> <v-icon>apps</v-icon> </v-btn>
         <v-btn icon> <v-icon>chat_bubble</v-icon> </v-btn>
-        <v-btn icon> <v-icon>mdi-bell</v-icon> </v-btn>
+        <v-btn icon to="/Posting">
+          <v-icon>mdi-bell</v-icon>
+        </v-btn>
         <v-btn icon> <v-icon>mdi-login</v-icon> </v-btn>
         <v-btn icon> <v-icon>mdi-logout</v-icon> </v-btn>
       </v-app-bar>
@@ -80,6 +82,7 @@
 
 <script>
 // import Board from './views/Board';
+// import Posting from './views/Posting'; 
 import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
   computed: {

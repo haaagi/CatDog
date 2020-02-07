@@ -95,23 +95,30 @@ const actions = {
       } else {
         axios
           .post(HOST + 'api/user/signin', credentials)
-          .then(token => {
-            console.log(token.data.accessToken);
-            commit('setToken', token.data.accessToken);
+          .then(res => {
+            console.log(res);
+            sessionStorage.setItem('email', res.data.email);
+            sessionStorage.setItem('nickname', res.data.nickname);
+            console.log(res.data.accessToken);
+            commit('setToken', res.data.accessToken);
             commit('setLoading', false);
-            // const hash = sessionStorage.getItem('jwt');
-
-            // const options = {
-            //   headers: {
-            //     Authorization: 'JWT ' + hash,
-            //   },
-            // };
-            // axios.post(HOST + 'api/accounts/userinfo/', null, options).then(res => {
-            //   console.log(res);
-            //   commit('setuserinfo', res.data);
-            // });
             router.push('/main');
           })
+          // .then(token => {
+
+          // const hash = sessionStorage.getItem('jwt');
+
+          // const options = {
+          //   headers: {
+          //     Authorization: 'JWT ' + hash,
+          //   },
+          // };
+          // axios.post(HOST + 'api/accounts/userinfo/', null, options).then(res => {
+          //   console.log(res);
+          //   commit('setuserinfo', res.data);
+          // });
+
+          // })
           .catch(err => {
             if (!err.response) {
               // no reponse
