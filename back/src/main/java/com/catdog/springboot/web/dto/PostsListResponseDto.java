@@ -4,7 +4,6 @@ import com.catdog.springboot.domain.comment.Comment;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -15,13 +14,18 @@ public class PostsListResponseDto {
     private String contents;
     private List<String> hashtags;
     private List<Comment> comments;
-    private LocalDateTime modifiedDate;
+    private String modifiedDate;
     private Long likes;
 
-    public PostsListResponseDto(Object entity) {
-//        this.nickname = entity.get();
-//        this.img = entity.getImg();
-//        this.modifiedDate = entity.getModifiedDate();
-//        this.likes = entity.getPid();
+
+    public PostsListResponseDto(String nickname, String img, String contents, List<String> hashtags, List<Comment> comments, String modifiedDate ,Long likes) {
+        this.nickname = nickname;
+        this.img = img;
+        this.contents = contents;
+        this.hashtags = hashtags;
+        this.comments = comments;
+        this.modifiedDate = modifiedDate;
+        this.likes = likes;
     }
+
 }

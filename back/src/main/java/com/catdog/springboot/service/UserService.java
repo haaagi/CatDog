@@ -27,7 +27,7 @@ public class UserService {
     public LoginUser signin(String email, String password) {
         User user = userRepository.findByEmail(email).orElse(null);
         if(user != null && password.equals(user.getPassword())) {
-            return new LoginUser(email, password);
+            return new LoginUser(email, password, user.getNickname());
         }else if(user != null && !password.equals(user.getPassword())){
             throw new RuntimeException("비밀번호가 틀립니다");
         }else {

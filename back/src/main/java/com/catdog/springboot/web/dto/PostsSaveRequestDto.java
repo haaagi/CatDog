@@ -11,14 +11,14 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class PostsSaveRequestDto {
-    private String email;
+    private String nickname;
     private String img;
     private String content;
     private List<String> hashtags;
 
     @Builder
-    public PostsSaveRequestDto(String email, String img, String content, List hashtags) {
-        this.email = email;
+    public PostsSaveRequestDto(String nickname, String img, String content, List hashtags) {
+        this.nickname = nickname;
         this.img = img;
         this.content = content;
         this.hashtags = hashtags;

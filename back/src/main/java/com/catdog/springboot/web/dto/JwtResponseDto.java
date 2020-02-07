@@ -8,9 +8,12 @@ import lombok.Setter;
 public class JwtResponseDto {
     private String accessToken;
     private String tokenType ="Bearer";
-
-    public JwtResponseDto(String accessToken) {
+    private String email;
+    private String nickname;
+    public JwtResponseDto(String accessToken, String email, String nickname) {
         this.accessToken = accessToken;
+        this.email = email;
+        this.nickname = nickname;
     }
 
 }

@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 
 @Service
 public class FileUploadService {
@@ -33,7 +34,9 @@ public class FileUploadService {
     }
 
     public String storeFile(MultipartFile file, String email) {
-        String fileName = email + "profileimg" + StringUtils.cleanPath(file.getOriginalFilename());
+        Date today = new Date();
+        String s = today.toString();
+        String fileName = email + "profileimg" + s + StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
             // 파일명에 부적합 문자가 있는지 확인한다.

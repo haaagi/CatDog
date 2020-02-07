@@ -2,7 +2,6 @@ package com.catdog.springboot.web;
 
 
 import com.catdog.springboot.domain.user.LoginUser;
-import com.catdog.springboot.service.FileUploadService;
 import com.catdog.springboot.service.JwtService;
 import com.catdog.springboot.service.UserService;
 import com.catdog.springboot.web.dto.JwtResponseDto;
@@ -23,7 +22,7 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
-    private final FileUploadService uploadService;
+    //private final FileUploadService uploadService;
 
     @PostMapping("/api/v1/user")
     public Long save(@RequestBody UserSaveRequestDto requestDto) {
@@ -35,9 +34,13 @@ public class UserController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         String token = "";
+        String email = "";
+        String nickname = "";
         try {
             LoginUser loginUser = userService.signin(user.getEmail(), user.getPassword());
             token = jwtService.create(loginUser);
+            email = loginUser.getEmail();
+            nickname = loginUser.getNickname();
             System.out.println(token);
             status = HttpStatus.ACCEPTED;
             System.out.println(loginUser.getEmail() + " " + loginUser.getPassword());
@@ -46,7 +49,7 @@ public class UserController {
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return ResponseEntity.ok(new JwtResponseDto(token));
+        return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
     }
 
     @PostMapping("/jwtapi/info")

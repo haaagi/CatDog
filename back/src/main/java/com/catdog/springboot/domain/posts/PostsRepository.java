@@ -10,6 +10,6 @@ public interface PostsRepository extends JpaRepository<Posts,Long> {
 
     // 주의점
     // Entity 클래스와 기본 Entity Repository는 함께 위치 해야 합니다.
-
+    Posts findByPid(Long id);
     List<Posts> findAllByOrderByCreatedDateDesc();
 }
