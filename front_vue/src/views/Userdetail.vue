@@ -100,8 +100,8 @@
       <!-- End of container -->
     </header>
 
-    <!-- buttons -->
-    <div class="menu-btn">
+    <!-- 메뉴 버튼 -->
+    <!-- <div class="menu-btn">
       <v-container fluid>
         <v-row>
           <v-col cols="12" sm="6" class="py-2">
@@ -119,7 +119,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </div>
+    </div> -->
 
     <main>
       <div class="container">
@@ -416,6 +416,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'Userdetail',
   data() {
@@ -461,6 +463,7 @@ export default {
       ],
     };
   },
+
 };
 </script>
 
