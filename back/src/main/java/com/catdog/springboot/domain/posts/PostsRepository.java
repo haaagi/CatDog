@@ -1,6 +1,7 @@
 package com.catdog.springboot.domain.posts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -12,4 +13,11 @@ public interface PostsRepository extends JpaRepository<Posts,Long> {
     // Entity 클래스와 기본 Entity Repository는 함께 위치 해야 합니다.
     Posts findByPid(Long id);
     List<Posts> findAllByOrderByCreatedDateDesc();
+
+    @Query(value = "select * from posts where posts.uid = ?1" , nativeQuery = true)
+    List<Posts> postList(Long uid);
+
+    @Query(value = "select count(*) from posts where uid = ?1" , nativeQuery = true)
+    Long cnt_post(Long uid);
+
 }

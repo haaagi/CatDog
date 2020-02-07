@@ -2,6 +2,7 @@ package com.catdog.springboot.domain.posts;
 
 import com.catdog.springboot.domain.BaseTimeEntity;
 import com.catdog.springboot.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,14 +17,16 @@ public class Posts extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
-
+    
     @Column
     private String img;
 
-    @Column
+
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "uid")
     private User user;
 
