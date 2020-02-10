@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class PostsListResponseDto {
+    private Long pid;
     private String nickname;
     private String img;
     private String contents;
@@ -18,7 +19,8 @@ public class PostsListResponseDto {
     private Long likes;
 
 
-    public PostsListResponseDto(String nickname, String img, String contents, List<String> hashtags, List<Comment> comments, String modifiedDate ,Long likes) {
+    public PostsListResponseDto(Long pid, String nickname, String img, String contents, List<String> hashtags, List<Comment> comments, String modifiedDate ,Long likes) {
+        this.pid = pid;
         this.nickname = nickname;
         this.img = img;
         this.contents = contents;

@@ -1,14 +1,11 @@
 package com.catdog.springboot.domain.user;
 
 import com.catdog.springboot.domain.BaseTimeEntity;
-import com.catdog.springboot.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -27,7 +24,6 @@ public class User extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String name;
-
 
     @Column
     private String nickname;
@@ -50,9 +46,6 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
-    @OneToMany(mappedBy="user")
-    private List<Posts> posts = new ArrayList<Posts>();
 
 
 

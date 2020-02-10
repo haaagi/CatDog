@@ -1,15 +1,18 @@
 package com.catdog.springboot.domain.comment;
+
+import com.catdog.springboot.domain.BaseTimeEntity;
 import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Comment {
+public class Comment extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cid; // Comment ID
@@ -24,13 +27,13 @@ public class Comment {
 
     @Column
     private String content; // 글 내용
-    @Column
-    private String wdate; // 작성 시간
+
+
     @Builder
-    public Comment(User user, Posts posts , String content , String wdate) {
+    public Comment(User user, Posts posts , String content ) {
         this.user = user;
         this.posts = posts;
         this.content = content;
-        this.wdate = wdate;
+
     }
 }

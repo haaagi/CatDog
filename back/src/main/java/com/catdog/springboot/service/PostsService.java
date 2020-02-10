@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @RequiredArgsConstructor
 @Service
@@ -48,12 +49,12 @@ public class PostsService {
                         hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
-                postlist.add(new PostsListResponseDto(nickname, img, contents, hashtags, comments, date, likecount) );
+                postlist.add(new PostsListResponseDto(pid, nickname, img, contents, hashtags, comments, date, likecount));
             }
         }
 
 
-        return postlist;
+        return postlist; //이거 잘 리턴되는지 봐야함
 //
 //                postsRepository.findAllByOrderByCreatedDateDesc().stream()
 //                .map(PostsListResponseDto::new)
@@ -66,19 +67,37 @@ public class PostsService {
     public Long save(PostsSaveRequestDto requestDto) { // 게시글 게시 요청
         User user = userRepository.findByNickname(requestDto.getNickname()).orElse(null);
         Long pid = postsRepository.save(requestDto.toEntity(user)).getPid();
-        List<String> taglist = requestDto.getHashtags();
+        String taglist = requestDto.getHashtags();
         Posts posts = postsRepository.findByPid(pid);
         if(taglist != null) {
-            for(int i=0; i<taglist.size(); i++){
-                Hashtags checkhashtags = hashtagsRepository.findByContent(taglist.get(i));
-                if(checkhashtags == null) {
-                    Long hid = hashtagsRepository.save(Hashtags.builder().content(taglist.get(i)).build()).getHid();
-                    Hashtags hashtags = hashtagsRepository.findByHid(hid);
-                    tagsRepository.save(Tags.builder().hashtags(hashtags).posts(posts).build());
+            StringTokenizer st = new StringTokenizer(taglist, "#");
+            int a = st.countTokens();
+            for(int i=0; i<a; i++) {
+                String tag = st.nextToken().trim();
+                if(tag.contains(" ")){
+                    StringTokenizer st1 = new StringTokenizer(tag, " ");
+                    String tag1 = st1.nextToken().trim();
+                    Hashtags checkhashtags = hashtagsRepository.findByContent(tag1);
+                    if(checkhashtags == null) {
+                        Long hid = hashtagsRepository.save(Hashtags.builder().content(tag1).build()).getHid();
+                        Hashtags hashtags = hashtagsRepository.findByHid(hid);
+                        tagsRepository.save(Tags.builder().hashtags(hashtags).posts(posts).build());
+                    }
+                    else {
+                        tagsRepository.save(Tags.builder().hashtags(checkhashtags).posts(posts).build());
+                    }
                 }else {
-                    tagsRepository.save(Tags.builder().hashtags(checkhashtags).posts(posts).build());
-
+                    Hashtags checkhashtags = hashtagsRepository.findByContent(tag);
+                    if(checkhashtags == null) {
+                        Long hid = hashtagsRepository.save(Hashtags.builder().content(tag).build()).getHid();
+                        Hashtags hashtags = hashtagsRepository.findByHid(hid);
+                        tagsRepository.save(Tags.builder().hashtags(hashtags).posts(posts).build());
+                    }
+                    else {
+                        tagsRepository.save(Tags.builder().hashtags(checkhashtags).posts(posts).build());
+                    }
                 }
+
             }
         }
         return user.getUid();

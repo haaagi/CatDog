@@ -13,34 +13,43 @@ public class PostsApiController {
 
     private final PostsService postsService;
 
-    @GetMapping("/api/v1/posts")
+    @GetMapping("/api/posts/list") //포스트 리스트 가져오기 (메인화면에 사용)
     public List<PostsListResponseDto> list() {
         return postsService.findAll();
     }
 
-    @PostMapping("/api/v1/posts")
+    @GetMapping("/auth/posts/Myposts/{nickname}")
+    public List<PostsListResponseDto> mylist(@PathVariable String nickname) {
+        return postsService.findAll();
+    }
+
+    @PostMapping("/auth/posts/posting") // 게시글 업로드
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
     }
 
-    @PutMapping("/api/v1/posts/{id}")
+    @PutMapping("/auth/posts/update/{id}") // 게시글 수정 (아직 구현 안됨)
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
         return postsService.update(id, requestDto);
     }
 
-    @DeleteMapping("/api/v1/posts/{id}")
+    @DeleteMapping("/auth/posts/delete/{id}") //게시글 삭제 (아직 구현 안됨)
     public Long delete(@PathVariable Long id) {
         postsService.delete(id);
         return id;
     }
 
-    @GetMapping("/api/v1/posts/{id}")
-    public PostsResponseDto findById(@PathVariable Long id) {
-        return postsService.findById(id);
-    }
-
-    @PostMapping("/api/v1/posts/likesup")
+    @PostMapping("/auth/posts/likesup")  //좋아요 누를때
     public Long likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
         return postsService.likesup(likesupRequestDto);
     }
+
+
+//        필요한 앤지 잘 모르겠음 일단 살려는 둠
+//    @GetMapping("/api/posts/{id}")
+//    public PostsResponseDto findById(@PathVariable Long id) {
+//        return postsService.findById(id);
+//    }
+
+
 }

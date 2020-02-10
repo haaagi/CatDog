@@ -1,5 +1,6 @@
 package com.catdog.springboot.web.dto;
 
+import com.catdog.springboot.domain.comment.Comment;
 import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
@@ -8,25 +9,25 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PostsSaveRequestDto {
+public class CommentRequestDto {
+    private Long pid;
     private String nickname;
-    private String img;
     private String content;
-    private String hashtags;
 
     @Builder
-    public PostsSaveRequestDto(String nickname, String img, String content, String hashtags) {
+    public CommentRequestDto(Long pid, String nickname, String content) {
+        this.pid = pid;
         this.nickname = nickname;
-        this.img = img;
         this.content = content;
-        this.hashtags = hashtags;
     }
 
-    public Posts toEntity(User user) {
-        return Posts.builder()
-                .img(img)
-                .content(content)
+    public Comment toEntity(User user, Posts posts) {
+        return Comment.builder()
+                .posts(posts)
                 .user(user)
+                .content(content)
                 .build();
     }
+
+
 }

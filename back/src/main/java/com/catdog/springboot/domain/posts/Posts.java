@@ -22,7 +22,7 @@ public class Posts extends BaseTimeEntity {
     private String img;
 
 
-    @Column(columnDefinition = "TEXT")
+    @Column
     private String content;
 
     @ManyToOne

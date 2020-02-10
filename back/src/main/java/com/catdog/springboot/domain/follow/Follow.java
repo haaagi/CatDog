@@ -1,6 +1,5 @@
 package com.catdog.springboot.domain.follow;
 
-import com.catdog.springboot.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -22,7 +22,7 @@ public class MyPageController {
     private final PostsRepository postsRepository;
     private final FollowRepository followRepository;
 
-    @GetMapping("/MyPage/{id}")
+    @GetMapping("/auth/MyPage/{id}")
     public MyPageResponseDto MyPage(@PathVariable String id) {
         Optional<User> user = userRepository.findByEmail(id);
         Long uid = user.get().getUid();

@@ -24,12 +24,12 @@ public class UserController {
     private final JwtService jwtService;
     //private final FileUploadService uploadService;
 
-    @PostMapping("/api/v1/user")
+    @PostMapping("/api/user/signup") // 회원가입
     public Long save(@RequestBody UserSaveRequestDto requestDto) {
         return userService.save(requestDto);
     }
 
-    @PostMapping("/api/user/signin")
+    @PostMapping("/api/user/signin") //로그인
     public ResponseEntity<?> signin (@RequestBody LoginUser user) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
@@ -52,7 +52,7 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
     }
 
-    @PostMapping("/jwtapi/info")
+    @PostMapping("/auth/user/info") //유저정보
     public ResponseEntity<Map<String, Object>> getInfo(HttpServletRequest req, @RequestBody LoginUser user) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
