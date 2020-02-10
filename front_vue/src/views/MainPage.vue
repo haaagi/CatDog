@@ -2,35 +2,25 @@
   <div>
     <Banner />
 
-    <div class="feed-grid">
-      <div class="grid-layout">
-        <v-img
-          class="grid-item"
-          :class="[word.tag > 0.8 ? (word.tag > 0.9 ? 'span-3' : 'span-2') : '']"
-          v-for="(word, i) in words"
-          :key="i"
-          :src="word.resource"
-        />
-      </div>
-    </div>
+    <v-container class="grid-layout">
+      <v-img
+        class="grid-item"
+        :class="[word.tag > 0.8 ? (word.tag > 0.9 ? 'span-3' : 'span-2') : '']"
+        v-for="(word, i) in words"
+        :key="i"
+        :src="word.resource"
+      />
+    </v-container>
   </div>
 </template>
 
 <script>
 import Banner from '../components/Banner.vue';
+
 export default {
   data: () => ({
     bottom: false,
-    words: [
-      {
-        resource: 'https://source.unsplash.com/category/nature',
-        tag: Math.random(),
-      },
-      {
-        resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
-        tag: Math.random(),
-      },
-    ],
+    words: [],
     testIndex: 0,
   }),
   components: { Banner },
@@ -74,11 +64,11 @@ export default {
 <style scoped>
 .grid-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: auto;
   grid-gap: 15px;
-  grid-auto-rows: minmax(300px, auto);
-  grid-auto-flow: dense;
+  grid-auto-flow: row dense;
   padding: 15px;
+  grid-column-end: auto;
 }
 
 .grid-item {

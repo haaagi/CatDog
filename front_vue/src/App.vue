@@ -1,85 +1,43 @@
 <template>
-  <v-app id="keep">
-    <div v-if="isLoggedIn">
-      <v-app-bar app clipped-left hide-on-scroll color="amber">
-        <v-app-bar-nav-icon @click="drawer = !drawer" />
-        <v-toolbar-title style="width: 300px; padding-left: 0px;">
-          <v-img src="./assets/logo2.png" alt="logo" max-height="50" contain />
-        </v-toolbar-title>
-        <v-spacer /><v-spacer />
-        <v-text-field
-          style="width: 300px;"
-          placeholder="Search..."
-          single-line
-          color="black"
-          prepend-inner-icon="search"
-          hide-details
-        ></v-text-field>
-        <v-spacer />
-        <v-btn icon> <v-icon>apps</v-icon> </v-btn>
-        <v-btn icon> <v-icon>chat_bubble</v-icon> </v-btn>
-        <v-btn icon> <v-icon>mdi-bell</v-icon> </v-btn>
-        <v-btn icon> <v-icon>mdi-login</v-icon> </v-btn>
-        <v-btn icon> <v-icon>mdi-logout</v-icon> </v-btn>
-      </v-app-bar>
-      <v-navigation-drawer v-model="drawer" app clipped color="grey lighten-4">
-        <v-list dense class="grey lighten-4">
-          <template v-for="(item, i) in items">
-            <v-row v-if="item.heading" :key="i" align="center">
-              <v-col cols="6">
-                <v-subheader v-if="item.heading">
-                  {{ item.heading }}
-                </v-subheader>
-              </v-col>
-              <v-col cols="6" class="text-right">
-                <v-btn small text>edit</v-btn>
-              </v-col>
-            </v-row>
-            <v-divider v-else-if="item.divider" :key="i" dark class="my-4" />
-            <v-list-item v-else :key="i" link>
-              <v-list-item-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title class="grey--text">
-                  {{ item.text }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </template>
-        </v-list>
-      </v-navigation-drawer>
-    </div>
+  <div id="fh5co-page">
+    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+    <aside id="fh5co-aside" role="complementary" class="border js-fullheight">
+      <h1 id="fh5co-logo">
+        <a href="/"
+          ><center><img src="../src/assets/logo.png" style="width:180px" /></center
+        ></a>
+      </h1>
+      <nav id="fh5co-main-menu" role="navigation">
+        <ul>
+          <li><a href="/main">Home</a></li>
+          <li><a href="/userdetail">Blog</a></li>
+          <li><a href="/info">강아지 소개</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-    <v-content>
-      <router-view />
-    </v-content>
-    <!-- <v-content>
-      <v-footer absolute color="amber" class="white--text">
-        <v-card flat tile class="amber lighten-1 white--text text-center">
-          <v-card-text class="white--text pt-0">
-            Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus
-            commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at
-            orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et
-            faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices,
-            cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut
-            orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-            mus.
-          </v-card-text>
+    <div id="fh5co-main"><router-view /></div>
 
-          <v-divider />
-
-          <v-card-text class="white--text">
-            <strong>Vuetify</strong>
-          </v-card-text>
-        </v-card>
-      </v-footer>
-    </v-content> -->
-  </v-app>
+    <Posting />
+  </div>
 </template>
 
 <script>
 // import Board from './views/Board';
+import Posting from './views/Posting';
 import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
@@ -96,62 +54,10 @@ export default {
     // this.temp2 = this.$store.dispatch('callStart');
   },
 
-  components: {},
+  components: { Posting },
 
-  data: () => ({
-    temp2: false,
-    drawer: null,
-    items: [
-      { icon: 'lightbulb_outline', text: 'Notes' },
-      { icon: 'touch_app', text: 'Reminders' },
-      { divider: true },
-      { heading: 'Labels' },
-      { icon: 'add', text: 'Create new label' },
-      { divider: true },
-      { icon: 'archive', text: 'Archive' },
-      { icon: 'delete', text: 'Trash' },
-      { divider: true },
-      { heading: 'Labels' },
-      { icon: 'settings', text: 'Settings' },
-      { icon: 'chat_bubble', text: 'Trash' },
-      { icon: 'help', text: 'Help' },
-      { icon: 'phonelink', text: 'App downloads' },
-      { icon: 'delete', text: 'Trash' },
-      { divider: true },
-      { heading: 'Labels' },
-      { icon: 'settings', text: 'Settings' },
-      { icon: 'chat_bubble', text: 'Trash' },
-      { icon: 'help', text: 'Help' },
-      { icon: 'phonelink', text: 'App downloads' },
-      { icon: 'delete', text: 'Trash' },
-      { divider: true },
-      { heading: 'Labels' },
-      { icon: 'settings', text: 'Settings' },
-      { icon: 'chat_bubble', text: 'Trash' },
-      { icon: 'help', text: 'Help' },
-      { icon: 'phonelink', text: 'App downloads' },
-      { icon: 'delete', text: 'Trash' },
-      { divider: true },
-      { heading: 'Labels' },
-      { icon: 'settings', text: 'Settings' },
-      { icon: 'chat_bubble', text: 'Trash' },
-      { icon: 'help', text: 'Help' },
-      { icon: 'phonelink', text: 'App downloads' },
-      { icon: 'delete', text: 'Trash' },
-      { divider: true },
-      { heading: 'Labels' },
-      { icon: 'settings', text: 'Settings' },
-      { icon: 'chat_bubble', text: 'Trash' },
-      { icon: 'help', text: 'Help' },
-      { icon: 'phonelink', text: 'App downloads' },
-      { icon: 'keyboard', text: 'Keyboard shortcuts' },
-    ],
-  }),
+  data: () => ({}),
   // comments: { board },
 };
 </script>
-<style scoped>
-#keep .v-navigation-drawer__border {
-  display: none;
-}
-</style>
+<style scoped></style>

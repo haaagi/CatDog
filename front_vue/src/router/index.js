@@ -3,15 +3,16 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import ModalPost from '../views/ModalPost.vue';
-import Board from '../views/Board.vue';
 // import BoardDetail from '../components/common/BoardDetail.vue';
 import MainPage from '../views/MainPage.vue';
 import TodoPage from '../views/TodoPage.vue';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
-import Userdetail from '../views/Userdetail.vue';
+import UserDetail from '../views/UserDetail.vue';
 import EditProfile from '../views/EditProfile.vue';
 import Posting from '../views/Posting.vue';
+import Health from '../views/Health.vue';
+import Info from '../views/Info.vue';
 
 Vue.use(VueRouter);
 
@@ -41,17 +42,12 @@ const router = new VueRouter({
     {
       path: '/userdetail',
       name: 'userdetail',
-      component: Userdetail,
+      component: UserDetail,
     },
     {
       path: '/modal',
       name: 'modal',
       component: ModalPost,
-    },
-    {
-      path: '/board',
-      name: 'board',
-      component: Board,
     },
     {
       path: '/main',
@@ -72,6 +68,16 @@ const router = new VueRouter({
       path: '/posting',
       name: 'posting',
       component: Posting,
+    },
+    {
+      path: '/health',
+      name: 'health',
+      component: Health,
+    },
+    {
+      path: '/info',
+      name: 'info',
+      component: Info,
     },
   ],
 });
