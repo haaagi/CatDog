@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,14 +31,22 @@ public class MyPageController {
         Long follow_from = followRepository.follow_F_Count(uid);
         Long follow_to = followRepository.follow_T_Count(uid);
         List<Posts> postsList = postsRepository.postList(uid);
+        List<Long> follow_list = followRepository.follow_F_list(uid);
+        List<Long> folloing_list = followRepository.follow_T_list(uid);
+        // 나를 팔로우 하는 사람
+        List<Optional<User>> follower = new ArrayList<>();
+        // 내가 팔로우 하는 사람
+        List<Optional<User>> folloing = new ArrayList<>();
+        String img = user.get().getImg();
+        for(int i = 0; i < follow_list.size(); i++) {
+            follower.add(userRepository.findById(follow_list.get(i)));
+        }
 
-        MyPageResponseDto mypage = new MyPageResponseDto(uid, post_cnt, follow_from, follow_to , postsList);
+        for(int i = 0; i < folloing_list.size(); i++) {
+            folloing.add(userRepository.findById(folloing_list.get(i)));
+        }
 
-        System.out.println(mypage.getUid());
-        System.out.println(mypage.getPost_cnt());
-        System.out.println(mypage.getFollow_from());
-        System.out.println(mypage.getFollow_to());
-        System.out.println(mypage.getPostsList());
+        MyPageResponseDto mypage = new MyPageResponseDto(uid, img, post_cnt, follow_from, follow_to , postsList, follower, folloing);
 
         return mypage;
     }
