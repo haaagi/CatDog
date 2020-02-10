@@ -12,6 +12,8 @@ import Signup from '../views/Signup.vue';
 import Userdetail from '../views/Userdetail.vue';
 import EditProfile from '../views/EditProfile.vue';
 import Posting from '../views/Posting.vue';
+import Search from '../views/Search.vue';
+import Info from '../views/Info.vue';
 
 Vue.use(VueRouter);
 
@@ -72,6 +74,16 @@ const router = new VueRouter({
       path: '/posting',
       name: 'posting',
       component: Posting,
+    },
+    {
+      path: '/search/:name',
+      name: 'search',
+      component: Search,
+    },
+    {
+      path: '/info',
+      name: 'info',
+      component: Info,
     },
   ],
 });
