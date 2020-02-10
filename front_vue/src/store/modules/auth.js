@@ -98,7 +98,9 @@ const actions = {
             router.push('/main');
           })
           // .then(token => {
+
           // const hash = sessionStorage.getItem('jwt');
+
           // const options = {
           //   headers: {
           //     Authorization: 'JWT ' + hash,
@@ -139,7 +141,7 @@ const actions = {
         commit('pushError', '비밀번호가 일치하지 않습니다.');
       }
       axios
-        .post(HOST + 'api/v1/user', userInput)
+        .post(HOST + 'api/user/signup', userInput)
         .then(res => {
           console.log(res);
           if (res.status === 200) {

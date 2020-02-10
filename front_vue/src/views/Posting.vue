@@ -1,55 +1,106 @@
 <template>
-  <div class="">
-    <div>
-      <div class="file-upload-form">
-        Upload an image file:
-        <input type="file" @change="previewImage" accept="image/*" />
-      </div>
-      <div class="image-preview" v-if="imageData.length > 0">
-        <img class="preview" :src="imageData" />
-      </div>
-    </div>
-  </div>
+  <v-app>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn class="mb-12" right bottom absolute fixed fab dark color="amber" v-on="on"
+            >+</v-btn
+          >
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="headline">피드 작성하기</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-layout>
+                <v-flex>
+                  <v-file-input
+                    type="file"
+                    id="file"
+                    show-size
+                    accept="image/*"
+                    @change="onSave($event)"
+                    label="사진을 올려주세요"
+                  ></v-file-input>
+                </v-flex>
+              </v-layout>
+              <v-row>
+                <v-col cols="12">
+                  <v-textarea
+                    name="input-7-1"
+                    filled
+                    label="Label"
+                    auto-grow
+                    value="내용을 작성해주세요"
+                    v-model="postingFile.content"
+                  ></v-textarea>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="hashtag"
+                    type="text"
+                    v-model="postingFile.hashtags"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+            <v-btn color="blue darken-1" text @click="onSubmit">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+  </v-app>
 </template>
 
 <script>
+const axios = require('axios');
+const HOST = process.env.VUE_APP_SERVER_HOST;
 export default {
-  data: () => ({
-    //
-    imageData: '',
-  }),
+  name: 'Posting',
+  data() {
+    return {
+      dialog: false,
+      postingFile: {
+        nickname: '',
+        img: '',
+        content: '',
+        hashtags: '',
+      },
+    };
+  },
   methods: {
-    previewImage: function(event) {
-      // Reference to the DOM input element
-      var input = event.target;
-      // Ensure that you have a file before attempting to read it
-      if (input.files && input.files[0]) {
-        // create a new FileReader to read this image and convert to base64 format
-        var reader = new FileReader();
-        // Define a callback function to run, when FileReader finishes its job
-        reader.onload = e => {
-          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-          // Read image as base64 and set to imageData
-          this.imageData = e.target.result;
-        };
-        // Start the reader job - read file as a data url (base64 format)
-        reader.readAsDataURL(input.files[0]);
+    onSubmit() {
+      this.postingFile.nickname = sessionStorage.getItem('nickname');
+      axios.post(HOST + 'auth/posts/posting', this.postingFile).then(res => {
+        console.log(res);
+      });
+    },
+    onSave(event) {
+      console.log(event);
+      let fd = new FormData();
+      fd.append('image', event);
+      for (let key of fd.entries()) {
+        console.log(key[0] + ' ' + key[1]);
       }
+      axios
+        .post('https://api.imgur.com/3/image', fd, {
+          headers: {
+            // 'Access-Control-Allow-Origin': '*',
+            Authorization: 'Client-ID 1001abddfee2596',
+          },
+        })
+        .then(res => {
+          console.log(res);
+          console.log(res.data.data.link);
+          this.postingFile.img = res.data.data.link;
+        });
     },
   },
 };
 </script>
-
-<style scoped>
-.file-upload-form,
-.image-preview {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 20px;
-}
-img.preview {
-  width: 200px;
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 5px;
-}
-</style>

@@ -35,6 +35,7 @@
 
 <script>
 // import Board from './views/Board';
+// import Posting from './views/Posting';
 import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
@@ -51,7 +52,7 @@ export default {
     // this.temp2 = this.$store.dispatch('callStart');
   },
 
-  components: {},
+  // components: { Posting },
 
   data: () => ({}),
   // comments: { board },
