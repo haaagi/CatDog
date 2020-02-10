@@ -30,12 +30,14 @@
     </aside>
 
     <div id="fh5co-main"><router-view /></div>
+
+    <Posting />
   </div>
 </template>
 
 <script>
 // import Board from './views/Board';
-// import Posting from './views/Posting';
+import Posting from './views/Posting';
 import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
@@ -52,7 +54,7 @@ export default {
     // this.temp2 = this.$store.dispatch('callStart');
   },
 
-  // components: { Posting },
+  components: { Posting },
 
   data: () => ({}),
   // comments: { board },
