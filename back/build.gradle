@@ -34,7 +34,6 @@ dependencies {
 
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.projectlombok:lombok')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-mustache')
     compile('com.h2database:h2')
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
@@ -48,6 +47,23 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-mail")
     compile "org.springframework:spring-context-support"
     compile "com.sun.mail:javax.mail"
+
+    // WebSocket 관련
+    implementation('org.springframework.boot:spring-boot-starter-websocket')
+
+    // Stomp 관련
+    implementation('org.springframework.boot:spring-boot-starter-freemarker')
+    implementation('org.springframework.boot:spring-boot-devtools')
+
+    implementation 'org.webjars.bower:bootstrap:4.3.1'
+    implementation 'org.webjars.bower:vue:2.5.16'
+    implementation 'org.webjars.bower:axios:0.17.1'
+    implementation 'org.webjars:sockjs-client:1.1.2'
+    implementation 'org.webjars:stomp-websocket:2.3.3-1'
+    implementation 'com.google.code.gson:gson:2.8.0'
+
+
+    // 테스트 관련
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile("org.springframework.security:spring-security-test")
 

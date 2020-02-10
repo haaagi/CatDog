@@ -12,12 +12,17 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
 public class MyPageResponseDto {
 
     private Long uid; // User id
+
+    private String img; // User img
+
+    private String pr;  // 자기소개
 
     private Long post_cnt; // 내 게시물 수
 
@@ -27,11 +32,19 @@ public class MyPageResponseDto {
 
     private List<Posts> postsList; // 게시물 리스트
 
-    public MyPageResponseDto(Long uid, Long post_cnt , Long follow_from, Long follow_to, List<Posts> postsList) {
+    private List<Optional<User>> follower;
+
+    private List<Optional<User>> folloing;
+
+    public MyPageResponseDto(Long uid, String img , Long post_cnt , Long follow_from, Long follow_to, List<Posts> postsList, List<Optional<User>> follower, List<Optional<User>> folloing) {
         this.uid = uid;
+        this.img = img;
+        this.pr = "";
         this.post_cnt =  post_cnt;
         this.follow_from = follow_from;
         this.follow_to = follow_to;
         this.postsList = postsList;
+        this.follower = follower;
+        this.folloing = folloing;
     }
 }
