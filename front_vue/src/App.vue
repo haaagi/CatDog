@@ -56,6 +56,9 @@
     <v-content>
       <router-view />
     </v-content>
+    <v-btn class="mb-12" right bottom absolute fixed fab dark color="amber">
+      <Posting />
+    </v-btn>
     <!-- <v-content>
       <v-footer absolute color="amber" class="white--text">
         <v-card flat tile class="amber lighten-1 white--text text-center">
@@ -82,7 +85,7 @@
 
 <script>
 // import Board from './views/Board';
-// import Posting from './views/Posting'; 
+import Posting from './views/Posting';
 import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
@@ -99,7 +102,7 @@ export default {
     // this.temp2 = this.$store.dispatch('callStart');
   },
 
-  components: {},
+  components: { Posting },
 
   data: () => ({
     temp2: false,

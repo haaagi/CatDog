@@ -3,11 +3,13 @@
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="600px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
+          <v-btn class="mb-12" right bottom absolute fixed fab dark color="amber" v-on="on"
+            >+</v-btn
+          >
         </template>
         <v-card>
           <v-card-title>
-            <span class="headline">User Profile</span>
+            <span class="headline">피드 작성하기</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -18,17 +20,9 @@
                     id="file"
                     show-size
                     accept="image/*"
-                    @change="onFileSelected"
-                    counter
-                    chips
-                    multiple
+                    @change="onSave($event)"
                     label="사진을 올려주세요"
-                    ref="imageFile"
-                    v-model="imageFile"
                   ></v-file-input>
-                </v-flex>
-                <v-flex>
-                  <v-btn color="primary" text @click="onFileSelected">test</v-btn>
                 </v-flex>
               </v-layout>
               <v-row>
@@ -38,11 +32,16 @@
                     filled
                     label="Label"
                     auto-grow
-                    value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                    value="내용을 작성해주세요"
+                    v-model="postingFile.content"
                   ></v-textarea>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field label="hashtag" type="text"></v-text-field>
+                  <v-text-field
+                    label="hashtag"
+                    type="text"
+                    v-model="postingFile.hashtags"
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -51,63 +50,56 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="onSubmit">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-row>
   </v-app>
-  <!-- <v-app>
-    <v-layout>
-      <v-flex>
-        <v-file-input
-          show-size
-          counter
-          chips
-          multiple
-          label="Arquivo Geral"
-          ref="myfile"
-          v-model="imageFile"
-        ></v-file-input>
-      </v-flex>
-      <v-flex>
-        <v-btn color="primary" text @click="submitFiles">test</v-btn>
-      </v-flex>
-    </v-layout>
-  </v-app> -->
 </template>
 
 <script>
 const axios = require('axios');
+const HOST = process.env.VUE_APP_SERVER_HOST;
 export default {
   name: 'Posting',
   data() {
     return {
       dialog: false,
-      imageFile: '',
       postingFile: {
-        imageName: '',
+        nickname: '',
+        img: '',
         content: '',
-        hashTag: '',
+        hashtags: '',
       },
     };
   },
   methods: {
-    onFileSelected() {
-      this.imageFile = this.$refs.imageFile.files[0];
-      const fd = new FormData();
-      fd.append('file', this.imageFile);
-      const HOST = process.env.VUE_APP_SERVER_HOST;
-      // const hash = sessionStorage.getItem('jwt');
-      const user = sessionStorage.getItem('email');
-      // const options = {
-      //   headers: {
-      //     Authorization: 'JWT ' + hash,
-      //   },
-      // };
-      axios.post(HOST + 'api/user/profileimg/' + user, fd).then(res => {
+    onSubmit() {
+      this.postingFile.nickname = sessionStorage.getItem('nickname');
+      axios.post(HOST + 'auth/posts/posting', this.postingFile).then(res => {
         console.log(res);
       });
+    },
+    onSave(event) {
+      console.log(event);
+      let fd = new FormData();
+      fd.append('image', event);
+      for (let key of fd.entries()) {
+        console.log(key[0] + ' ' + key[1]);
+      }
+      axios
+        .post('https://api.imgur.com/3/image', fd, {
+          headers: {
+            // 'Access-Control-Allow-Origin': '*',
+            Authorization: 'Client-ID 1001abddfee2596',
+          },
+        })
+        .then(res => {
+          console.log(res);
+          console.log(res.data.data.link);
+          this.postingFile.img = res.data.data.link;
+        });
     },
   },
 };
