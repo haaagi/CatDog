@@ -5,20 +5,24 @@
     <v-container class="grid-layout">
       <v-img
         class="grid-item"
-        :class="[word.tag > 0.8 ? (word.tag > 0.9 ? 'span-3' : 'span-2') : '']"
-        v-for="(word, i) in words"
+        :class="span - 3"
+        v-for="(post, i) in postList"
         :key="i"
-        :src="word.resource"
+        :src="post.img"
       />
     </v-container>
   </div>
 </template>
 
 <script>
+const HOST = process.env.VUE_APP_SERVER_HOST;
+const axios = require('axios');
 import Banner from '../components/Banner.vue';
 
 export default {
   data: () => ({
+    postList: [],
+    tempList: null,
     bottom: false,
     words: [],
     testIndex: 0,
@@ -35,9 +39,27 @@ export default {
     window.addEventListener('scroll', () => {
       this.bottom = this.bottomVisible();
     });
+    // axios.get(HOST + 'api/posts/list').then(res => {
+    //   console.log(res);
+    //   console.log(res.data);
+    //   this.postList = res.data;
+    //   sessionStorage.setItem('post', this.postList);
+    //   this.tempList = this.postList.data;
+    // });
+    // this.addWord();
+  },
+  mounted() {
+    axios.get(HOST + 'api/posts/list').then(res => {
+      // console.log(res);
+      // console.log(res.data);
+      this.postList = res.data;
+      sessionStorage.setItem('post', this.postList);
+      this.tempList = this.postList.data;
+    });
     this.addWord();
   },
   methods: {
+    getPostList() {},
     bottomVisible() {
       const docEl = document.documentElement;
       const visibleHeight = docEl.clientHeight;
@@ -48,14 +70,15 @@ export default {
     },
     addWord() {
       setTimeout(() => {
+        console.log(this.postList);
         this.words.push({
-          resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+          resource: this.postList,
           tag: Math.random(),
         });
         if (this.bottomVisible()) {
           this.addWord();
         }
-      }, 10);
+      }, 19);
     },
   },
 };

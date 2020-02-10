@@ -15,22 +15,12 @@
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </aside>
-
-    <div id="fh5co-main"><router-view /></div>
-
+    <div v-if="check">
+      <div id="fh5co-main"><router-view /></div>
+    </div>
     <Posting />
   </div>
 </template>
@@ -40,6 +30,11 @@
 import Posting from './views/Posting';
 import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
+  data() {
+    return {
+      check: null,
+    };
+  },
   computed: {
     ...mapState(['start']),
     ...mapGetters(['isLoggedIn', 'isStart']),
@@ -49,14 +44,13 @@ export default {
     ...mapActions(['callStart', 'chkLogin', 'chkStart']),
   },
   created() {
-    this.$store.dispatch('chkLogin');
+    this.check = this.$store.dispatch('chkLogin');
     this.$store.dispatch('chkStart');
     // this.temp2 = this.$store.dispatch('callStart');
   },
 
   components: { Posting },
 
-  data: () => ({}),
   // comments: { board },
 };
 </script>
