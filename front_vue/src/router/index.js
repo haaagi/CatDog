@@ -9,7 +9,7 @@ import MainPage from '../views/MainPage.vue';
 import TodoPage from '../views/TodoPage.vue';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
-import Userdetail from '../views/Userdetail.vue';
+import UserDetail from '../views/UserDetail.vue';
 import EditProfile from '../views/EditProfile.vue';
 import Posting from '../views/Posting.vue';
 import Health from '../views/Health.vue';
@@ -42,7 +42,7 @@ const router = new VueRouter({
     {
       path: '/userdetail',
       name: 'userdetail',
-      component: Userdetail,
+      component: UserDetail,
     },
     {
       path: '/modal',

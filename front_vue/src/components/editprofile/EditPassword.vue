@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-card-text style="height: 600px;">
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="10">
         <v-text-field v-model="pastPw" label="현재 비밀번호" required type="password">
         </v-text-field>
       </v-col>
 
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="10">
         <v-text-field
           v-model="newPw"
           :rules="newPwRules"
@@ -18,7 +18,7 @@
         </v-text-field>
       </v-col>
 
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="10">
         <v-text-field
           v-model="checkPw"
           :rules="checkPwRules"
@@ -30,6 +30,7 @@
       </v-col>
 
       <v-btn class="mr-4" @click="submit">change</v-btn>
+      <router-link to="/userdetail"> <v-btn>cancle</v-btn></router-link>
     </v-card-text>
   </div>
 </template>

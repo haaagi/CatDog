@@ -67,7 +67,7 @@
       </v-layout>
 
       <v-btn class="mr-4" :click="save">save</v-btn>
-      <v-btn>cancle</v-btn>
+      <router-link to="/userdetail"> <v-btn>cancle</v-btn></router-link>
     </v-card-text>
   </div>
 </template>
@@ -75,12 +75,17 @@
 <script>
 import ImgEditButton from './ImgEditButton';
 
+const HOST = process.env.VUE_APP_SERVER_HOST;
+const axios = require('axios');
+
 export default {
   name: 'EditDetail',
   components: {
     ImgEditButton,
   },
   data: () => ({
+    userInfo: [],
+
     nickname: '',
     // nick name 유효성 검사
     nameRules: [
@@ -106,6 +111,27 @@ export default {
     dogs: ['시츄', '말티즈', '포메라니안', '푸들'],
   }),
   methods: {},
+  beforeCreate() {
+    // const hash = sessionStorage.getItem('jwt');
+    // const options = {
+    //   headers: {
+    //     Authorization: 'JWT ' + hash,
+    //   },
+    // };
+    const userEmail = sessionStorage.getItem('email');
+    this.emailConfirm = userEmail;
+    axios
+      // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
+      .get(HOST + 'auth/MyPage/' + userEmail)
+      .then(res => {
+        // this.userInfo.userEmail(res.data);
+        // this.userInfo.push(res.data);
+        this.userInfo = res.data;
+        console.log(res);
+        console.log(this.userInfo);
+      })
+      .catch(err => console.error(err));
+  },
 };
 </script>
 

@@ -8,7 +8,7 @@
           </div>
 
           <div class="profile-user-settings">
-            <h1 class="profile-user-name">nickname</h1>
+            <h1 class="profile-user-name">{{ userInfo.uid }}</h1>
             <router-link to="/editprofile">
               <button class="btn profile-edit-btn">Edit Profile</button>
             </router-link>
@@ -21,14 +21,19 @@
           <!-- 팔로잉 팔로워 버튼 -->
           <div class="profile-stats">
             <ul>
-              <li><span class="profile-stat-count"></span><v-btn text large>123 posts</v-btn></li>
+              <li>
+                <span class="profile-stat-count"></span
+                ><v-btn text large>{{ userInfo.post_cnt }} posts</v-btn>
+              </li>
 
               <li>
                 <span class="profile-stat-count"></span>
                 <v-row justify="center">
                   <v-dialog v-model="dialog" scrollable max-width="300px">
                     <template v-slot:activator="{ on }">
-                      <v-btn text color="black" dark v-on="on">300 followers</v-btn>
+                      <v-btn text color="black" dark v-on="on"
+                        >{{ userInfo.follow_from }}followers</v-btn
+                      >
                     </template>
                     <v-card>
                       <v-card-title>Follower List</v-card-title>
@@ -61,7 +66,9 @@
                 <v-row justify="center">
                   <v-dialog v-model="dialog_f" scrollable max-width="300px">
                     <template v-slot:activator="{ on }">
-                      <v-btn text color="black" dark v-on="on">300 following</v-btn>
+                      <v-btn text color="black" dark v-on="on"
+                        >{{ userInfo.follow_to }} following</v-btn
+                      >
                     </template>
                     <v-card>
                       <v-card-title>Following List</v-card-title>
@@ -416,12 +423,17 @@
 </template>
 
 <script>
-
+const HOST = process.env.VUE_APP_SERVER_HOST;
+const axios = require('axios');
 
 export default {
   name: 'Userdetail',
   data() {
     return {
+      // 유저 정보
+      userInfo: [],
+      emailConfirm: '',
+
       text: 'center',
       icon: 'justify',
       toggle_none: null,
@@ -463,7 +475,27 @@ export default {
       ],
     };
   },
-
+  beforeCreate() {
+    // const hash = sessionStorage.getItem('jwt');
+    // const options = {
+    //   headers: {
+    //     Authorization: 'JWT ' + hash,
+    //   },
+    // };
+    const userEmail = sessionStorage.getItem('email');
+    this.emailConfirm = userEmail;
+    axios
+      // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
+      .get(HOST + 'auth/MyPage/' + userEmail)
+      .then(res => {
+        // this.userInfo.userEmail(res.data);
+        // this.userInfo.push(res.data);
+        this.userInfo = res.data;
+        console.log(res);
+        console.log(this.userInfo);
+      })
+      .catch(err => console.error(err));
+  },
 };
 </script>
 
