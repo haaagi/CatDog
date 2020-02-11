@@ -20,7 +20,7 @@ public class MyPageResponseDto {
 
     private Long uid; // User id
 
-    private String img; // User img
+    private String profileimg; // User img
 
     private String pr;  // 자기소개
 
@@ -32,19 +32,19 @@ public class MyPageResponseDto {
 
     private List<Posts> postsList; // 게시물 리스트
 
-    private List<Optional<User>> follower;
+    private List<Optional<User>> followerList;
 
-    private List<Optional<User>> folloing;
+    private List<Optional<User>> followingList;
 
     public MyPageResponseDto(Long uid, String img , Long post_cnt , Long follow_from, Long follow_to, List<Posts> postsList, List<Optional<User>> follower, List<Optional<User>> folloing) {
         this.uid = uid;
-        this.img = img;
+        this.profileimg = "";
         this.pr = "";
         this.post_cnt =  post_cnt;
         this.follow_from = follow_from;
         this.follow_to = follow_to;
         this.postsList = postsList;
-        this.follower = follower;
-        this.folloing = folloing;
+        this.followerList = follower;
+        this.followingList = folloing;
     }
 }

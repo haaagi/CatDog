@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,8 +19,9 @@ public class ChatRoomController {
 
     // 채팅 리스트 화면
     @GetMapping("/room")
-    public String rooms(Model model) {
-        return "room";
+    public List<ChatRoom> rooms(Model model) {
+        List<ChatRoom> chatRooms = chatRoomRepository.findAllRoom();
+        return chatRooms;
     }
     // 모든 채팅방 목록 반환
     @GetMapping("/rooms")
@@ -34,11 +36,11 @@ public class ChatRoomController {
         return chatRoomRepository.createChatRoom(name);
     }
     // 채팅방 입장 화면
-    @GetMapping("/room/enter/{roomId}")
-    public String roomDetail(Model model, @PathVariable String roomId) {
-        model.addAttribute("roomId", roomId);
-        return "roomdetail.ftl";
-    }
+//    @GetMapping("/room/enter/{roomId}")
+//    public String roomDetail(Model model, @PathVariable String roomId) {
+//        model.addAttribute("roomId", roomId);
+//        return "roomdetail.ftl";
+//    }
     // 특정 채팅방 조회
     @GetMapping("/room/{roomId}")
     @ResponseBody
