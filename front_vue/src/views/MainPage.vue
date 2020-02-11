@@ -1,15 +1,33 @@
 <template>
   <div>
     <Banner />
+    <v-container grid-list-4>
+      <v-layout row>
+        <v-card v-for="(selectedPost, i) in postList" :key="i" class="d-inline-block mx-auto">
+          <v-container>
+            <v-row justify="space-between">
+              <v-col cols="auto">
+                <v-img
+                  height="300"
+                  width="300"
+                  :src="selectedPost.img"
+                  :alt="selectedPost.nickname"
+                ></v-img>
+              </v-col>
 
-    <v-container class="grid-layout">
-      <v-img
-        class="grid-item"
-        :class="span - 3"
-        v-for="(post, i) in postList"
-        :key="i"
-        :src="post.img"
-      />
+              <v-col cols="auto" class="text-center pl-0">
+                <v-row class="flex-column ma-0 fill-height" justify="center">
+                  <v-col class="px-0">
+                    <v-btn icon class="ma-2" text color="blue lighten-2">
+                      <ModalPost :selectedPost="selectedPost" />
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -18,8 +36,13 @@
 const HOST = process.env.VUE_APP_SERVER_HOST;
 const axios = require('axios');
 import Banner from '../components/Banner.vue';
+import ModalPost from '../components/ModalPost';
 
 export default {
+  components: { Banner, ModalPost },
+  props: {
+    selectedPost: Object,
+  },
   data: () => ({
     postList: [],
     tempList: null,
@@ -27,7 +50,7 @@ export default {
     words: [],
     testIndex: 0,
   }),
-  components: { Banner },
+
   watch: {
     bottom(bottom) {
       if (bottom) {
@@ -54,12 +77,17 @@ export default {
       // console.log(res.data);
       this.postList = res.data;
       sessionStorage.setItem('post', this.postList);
-      this.tempList = this.postList.data;
+      //this.addWord();
     });
-    this.addWord();
   },
   methods: {
-    getPostList() {},
+    makeWord({ image }) {
+      console.log(image);
+      this.words.push({
+        resource: image,
+        tag: Math.random(),
+      });
+    },
     bottomVisible() {
       const docEl = document.documentElement;
       const visibleHeight = docEl.clientHeight;
@@ -69,16 +97,17 @@ export default {
       return reachedBottom || pageHeight < visibleHeight;
     },
     addWord() {
-      setTimeout(() => {
-        console.log(this.postList);
-        this.words.push({
-          resource: this.postList,
-          tag: Math.random(),
-        });
-        if (this.bottomVisible()) {
-          this.addWord();
-        }
-      }, 19);
+      this.words.push({
+        resource: this.postList,
+        tag: Math.random(),
+      });
+      //   setTimeout(() => {
+      //     console.log(this.postList);
+
+      //     if (this.bottomVisible()) {
+      //       this.addWord();
+      //     }
+      //   }, 19);
     },
   },
 };
