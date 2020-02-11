@@ -20,8 +20,15 @@ public class CommentController {
     }
 
     @PostMapping("/auth/posts/comment") // 댓글 달기
-    public Long comment(@RequestBody CommentRequestDto commentRequestDto) {
-        return commentService.save(commentRequestDto);
+    public List<Comment> comment(@RequestBody CommentRequestDto commentRequestDto) {
+        commentService.save(commentRequestDto);
+        return commentService.findAllAsc(commentRequestDto.getPid());
     }
+
+//    @DeleteMapping("/auth/posts/comment/delete")
+//    public void delete(@PathVariable ) {
+//
+//    }
+
 
 }

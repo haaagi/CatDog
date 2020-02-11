@@ -2,16 +2,16 @@ package com.catdog.springboot.web;
 
 
 import com.catdog.springboot.domain.user.LoginUser;
+import com.catdog.springboot.domain.user.User;
 import com.catdog.springboot.service.JwtService;
 import com.catdog.springboot.service.UserService;
 import com.catdog.springboot.web.dto.JwtResponseDto;
 import com.catdog.springboot.web.dto.UserSaveRequestDto;
+import com.catdog.springboot.web.dto.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -22,7 +22,6 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
-    //private final FileUploadService uploadService;
 
     @PostMapping("/api/user/signup") // 회원가입
     public Long save(@RequestBody UserSaveRequestDto requestDto) {
@@ -51,6 +50,19 @@ public class UserController {
         }
         return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
     }
+
+    @PutMapping("/auth/user/update/{nickname}")
+    public User update(@PathVariable String nickname, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        return userService.update(nickname, userUpdateRequestDto);
+    }
+
+    @DeleteMapping("/auth/user/delete/{nickname}")
+    public Long delete(@PathVariable String nickname) {
+        return userService.delete(nickname);
+    }
+
+
+
 
     @PostMapping("/auth/user/info") //유저정보
     public ResponseEntity<Map<String, Object>> getInfo(HttpServletRequest req, @RequestBody LoginUser user) {

@@ -1,6 +1,7 @@
 package com.catdog.springboot.domain.user;
 
 import com.catdog.springboot.domain.BaseTimeEntity;
+import com.catdog.springboot.web.dto.UserUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,22 +54,34 @@ public class User extends BaseTimeEntity {
 
 
     @Builder
-    public User(String email, String password,String name, String nickname,String birthday,String img,String likepet,String mypet, String phonenumber, Role role) {
+    public User(String email, String password,String name, String nickname,String birthday,String likepet,String mypet, String phonenumber, Role role) {
 
         this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
         this.birthday = birthday;
-        this.img = img;
         this.likepet = likepet;
         this.mypet = mypet;
         this.phonenumber = phonenumber;
         this.role = role;
     }
-
-    public User update( String img) {
+    public User authUpdate(String img){
         this.img = img;
+        return this;
+    }
+
+    public User update(UserUpdateRequestDto userUpdateRequestDto) {
+
+        this.password = userUpdateRequestDto.getPassword();
+        this.name = userUpdateRequestDto.getName();
+        this.nickname = userUpdateRequestDto.getNickname();
+        this.pr = userUpdateRequestDto.getPr();
+        this.birthday = userUpdateRequestDto.getBirthday();
+        this.img = userUpdateRequestDto.getImg();
+        this.likepet = userUpdateRequestDto.getLikePet();
+        this.mypet = userUpdateRequestDto.getMyPet();
+        this.phonenumber = userUpdateRequestDto.getPhoneNumber();
         return this;
     }
 

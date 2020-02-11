@@ -15,11 +15,11 @@ public class Tags {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tid;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "pid")
     private Posts posts;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "hid")
     private Hashtags hashtags;
 

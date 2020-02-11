@@ -12,22 +12,18 @@ import lombok.NoArgsConstructor;
 public class CommentRequestDto {
     private Long pid;
     private String nickname;
-    private String content;
-
+    private String contents;
     @Builder
-    public CommentRequestDto(Long pid, String nickname, String content) {
+    public CommentRequestDto(Long pid, String nickname, String contents) {
         this.pid = pid;
         this.nickname = nickname;
-        this.content = content;
+        this.contents = contents;
     }
-
-    public Comment toEntity(User user, Posts posts) {
+    public Comment toEntity(User user, Posts posts, String content) {
         return Comment.builder()
                 .posts(posts)
                 .user(user)
                 .content(content)
                 .build();
     }
-
-
 }

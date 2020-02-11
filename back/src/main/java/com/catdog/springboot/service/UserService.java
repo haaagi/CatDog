@@ -6,6 +6,7 @@ import com.catdog.springboot.domain.user.Role;
 import com.catdog.springboot.domain.user.User;
 import com.catdog.springboot.domain.user.UserRepository;
 import com.catdog.springboot.web.dto.UserSaveRequestDto;
+import com.catdog.springboot.web.dto.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +40,17 @@ public class UserService {
     }
 
     @Transactional
-    public User update(String filename, String email) {
-        User user = userRepository.findByEmail(email).orElse(null);
-        System.out.println(filename);
-        return user.update(filename);
+    public User update(String nickname, UserUpdateRequestDto userUpdateRequestDto) {
+        User user = userRepository.findByNickname(nickname).orElse(null);
+        user.update(userUpdateRequestDto);
+        return user;
+    }
+
+    @Transactional
+    public Long delete(String nickname) {
+        User user = userRepository.findByNickname(nickname).orElse(null);
+        System.out.println(user.getName());
+        userRepository.delete(user);
+        return 1L;
     }
 }

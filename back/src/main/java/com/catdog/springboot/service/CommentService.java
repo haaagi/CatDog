@@ -22,7 +22,6 @@ public class CommentService {
 
     @Transactional
     public List<Comment> findAllAsc(Long pid) {
-        System.out.println("service");
         return commentRepository.findAllByPostsPid(pid);
     }
 
@@ -30,6 +29,7 @@ public class CommentService {
     public Long save(CommentRequestDto requestDto) {
         User user = userRepository.findByNickname(requestDto.getNickname()).orElse(null);
         Posts post = postsRepository.findByPid(requestDto.getPid());
-        return commentRepository.save(requestDto.toEntity(user, post)).getCid();
+        return commentRepository.save(requestDto.toEntity(user, post, requestDto.getContents())).getCid();
     }
+
 }

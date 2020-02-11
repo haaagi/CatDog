@@ -18,11 +18,11 @@ public class Likes extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lid;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "uid")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "pid")
     private Posts posts;
 
@@ -31,7 +31,4 @@ public class Likes extends BaseTimeEntity {
         this.user = user;
         this.posts = posts;
     }
-
-
-
 }

@@ -18,15 +18,20 @@ public class PostsApiController {
         return postsService.findAll();
     }
 
-    @GetMapping("/auth/posts/Myposts/{nickname}")
-    public List<PostsListResponseDto> mylist(@PathVariable String nickname) {
-        return postsService.findAll();
+    @GetMapping("/api/posts/postdetail/{pid}")
+    public PostsResponseDto detail(@PathVariable Long pid) {
+        return postsService.detail(pid);
     }
 
     @PostMapping("/auth/posts/posting") // 게시글 업로드
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
     }
+
+//    @GetMapping("/api/posts/{nickname}") //해당 닉네임 유저 페이지
+//    public List<PostsListResponseDto> findByNickname(@PathVariable String nickname) {
+//        return postsService.findByNickname(nickname);
+//    }
 
     @PutMapping("/auth/posts/update/{id}") // 게시글 수정 (아직 구현 안됨)
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
@@ -43,13 +48,4 @@ public class PostsApiController {
     public Long likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
         return postsService.likesup(likesupRequestDto);
     }
-
-
-//        필요한 앤지 잘 모르겠음 일단 살려는 둠
-//    @GetMapping("/api/posts/{id}")
-//    public PostsResponseDto findById(@PathVariable Long id) {
-//        return postsService.findById(id);
-//    }
-
-
 }
