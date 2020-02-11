@@ -1,11 +1,15 @@
 package com.catdog.springboot.web;
 
 
+import com.catdog.springboot.domain.hashtag.HashtagsRepository;
 import com.catdog.springboot.domain.user.LoginUser;
 import com.catdog.springboot.domain.user.User;
+
+import com.catdog.springboot.domain.user.UserRepository;
 import com.catdog.springboot.service.JwtService;
 import com.catdog.springboot.service.UserService;
 import com.catdog.springboot.web.dto.JwtResponseDto;
+import com.catdog.springboot.web.dto.SearchRequestDto;
 import com.catdog.springboot.web.dto.UserSaveRequestDto;
 import com.catdog.springboot.web.dto.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +19,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final HashtagsRepository hashtagsRepository;
 
     @PostMapping("/api/user/signup") // 회원가입
     public Long save(@RequestBody UserSaveRequestDto requestDto) {
@@ -50,7 +58,6 @@ public class UserController {
         }
         return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
     }
-
     @PutMapping("/auth/user/update/{nickname}")
     public User update(@PathVariable String nickname, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         return userService.update(nickname, userUpdateRequestDto);
@@ -60,9 +67,6 @@ public class UserController {
     public Long delete(@PathVariable String nickname) {
         return userService.delete(nickname);
     }
-
-
-
 
     @PostMapping("/auth/user/info") //유저정보
     public ResponseEntity<Map<String, Object>> getInfo(HttpServletRequest req, @RequestBody LoginUser user) {
@@ -81,6 +85,15 @@ public class UserController {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    }
+
+    @GetMapping("/auth/user/search/{keyword}")
+    public SearchRequestDto Search(@PathVariable String keyword) {
+
+        List<Optional<User>> userList = userRepository.searchuser(keyword);
+        List<String> tagList = hashtagsRepository.searchtag(keyword);
+        SearchRequestDto searchRequestDto = new SearchRequestDto(userList, tagList);
+        return searchRequestDto;
     }
 
 }
