@@ -17,11 +17,11 @@ public class Comment extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cid; // Comment ID
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "uid") // 유저 번호
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "pid") // 게시글 번호
     private Posts posts;
 
@@ -35,5 +35,9 @@ public class Comment extends BaseTimeEntity {
         this.posts = posts;
         this.content = content;
 
+    }
+
+    public void update(String content) {
+        this.content = content;
     }
 }

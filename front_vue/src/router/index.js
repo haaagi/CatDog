@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
-import ModalPost from '../views/ModalPost.vue';
+import ModalPost from '../components/ModalPost.vue';
 // import BoardDetail from '../components/common/BoardDetail.vue';
 import MainPage from '../views/MainPage.vue';
 import TodoPage from '../views/TodoPage.vue';
@@ -16,6 +16,8 @@ import Info from '../views/Info.vue';
 import infoPomeranian from '../components/pet/pomeranian.vue';
 import ChatDetail from '../components/chat/ChatDetail.vue';
 import Chat from '../views/Chat.vue';
+import FollowDetail from '../views/FollowDetail.vue';
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -94,6 +96,10 @@ const router = new VueRouter({
       path: '/chat/detail/:id',
       name: 'roomid',
       component: ChatDetail,
+      path: '/followdetail/:nickname',
+      name: 'followdetail',
+      component: FollowDetail,
+      props: true,
     },
   ],
 });

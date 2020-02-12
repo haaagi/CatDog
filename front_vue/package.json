@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@stomp/stompjs": "^5.4.3",
+    "@mdi/font": "^4.9.95",
+    "@mdi/js": "^4.9.95",
     "@trevoreyre/autocomplete-vue": "^2.1.0",
     "axios": "^0.19.2",
     "core-js": "^3.4.4",

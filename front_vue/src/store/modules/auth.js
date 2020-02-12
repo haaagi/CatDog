@@ -65,6 +65,8 @@ const actions = {
   logout: ({ commit }) => {
     commit('setToken', null);
     sessionStorage.removeItem('jwt');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('nickname');
     router.push('/login');
   },
   pushError: ({ commit }, error) => {

@@ -2,12 +2,17 @@
   <div>
     <v-card-text style="height: 600px;">
       <v-col cols="12" md="4">
-        <v-avatar size="80">
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="nickname" />
-        </v-avatar>
+        <div v-if="userInfo.profileimg === null">
+          <v-avatar size="80"> <v-icon>mdi-dog</v-icon> </v-avatar>
+        </div>
+        <div v-else>
+          <v-avatar size="80">
+            <img :src="userInfo.profileimg" :alt="userInfo.nickname" />
+          </v-avatar>
+        </div>
 
         <p class="font-weight-black title" style="margin-bottom: 1px; margin-top: 5px;">
-          Nick Name
+          {{ userInfo.nickname }}
         </p>
         <ImgEditButton />
       </v-col>
@@ -21,17 +26,24 @@
               :counter="20"
               label="Nick Name"
               required
+              :placeholder="userInfo.nickname"
             >
             </v-text-field>
           </v-col>
 
           <v-col>
-            <v-text-field v-model="phoneNumber" :rules="phoneRules" label="Phone Number" required>
+            <v-text-field
+              v-model="phoneNumber"
+              :rules="phoneRules"
+              label="자기소개"
+              required
+              :placeholder="userInfo.pr"
+            >
             </v-text-field>
           </v-col>
         </v-flex>
 
-        <v-flex lg5>
+        <!-- <v-flex lg5>
           <v-col>
             <v-container fluid>
               <v-row>
@@ -63,7 +75,7 @@
               </v-row>
             </v-container>
           </v-col>
-        </v-flex>
+        </v-flex> -->
       </v-layout>
 
       <v-btn class="mr-4" :click="save">save</v-btn>
@@ -90,17 +102,17 @@ export default {
     // nick name 유효성 검사
     nameRules: [
       v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters',
+      v => v.length <= 1 || 'Name must be less than 10 characters',
     ],
 
     img: '',
 
-    phoneNumber: '',
-    // phone number 유효성 검사
-    phoneRules: [
-      v => !!v || '핸드폰 번호를 입력해주세요',
-      v => /^\d{3}-\d{3,4}-\d{4}$/.test(v) || '적합한 핸드폰 번호 형식이 아닙니다.',
-    ],
+    // phoneNumber: '',
+    // // phone number 유효성 검사
+    // phoneRules: [
+    //   v => !!v || '핸드폰 번호를 입력해주세요',
+    //   v => /^\d{3}-\d{3,4}-\d{4}$/.test(v) || '적합한 핸드폰 번호 형식이 아닙니다.',
+    // ],
 
     // email 유효성 검사
     // email: '',
@@ -112,20 +124,10 @@ export default {
   }),
   methods: {},
   beforeCreate() {
-    // const hash = sessionStorage.getItem('jwt');
-    // const options = {
-    //   headers: {
-    //     Authorization: 'JWT ' + hash,
-    //   },
-    // };
-    const userEmail = sessionStorage.getItem('email');
-    this.emailConfirm = userEmail;
+    const userNickname = sessionStorage.getItem('nickname');
     axios
-      // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
-      .get(HOST + 'auth/MyPage/' + userEmail)
+      .get(HOST + 'auth/userPage/' + userNickname)
       .then(res => {
-        // this.userInfo.userEmail(res.data);
-        // this.userInfo.push(res.data);
         this.userInfo = res.data;
         console.log(res);
         console.log(this.userInfo);

@@ -25,7 +25,7 @@ public class Posts extends BaseTimeEntity {
     @Column
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JsonBackReference
     @JoinColumn(name = "uid")
     private User user;

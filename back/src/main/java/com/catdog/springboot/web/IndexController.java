@@ -3,11 +3,9 @@ package com.catdog.springboot.web;
 import com.catdog.springboot.config.auth.LoginUser;
 import com.catdog.springboot.config.auth.dto.SessionUser;
 import com.catdog.springboot.service.PostsService;
-import com.catdog.springboot.web.dto.PostsResponseDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -62,13 +60,13 @@ public class IndexController {
         return "posts-signin";
     }
 
-    @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model) {
-        PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("post",dto);
-
-        return "posts-update";
-    }
+//    @GetMapping("/posts/update/{id}")
+//    public String postsUpdate(@PathVariable Long id, Model model) {
+//        PostsResponseDto dto = postsService.findById(id);
+//        model.addAttribute("post",dto);
+//
+//        return "posts-update";
+//    }
 
     @GetMapping("/user/save")
     public String userSave() { return "user-save"; }

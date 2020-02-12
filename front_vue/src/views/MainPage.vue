@@ -2,28 +2,56 @@
   <div>
     <Banner />
 
-    <v-container class="grid-layout">
-      <v-img
-        class="grid-item"
-        :class="[word.tag > 0.8 ? (word.tag > 0.9 ? 'span-3' : 'span-2') : '']"
-        v-for="(word, i) in words"
-        :key="i"
-        :src="word.resource"
-      />
+    <v-container grid-list-4>
+      <v-layout row>
+        <v-card v-for="(selectedPost, i) in postList" :key="i" class="d-inline-block mx-auto">
+          <v-container>
+            <v-row justify="space-between">
+              <v-col cols="auto">
+                <v-img
+                  height="300"
+                  width="300"
+                  :src="selectedPost.img"
+                  :alt="selectedPost.nickname"
+                ></v-img>
+              </v-col>
+
+              <v-col cols="auto" class="text-center pl-0">
+                <v-row class="flex-column ma-0 fill-height" justify="center">
+                  <v-col class="px-0">
+                    <v-btn icon class="ma-2" text color="blue lighten-2">
+                      <ModalPost :selectedPost="selectedPost" />
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </v-layout>
     </v-container>
   </div>
 </template>
 
 <script>
+const HOST = process.env.VUE_APP_SERVER_HOST;
+const axios = require('axios');
 import Banner from '../components/Banner.vue';
+import ModalPost from '../components/ModalPost';
 
 export default {
+  components: { Banner, ModalPost },
+  props: {
+    selectedPost: Object,
+  },
   data: () => ({
+    postList: [],
+    tempList: null,
     bottom: false,
     words: [],
     testIndex: 0,
   }),
-  components: { Banner },
+
   watch: {
     bottom(bottom) {
       if (bottom) {
@@ -35,9 +63,31 @@ export default {
     window.addEventListener('scroll', () => {
       this.bottom = this.bottomVisible();
     });
-    this.addWord();
+    // axios.get(HOST + 'api/posts/list').then(res => {
+    //   console.log(res);
+    //   this.postList = res.data;
+    //   sessionStorage.setItem('post', this.postList);
+    //   this.tempList = this.postList.data;
+    // });
+    // this.addWord();
+  },
+  mounted() {
+    axios.get(HOST + 'api/posts/list').then(res => {
+      // console.log(res);
+      // console.log(res.data);
+      this.postList = res.data;
+      sessionStorage.setItem('post', this.postList);
+      //this.addWord();
+    });
   },
   methods: {
+    makeWord({ image }) {
+      console.log(image);
+      this.words.push({
+        resource: image,
+        tag: Math.random(),
+      });
+    },
     bottomVisible() {
       const docEl = document.documentElement;
       const visibleHeight = docEl.clientHeight;
@@ -47,15 +97,17 @@ export default {
       return reachedBottom || pageHeight < visibleHeight;
     },
     addWord() {
-      setTimeout(() => {
-        this.words.push({
-          resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
-          tag: Math.random(),
-        });
-        if (this.bottomVisible()) {
-          this.addWord();
-        }
-      }, 10);
+      this.words.push({
+        resource: this.postList,
+        tag: Math.random(),
+      });
+      //   setTimeout(() => {
+      //     console.log(this.postList);
+
+      //     if (this.bottomVisible()) {
+      //       this.addWord();
+      //     }
+      //   }, 19);
     },
   },
 };
@@ -64,11 +116,10 @@ export default {
 <style scoped>
 .grid-layout {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px;
-  grid-auto-flow: row dense;
+  grid-auto-flow: dense;
   padding: 15px;
-  grid-column-end: auto;
 }
 .grid-item {
   padding: 1rem;
@@ -81,9 +132,5 @@ export default {
 .span-3 {
   grid-column-end: span 3;
   grid-row-end: span 3;
-}
-.feed-grid {
-  padding-right: 150px;
-  padding-left: 150px;
 }
 </style>

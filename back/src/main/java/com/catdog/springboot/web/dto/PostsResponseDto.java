@@ -1,17 +1,15 @@
 package com.catdog.springboot.web.dto;
 
-import com.catdog.springboot.domain.posts.Posts;
+import com.catdog.springboot.domain.comment.Comment;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class PostsResponseDto {
-    private Long id;
-    private String img;
-    private String content;
+  private List<Comment> comment;
 
-    public PostsResponseDto(Posts entity) {
-        this.id = entity.getPid();
-        this.img = entity.getImg();
-        this.content = entity.getContent();
+    public PostsResponseDto(List comment) {
+        this.comment = comment;
     }
 }

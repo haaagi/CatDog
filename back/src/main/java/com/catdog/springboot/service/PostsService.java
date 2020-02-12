@@ -2,10 +2,12 @@ package com.catdog.springboot.service;
 
 import com.catdog.springboot.domain.comment.Comment;
 import com.catdog.springboot.domain.comment.CommentRepository;
+import com.catdog.springboot.domain.follow.FollowRepository;
 import com.catdog.springboot.domain.hashtag.Hashtags;
 import com.catdog.springboot.domain.hashtag.HashtagsRepository;
 import com.catdog.springboot.domain.hashtag.Tags;
 import com.catdog.springboot.domain.hashtag.TagsRepository;
+import com.catdog.springboot.domain.likes.Likes;
 import com.catdog.springboot.domain.likes.LikesRepository;
 import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.posts.PostsRepository;
@@ -29,6 +31,7 @@ public class PostsService {
     private final HashtagsRepository hashtagsRepository;
     private final TagsRepository tagsRepository;
     private final CommentRepository commentRepository;
+    private final FollowRepository followRepository;
     @Transactional
     public List<PostsListResponseDto> findAll() {
         List<PostsListResponseDto> postlist = new ArrayList<PostsListResponseDto>();
@@ -41,7 +44,6 @@ public class PostsService {
                 String contents = posts.get(i).getContent();
                 List<String> hashtags = new ArrayList<>();
                 List<Tags> tags = tagsRepository.findAllByPostsPid(pid);
-                List<Comment> comments = commentRepository.findAllByPostsPid(pid);
                 Long likecount = likesRepository.countLikesByPostsPid(pid);
                 String date = posts.get(i).getModifiedDate().toString();
                 if(tags != null) {
@@ -49,19 +51,18 @@ public class PostsService {
                         hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
-                postlist.add(new PostsListResponseDto(pid, nickname, img, contents, hashtags, comments, date, likecount));
+                postlist.add(new PostsListResponseDto(pid, nickname, img, contents, hashtags, date, likecount));
             }
         }
-
-
         return postlist; //이거 잘 리턴되는지 봐야함
-//
-//                postsRepository.findAllByOrderByCreatedDateDesc().stream()
-//                .map(PostsListResponseDto::new)
-//                .collect(Collectors.toList());
     }
 
-
+    @Transactional
+    public PostsResponseDto detail(Long pid) {
+        List<Comment> comments = commentRepository.findAllByPostsPid(pid);
+        PostsResponseDto postsResponseDto = new PostsResponseDto(comments);
+        return postsResponseDto;
+    }
 
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) { // 게시글 게시 요청
@@ -113,15 +114,6 @@ public class PostsService {
         return pid;
     }
 
-    public PostsResponseDto findById(Long pid) {
-
-        Posts entity = postsRepository.findById(pid)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + pid));
-
-        return new PostsResponseDto(entity);
-    }
-
-
     @Transactional
     public void delete(Long id) {
         Posts posts = postsRepository.findById(id)
@@ -139,19 +131,14 @@ public class PostsService {
 
     @Transactional
     public Long likesup(PostsLikesupRequestDto likesupRequestDto) {
-        User user = userRepository.findByEmail(likesupRequestDto.getEmail()).orElse(null);
-        Posts posts = postsRepository.findById(likesupRequestDto.getPid()).orElse(null);
-        return likesRepository.save(likesupRequestDto.toEntity(user, posts)).getLid();
-    }
 
-//    @Transactional
-//    public void savehashtag(String tags) {
-//        Hashtags hashtags = hashtagsRepository.findByContent(tags);
-//        if(hashtags == null) {
-//            hashtagsRepository.save(hashtags.builder().content(tags).build());
-//        }else {
-//
-//        }
-//
-//    }
+        User user = userRepository.findByNickname(likesupRequestDto.getNickname()).orElse(null);
+        Posts posts = postsRepository.findById(likesupRequestDto.getPid()).orElse(null);
+        Likes likes = likesRepository.findByPostsPidAndUserUid(posts.getPid(), user.getUid());
+        if(likes != null) {
+            return likesRepository.deleteLikesByLid(likes.getLid())-2;
+        }else {
+            return likesRepository.save(Likes.builder().user(user).posts(posts).build()).getLid();
+        }
+    }
 }

@@ -20,8 +20,22 @@ public class CommentController {
     }
 
     @PostMapping("/auth/posts/comment") // 댓글 달기
-    public Long comment(@RequestBody CommentRequestDto commentRequestDto) {
-        return commentService.save(commentRequestDto);
+    public List<Comment> comment(@RequestBody CommentRequestDto commentRequestDto) {
+        commentService.save(commentRequestDto);
+        return commentService.findAllAsc(commentRequestDto.getPid());
     }
+
+    @DeleteMapping("/auth/posts/comment/delete/{pid}/{cid}") //병학이랑 얘기해봐야하는것
+    public List<Comment> delete(@PathVariable Long pid, @PathVariable Long cid) {
+        commentService.delete(cid);
+        return commentService.findAllAsc(pid);
+    }
+
+//    댓글 수정 할지말지 의논하기
+//    @PutMapping("/auth/posts/comment/update/{pid}/{cid}")
+//    public List<Comment> update(@PathVariable Long pid, @PathVariable Long cid) {
+//        commentService.update(cid);
+//        return commentService.findAllAsc(pid);
+//    }
 
 }
