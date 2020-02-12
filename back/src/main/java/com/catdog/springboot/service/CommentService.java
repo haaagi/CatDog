@@ -32,4 +32,10 @@ public class CommentService {
         return commentRepository.save(requestDto.toEntity(user, post, requestDto.getContents())).getCid();
     }
 
+    @Transactional
+    public void delete(Long cid) {
+        Comment comment = commentRepository.findById(cid).orElse(null);
+        commentRepository.delete(comment);
+    }
+
 }

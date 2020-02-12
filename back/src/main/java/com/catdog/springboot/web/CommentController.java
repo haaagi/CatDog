@@ -25,10 +25,17 @@ public class CommentController {
         return commentService.findAllAsc(commentRequestDto.getPid());
     }
 
-//    @DeleteMapping("/auth/posts/comment/delete")
-//    public void delete(@PathVariable ) {
-//
-//    }
+    @DeleteMapping("/auth/posts/comment/delete/{pid}/{cid}") //병학이랑 얘기해봐야하는것
+    public List<Comment> delete(@PathVariable Long pid, @PathVariable Long cid) {
+        commentService.delete(cid);
+        return commentService.findAllAsc(pid);
+    }
 
+//    댓글 수정 할지말지 의논하기
+//    @PutMapping("/auth/posts/comment/update/{pid}/{cid}")
+//    public List<Comment> update(@PathVariable Long pid, @PathVariable Long cid) {
+//        commentService.update(cid);
+//        return commentService.findAllAsc(pid);
+//    }
 
 }
