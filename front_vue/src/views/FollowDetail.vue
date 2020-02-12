@@ -9,9 +9,9 @@
 
           <div class="profile-user-settings">
             <h1 class="profile-user-name">{{ userInfo.nickname }}</h1>
-            <router-link to="/editprofile">
-              <button class="btn profile-edit-btn">Edit Profile</button>
-            </router-link>
+            <v-btn class="ma-2" outlined color="blue" @click="onClickFollow(userInfo.nickname)"
+              >팔로우</v-btn
+            >
 
             <button class="btn profile-settings-btn" aria-label="profile settings">
               <i class="fas fa-cog" aria-hidden="true"></i>
@@ -205,17 +205,29 @@ export default {
       dialog_f: false,
     };
   },
-  beforeCreate() {
-    const userNickname = sessionStorage.getItem('nickname');
+  mounted() {
     axios
-      // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
-      .get(HOST + 'auth/userPage/' + userNickname)
+      .get(HOST + 'auth/userPage/' + this.$route.params.nickname)
       .then(res => {
+        // let list = res.data;
+        // this.userInfo = list;
         this.userInfo = res.data;
-        console.log(res);
         console.log(this.userInfo);
+        // const follower = sessionStorage.getItem('nickname');
+        // console.log(follower, this.$route.params.nickname);
       })
       .catch(err => console.error(err));
+  },
+  methods: {
+    onClickFollow(following) {
+      const follower = sessionStorage.getItem('nickname');
+      axios
+        .get(HOST + 'auth/follow/save/' + follower + '/' + following)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => console.error(err));
+    },
   },
 };
 </script>

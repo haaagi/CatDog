@@ -12,7 +12,7 @@
           <li><a href="/main">Home</a></li>
           <li><a href="/userdetail">Blog</a></li>
           <li><a href="/info">강아지 소개</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="/userdetail">Userdeail</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>

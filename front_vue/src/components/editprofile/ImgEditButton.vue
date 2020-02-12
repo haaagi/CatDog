@@ -14,6 +14,7 @@
             프로필 사진 변경
           </v-card-title>
 
+          <!-- 프로필사진버튼 리스트 -->
           <v-card-text>
             <v-list dense>
               <v-list-item-group v-model="item" color="primary">
@@ -39,10 +40,11 @@
                           placeholder="Pick an avatar"
                           prepend-icon="mdi-camera"
                           label="Avatar"
+                          @change="onSave($event)"
                         >
                         </v-file-input>
                       </div>
-                      <v-btn color="primary" text @click="submit">submit</v-btn>
+                      <v-btn color="primary" text @click="onSubmit">submit</v-btn>
                     </v-container>
                   </v-sheet>
                 </v-bottom-sheet>
@@ -74,13 +76,50 @@
 </template>
 
 <script>
+const axios = require('axios');
+const HOST = process.env.VUE_APP_SERVER_HOST;
+
 export default {
   name: 'ImgEditButton',
   data: () => ({
     // 프로필 사진 수정 버튼 관련 data
     dialog: false,
     sheet: false,
+
+    //
+    profileFile: '',
   }),
+  methods: {
+    onSubmit() {
+      const userNickname = sessionStorage.getItem('nickname');
+      axios
+        .put(HOST + 'auth/user/update/' + userNickname, { profileimg: this.profileFile })
+        .then(res => {
+          console.log(res);
+        });
+    },
+    onSave(event) {
+      console.log(event);
+      let fd = new FormData();
+      fd.append('image', event);
+      for (let key of fd.entries()) {
+        console.log(key[0] + ' ' + key[1]);
+      }
+      axios
+        .post('https://api.imgur.com/3/image', fd, {
+          headers: {
+            // 'Access-Control-Allow-Origin': '*',
+            Authorization: 'Client-ID 1001abddfee2596',
+          },
+        })
+        .then(res => {
+          console.log(res);
+          console.log(res.data.data.link);
+          this.profileFile = res.data.data.link;
+          console.log(this.profileFile);
+        });
+    },
+  },
 };
 </script>
 

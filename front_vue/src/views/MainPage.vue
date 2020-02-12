@@ -116,11 +116,10 @@ export default {
 <style scoped>
 .grid-layout {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px;
-  grid-auto-flow: row dense;
+  grid-auto-flow: dense;
   padding: 15px;
-  grid-column-end: auto;
 }
 
 .grid-item {
@@ -136,9 +135,5 @@ export default {
 .span-3 {
   grid-column-end: span 3;
   grid-row-end: span 3;
-}
-.feed-grid {
-  padding-right: 150px;
-  padding-left: 150px;
 }
 </style>
