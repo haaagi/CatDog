@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="z-index=1">
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="600px">
         <template v-slot:activator="{ on }">

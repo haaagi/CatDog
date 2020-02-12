@@ -13,7 +13,9 @@ import EditProfile from '../views/EditProfile.vue';
 import Posting from '../views/Posting.vue';
 import Health from '../views/Health.vue';
 import Info from '../views/Info.vue';
-
+import infoPomeranian from '../components/pet/pomeranian.vue';
+import ChatDetail from '../components/chat/ChatDetail.vue';
+import Chat from '../views/Chat.vue';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -78,6 +80,20 @@ const router = new VueRouter({
       path: '/info',
       name: 'info',
       component: Info,
+    },
+    {
+      path: '/info/pomeranian',
+      name: 'pomeranian',
+      component: infoPomeranian,
+    },
+    {
+      path: '/chat',
+      component: Chat,
+    },
+    {
+      path: '/chat/detail/:id',
+      name: 'roomid',
+      component: ChatDetail,
     },
   ],
 });

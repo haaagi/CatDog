@@ -70,17 +70,14 @@ export default {
   padding: 15px;
   grid-column-end: auto;
 }
-
 .grid-item {
   padding: 1rem;
   border-radius: 5px;
 }
-
 .span-2 {
   grid-column-end: span 2;
   grid-row-end: span 2;
 }
-
 .span-3 {
   grid-column-end: span 3;
   grid-row-end: span 3;
