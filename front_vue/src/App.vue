@@ -1,7 +1,7 @@
 <template>
   <div id="fh5co-page">
     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
-    <aside id="fh5co-aside" role="complementary" class="border js-fullheight">
+    <aside id="fh5co-aside" role="complementary" class="border js-fullheight" style="z-index:1">
       <h1 id="fh5co-logo">
         <a href="/"
           ><center><img src="../src/assets/logo.png" style="width:180px" /></center
@@ -27,6 +27,7 @@
 
 <script>
 // import Board from './views/Board';
+
 import Posting from './views/Posting';
 import { mapState, mapGetters, mapActions } from 'vuex';
 export default {

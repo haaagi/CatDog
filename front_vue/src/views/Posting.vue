@@ -70,6 +70,7 @@ export default {
   name: 'Posting',
   data() {
     return {
+      postList: [],
       dialog: false,
       postingFile: {
         nickname: '',
@@ -80,18 +81,23 @@ export default {
     };
   },
   methods: {
+    onSubmit() {
+      this.postingFile.nickname = sessionStorage.getItem('nickname');
+      axios.post(HOST + 'auth/posts/posting', this.postingFile).then(res => {
+        console.log(res);
+        this.dialog = false;
+        this.postingFile.content = null;
+        this.postingFile.img = null;
+        this.postingFile.hashtags = null;
+        this.$refs.fileInput.value = '';
+      });
+    },
     reset() {
       this.dialog = false;
       this.postingFile.content = null;
       this.postingFile.img = null;
       this.postingFile.hashtags = null;
       this.$refs.fileInput.value = '';
-    },
-    onSubmit() {
-      this.postingFile.nickname = sessionStorage.getItem('nickname');
-      axios.post(HOST + 'auth/posts/posting', this.postingFile).then(res => {
-        console.log(res);
-      });
     },
     onSave(event) {
       console.log(event);

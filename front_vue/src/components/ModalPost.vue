@@ -10,7 +10,7 @@
       <v-card justify-center>
         <v-row>
           <v-col>
-            <v-img :src="selectedPost.img"></v-img>
+            <v-img aspect-ratio="1" :src="selectedPost.img"></v-img>
           </v-col>
 
           <v-col>
@@ -34,19 +34,17 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn text color="deep-purple accent-4">Read</v-btn>
-              <v-btn text color="deep-purple accent-4">Bookmark</v-btn>
               <v-spacer></v-spacer>
               <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
+                <v-icon>{{ icons.mdiPencil }}</v-icon>
               </v-btn>
               <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
+                <v-icon>{{ icons.mdiDelete }}</v-icon>
               </v-btn>
             </v-card-actions>
             <hr />
             <v-container>
-              <v-col cols="12" sm="10">
+              <v-col cols="12" sm="9">
                 <v-text-field
                   v-model="review.contents"
                   label="댓글을 남겨주세요"
@@ -54,20 +52,18 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="2">
-                <v-btn @click="reviewSubmit">제출</v-btn>
+                <v-btn icon @click="reviewSubmit">
+                  <v-icon>{{ mdiArrowRightBoldBox }}</v-icon>
+                </v-btn>
               </v-col>
-
-              <v-list three-line v-for="(item, index) in items" :key="index">
-                <!-- <v-list-item-avatar>
-                  <v-img :src="item.avatar"></v-img>
-                </v-list-item-avatar> -->
-
-                <v-list-item-content>
-                  <v-list-item-title v-html="item.nickname"></v-list-item-title>
-                  <v-list-item-title v-html="item.content"></v-list-item-title>
-                </v-list-item-content>
-              </v-list>
             </v-container>
+            <v-list three-line v-for="(item, index) in items" :key="index">
+              <v-list-item-content>
+                <v-list-item-subtitle v-html="item.user.nickname"></v-list-item-subtitle>
+
+                <v-list-item-title v-html="item.content"></v-list-item-title>
+              </v-list-item-content>
+            </v-list>
           </v-col>
         </v-row>
       </v-card>
@@ -76,6 +72,7 @@
 </template>
 
 <script>
+import { mdiAccount, mdiPencil, mdiDelete, mdiArrowRightBoldBox } from '@mdi/js';
 const axios = require('axios');
 const HOST = process.env.VUE_APP_SERVER_HOST;
 export default {
@@ -85,6 +82,12 @@ export default {
   },
   data() {
     return {
+      icons: {
+        mdiAccount,
+        mdiPencil,
+        mdiDelete,
+        mdiArrowRightBoldBox,
+      },
       review: {
         pid: this.selectedPost.pid,
         nickname: this.selectedPost.nickname,
@@ -106,7 +109,7 @@ export default {
         console.log(res.data);
         this.items = res.data;
         console.log(this.items);
-        this.review.content = null;
+        this.review.contents = null;
       });
     },
   },

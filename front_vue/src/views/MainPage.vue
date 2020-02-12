@@ -1,6 +1,7 @@
 <template>
   <div>
     <Banner />
+
     <v-container grid-list-4>
       <v-layout row>
         <v-card v-for="(selectedPost, i) in postList" :key="i" class="d-inline-block mx-auto">
@@ -64,7 +65,6 @@ export default {
     });
     // axios.get(HOST + 'api/posts/list').then(res => {
     //   console.log(res);
-    //   console.log(res.data);
     //   this.postList = res.data;
     //   sessionStorage.setItem('post', this.postList);
     //   this.tempList = this.postList.data;
