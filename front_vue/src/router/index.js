@@ -13,6 +13,7 @@ import EditProfile from '../views/EditProfile.vue';
 import Posting from '../views/Posting.vue';
 import Health from '../views/Health.vue';
 import Info from '../views/Info.vue';
+import FollowDetail from '../views/FollowDetail.vue';
 
 Vue.use(VueRouter);
 
@@ -78,6 +79,12 @@ const router = new VueRouter({
       path: '/info',
       name: 'info',
       component: Info,
+    },
+    {
+      path: '/followdetail/:nickname',
+      name: 'followdetail',
+      component: FollowDetail,
+      props: true,
     },
   ],
 });

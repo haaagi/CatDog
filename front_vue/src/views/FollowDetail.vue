@@ -8,9 +8,9 @@
           </div>
 
           <div class="profile-user-settings">
-            <h1 class="profile-user-name">{{ userInfo.nickname }}</h1>
+            <h1 class="profile-user-name">{{ userInfo }}</h1>
             <router-link to="/editprofile">
-              <button class="btn profile-edit-btn">Edit Profile</button>
+              <!-- <button class="btn profile-edit-btn">Edit Profile</button> -->
             </router-link>
 
             <button class="btn profile-settings-btn" aria-label="profile settings">
@@ -59,14 +59,7 @@
                             </v-list-item-avatar>
 
                             <v-list-item-content>
-                              <router-link
-                                :to="{
-                                  name: 'followdetail',
-                                  params: { nickname: follower.nickname },
-                                }"
-                              >
-                                <v-list-item-title>{{ follower.nickname }}</v-list-item-title>
-                              </router-link>
+                              <v-list-item-title>{{ follower.nickname }}</v-list-item-title>
                             </v-list-item-content>
                           </v-list-item>
                         </v-list>
@@ -113,6 +106,7 @@
                             </v-list-item-avatar>
 
                             <v-list-item-content>
+                              <!-- <router-link :to="/followdetail/${following.nickname}"> -->
                               <router-link
                                 :to="{
                                   name: 'followdetail',
@@ -145,35 +139,102 @@
       <!-- End of container -->
     </header>
 
+    <!-- 메뉴 버튼 -->
+    <!-- <div class="menu-btn">
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" sm="6" class="py-2">
+            <v-btn-toggle v-model="icon" borderless>
+              <v-btn value="history">
+                <v-icon>mdi-clock</v-icon>
+                <span>HISTORY</span>
+              </v-btn>
+
+              <v-btn value="post">
+                <v-icon>mdi-image</v-icon>
+                <span>POSTING</span>
+              </v-btn>
+            </v-btn-toggle>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div> -->
+
     <main>
       <div class="container">
         <div class="gallery">
-          <div class="gallery-item" tabindex="0">
-            <img
-              src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
-              class="gallery-image"
-              alt=""
-            />
+          <!-- 사용자가 업로드한 사진 -->
+          <div
+            class="gallery-item"
+            tabindex="0"
+            v-for="posting in userInfo.postsList"
+            :key="posting.img"
+          >
+            <v-img :src="posting.img" class="gallery-image" alt="" @click.stop="dialog_p = true" />
 
             <!-- <div class="gallery-item-info">
               <ul>
                 <li class="gallery-item-likes">
-                  <span class="visually-hidden">Likes:</span
-                  ><i class="fas fa-heart" aria-hidden="true"></i> 56
+                  <span class="visually-hidden"></span>
+                  <v-icon color="red" aria-hidden="true">mdi-heart</v-icon> 좋아요 갯수
                 </li>
                 <li class="gallery-item-comments">
                   <span class="visually-hidden">Comments:</span
-                  ><i class="fas fa-comment" aria-hidden="true"></i> 2
+                  ><i class="fas fa-comment" aria-hidden="true"></i> 댓글 갯수
                 </li>
               </ul>
             </div> -->
-          </div>
-          <!--  -->
-        </div>
-        <!-- End of gallery -->
+            <v-dialog v-model="dialog_p">
+              <v-card>
+                <v-row>
+                  <v-col>
+                    <v-img :src="posting.img"></v-img>
+                  </v-col>
 
-        <!-- <div class="loader"></div> -->
+                  <v-col>
+                    <v-list-item>
+                      <v-list-item-avatar color="grey"></v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title class="headline">팔로워의 아이디</v-list-item-title>
+                        <v-list-item-subtitle>개시일</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-card-text>
+                      Visit ten places on our planet that are undergoing the biggest changes
+                      today.Visit ten places on our planet that are undergoing the biggest changes
+                      today.Visit ten places on our planet that are undergoing the biggest changes
+                      today.Visit ten places on our planet that are undergoing the biggest changes
+                      today.Visit ten places on our planet that are undergoing the biggest changes
+                      today.Visit ten places on our planet that are undergoing the biggest changes
+                      today.Visit ten places on our planet that are undergoing the biggest changes
+                      today.Visit ten places on our planet that are undergoing the biggest changes
+                      today.
+                    </v-card-text>
+
+                    <v-card-actions>
+                      <v-btn text color="deep-purple accent-4">Read</v-btn>
+                      <v-btn text color="deep-purple accent-4">Bookmark</v-btn>
+                      <v-spacer></v-spacer>
+                      <v-btn icon>
+                        <v-icon>mdi-heart</v-icon>
+                      </v-btn>
+                      <v-btn icon>
+                        <v-icon>mdi-share-variant</v-icon>
+                      </v-btn>
+                    </v-card-actions>
+                    <hr />
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-dialog>
+          </div>
+        </div>
       </div>
+      <!-- End of gallery -->
+
+      <!-- <div class="loader"></div> -->
+
       <!-- End of container -->
     </main>
   </div>
@@ -184,12 +245,15 @@ const HOST = process.env.VUE_APP_SERVER_HOST;
 const axios = require('axios');
 
 export default {
-  name: 'Userdetail',
+  name: 'FollowDetail',
+  components: {},
   data() {
     return {
       // 유저 정보
       userInfo: [],
-      emailConfirm: '',
+
+      // 모달
+      dialog_p: false,
 
       text: 'center',
       icon: 'justify',
@@ -202,36 +266,53 @@ export default {
       dialogm1: '',
       dialog: false,
       dialog_f: false,
+
+      // 임시 팔로워 리스트
+      items: [
+        {
+          active: true,
+          title: 'Jason Oner',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+        },
+        {
+          active: true,
+          title: 'Ranee Carlson',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+        },
+        {
+          title: 'Cindy Baker',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+        },
+        {
+          title: 'Ali Connors',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+        },
+      ],
+      items2: [
+        {
+          title: 'Travis Howard',
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+        },
+      ],
     };
   },
-  beforeCreate() {
-    // const hash = sessionStorage.getItem('jwt');
-    // const options = {
-    //   headers: {
-    //     Authorization: 'JWT ' + hash,
-    //   },
-    // };
-    const userNickname = sessionStorage.getItem('nickname');
-    // this.emailConfirm = userNickname;
+  beforeMount() {
+    // const userNickname = sessionStorage.getItem('nickname');
     axios
-      // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
-      .get(HOST + 'auth/userPage/' + userNickname)
+      .get(HOST + 'auth/userPage/' + this.$route.params.nickname)
       .then(res => {
         // this.userInfo.userEmail(res.data);
         // this.userInfo.push(res.data);
         this.userInfo = res.data;
-        console.log(res);
         console.log(this.userInfo);
       })
       .catch(err => console.error(err));
   },
+  methods: {},
 };
 </script>
 
 <style scoped>
-.menu-btn {
-}
-
 /*
 
 All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310). 
