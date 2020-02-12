@@ -137,7 +137,7 @@
           </div>
 
           <div class="profile-bio">
-            <p><span class="profile-real-name">username</span>궁시렁 궁시렁</p>
+            <p><span class="profile-real-name"></span>{{ userInfo.pr }}</p>
           </div>
         </div>
         <!-- End of profile section -->
@@ -145,15 +145,17 @@
       <!-- End of container -->
     </header>
 
+    <!-- 포스팅 리스트 -->
     <main>
       <div class="container">
         <div class="gallery">
-          <div class="gallery-item" tabindex="0">
-            <img
-              src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
-              class="gallery-image"
-              alt=""
-            />
+          <div
+            class="gallery-item"
+            tabindex="0"
+            v-for="posting in userInfo.postsList"
+            :key="posting.img"
+          >
+            <img :src="posting.img" class="gallery-image" :alt="posting.content" />
 
             <!-- <div class="gallery-item-info">
               <ul>
@@ -189,7 +191,6 @@ export default {
     return {
       // 유저 정보
       userInfo: [],
-      emailConfirm: '',
 
       text: 'center',
       icon: 'justify',
@@ -205,20 +206,11 @@ export default {
     };
   },
   beforeCreate() {
-    // const hash = sessionStorage.getItem('jwt');
-    // const options = {
-    //   headers: {
-    //     Authorization: 'JWT ' + hash,
-    //   },
-    // };
     const userNickname = sessionStorage.getItem('nickname');
-    // this.emailConfirm = userNickname;
     axios
       // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
       .get(HOST + 'auth/userPage/' + userNickname)
       .then(res => {
-        // this.userInfo.userEmail(res.data);
-        // this.userInfo.push(res.data);
         this.userInfo = res.data;
         console.log(res);
         console.log(this.userInfo);
