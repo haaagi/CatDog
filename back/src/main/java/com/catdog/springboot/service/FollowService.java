@@ -23,7 +23,7 @@ public class FollowService {
         User followinguser = userRepository.findAllByNickname(following);
         Follow follow = followRepository.findByFollower_UidAndFollowing_Uid(followeruser.getUid(), followinguser.getUid());
         if(follow != null) {
-            return followRepository.deleteFollowByFid(follow.getFid());
+            return followRepository.deleteFollowByFid(follow.getFid())-2;
         }else {
             return followRepository.save(Follow.builder().follower(followeruser).following(followinguser).build()).getFid();
         }

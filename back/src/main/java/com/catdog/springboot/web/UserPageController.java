@@ -5,6 +5,7 @@ import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.posts.PostsRepository;
 import com.catdog.springboot.domain.user.User;
 import com.catdog.springboot.domain.user.UserRepository;
+import com.catdog.springboot.web.dto.MyPageResponseDto;
 import com.catdog.springboot.web.dto.UserPageResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,8 @@ public class UserPageController {
     private final PostsRepository postsRepository;
     private final FollowRepository followRepository;
 
-    @GetMapping("/auth/userPage/{nickname}")
-    public UserPageResponseDto UserPage(@PathVariable String nickname) {
+    @GetMapping("/auth/myPage/{nickname}")
+    public MyPageResponseDto MyPage(@PathVariable String nickname) {
         Optional<User> user = userRepository.findByNickname(nickname);
         Long uid = user.get().getUid();
         String pr = user.get().getPr();
@@ -45,7 +46,38 @@ public class UserPageController {
         for(int i = 0; i < following_list.size(); i++) {
             followingList.add(userRepository.findById(following_list.get(i)));
         }
-        UserPageResponseDto userpage = new UserPageResponseDto(nickname, profileimg, pr, post_cnt, follower_cnt, following_cnt , postsList, followerList, followingList);
+        MyPageResponseDto mypage = new MyPageResponseDto(nickname, profileimg, pr, post_cnt, follower_cnt, following_cnt , postsList, followerList, followingList);
+        return mypage;
+    }
+
+
+    @GetMapping("/auth/userPage/{mynickname}/{nickname}")
+    public UserPageResponseDto UserPage(@PathVariable String mynickname, @PathVariable String nickname) {
+        Optional<User> user = userRepository.findByNickname(nickname);
+        Optional<User> myobject = userRepository.findByNickname(mynickname);
+        boolean isfollow = false;
+        Long uid = user.get().getUid();
+        String pr = user.get().getPr();
+        Long post_cnt = postsRepository.cnt_post(uid);
+        Long follower_cnt = followRepository.follow_F_Count(uid);
+        Long following_cnt = followRepository.follow_T_Count(uid);
+        List<Posts> postsList = postsRepository.postList(uid);
+        List<Long> follower_list = followRepository.follow_T_list(uid);
+        List<Long> following_list = followRepository.follow_F_list(uid);
+        // 나를 팔로우 하는 사람
+        List<Optional<User>> followerList = new ArrayList<>();
+        // 내가 팔로우 하는 사람
+        List<Optional<User>> followingList = new ArrayList<>();
+        String profileimg = user.get().getImg();
+        for(int i = 0; i < follower_list.size(); i++) {
+            followerList.add(userRepository.findById(follower_list.get(i)));
+        }
+        for(int i = 0; i < following_list.size(); i++) {
+            Long followingid = following_list.get(i);
+            if(followingid == myobject.get().getUid()) isfollow = true;
+            followingList.add(userRepository.findById(followingid));
+        }
+        UserPageResponseDto userpage = new UserPageResponseDto(nickname, profileimg, pr, post_cnt, follower_cnt, following_cnt , postsList, followerList, followingList, isfollow);
         return userpage;
     }
 }

@@ -29,9 +29,10 @@ public class UserPageResponseDto {
     private List<Optional<User>> followerList;
 
     private List<Optional<User>> followingList;
+    private boolean isfollow;
 
     public UserPageResponseDto(String nickname, String profileimg , String pr, Long post_cnt , Long follower_cnt, Long following_cnt,
-                               List<Posts> postsList, List<Optional<User>> followerList, List<Optional<User>> followingList) {
+                               List<Posts> postsList, List<Optional<User>> followerList, List<Optional<User>> followingList, boolean isfollow) {
         this.nickname = nickname;
         this.profileimg = profileimg;
         this.pr = pr;
@@ -41,5 +42,6 @@ public class UserPageResponseDto {
         this.postsList = postsList;
         this.followerList = followerList;
         this.followingList = followingList;
+        this.isfollow = isfollow;
     }
 }
