@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringTokenizer;
 
 @RequiredArgsConstructor
@@ -58,9 +59,14 @@ public class PostsService {
     }
 
     @Transactional
-    public PostsResponseDto detail(Long pid) {
+    public PostsResponseDto detail(String mynickname, Long pid) {
         List<Comment> comments = commentRepository.findAllByPostsPid(pid);
-        PostsResponseDto postsResponseDto = new PostsResponseDto(comments);
+        Optional<User> user = userRepository.findByNickname(mynickname);
+        Long userid = user.get().getUid();
+        Likes likes = likesRepository.findByPostsPidAndUserUid(pid, userid);
+        boolean islike = false;
+        if(likes != null ) islike = true;
+        PostsResponseDto postsResponseDto = new PostsResponseDto(comments, islike);
         return postsResponseDto;
     }
 
