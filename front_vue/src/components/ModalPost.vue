@@ -9,11 +9,11 @@
     <v-dialog v-model="dialog">
       <v-card justify-center>
         <v-row>
-          <v-col>
+          <v-col class="a">
             <v-img aspect-ratio="1" :src="selectedPost.img"></v-img>
           </v-col>
 
-          <v-col>
+          <v-col class="b">
             <v-list-item>
               <v-list-item-avatar color="grey"></v-list-item-avatar>
               <v-list-item-content>
@@ -30,15 +30,20 @@
             </v-list-item>
 
             <v-card-text>
-              {{ selectedPost.contents }}
+              {{ realContent }}
             </v-card-text>
+            <v-item v-for="(hash, i) in selectedPost.hashtags" :key="i">
+              <v-chip active-class="purple--text">
+                {{ hash }}
+              </v-chip>
+            </v-item>
 
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn icon>
-                <v-icon>{{ icons.mdiPencil }}</v-icon>
+                <EditPost :selectedPost="selectedPost" :realContent="realContent" />
               </v-btn>
-              <v-btn icon>
+              <v-btn icon @click="deletePost">
                 <v-icon>{{ icons.mdiDelete }}</v-icon>
               </v-btn>
             </v-card-actions>
@@ -53,7 +58,7 @@
               </v-col>
               <v-col cols="12" sm="2">
                 <v-btn icon @click="reviewSubmit">
-                  <v-icon>{{ mdiArrowRightBoldBox }}</v-icon>
+                  <v-icon l>{{ icons.mdiSend }}</v-icon>
                 </v-btn>
               </v-col>
             </v-container>
@@ -72,21 +77,25 @@
 </template>
 
 <script>
-import { mdiAccount, mdiPencil, mdiDelete, mdiArrowRightBoldBox } from '@mdi/js';
+import EditPost from './EditPost';
+import { mdiAccount, mdiPencil, mdiDelete, mdiArrowRightBoldBox, mdiSend } from '@mdi/js';
 const axios = require('axios');
 const HOST = process.env.VUE_APP_SERVER_HOST;
 export default {
   name: 'ModalPost',
+  components: { EditPost },
   props: {
     selectedPost: Object,
   },
   data() {
     return {
+      realContent: '',
       icons: {
         mdiAccount,
         mdiPencil,
         mdiDelete,
         mdiArrowRightBoldBox,
+        mdiSend,
       },
       review: {
         pid: this.selectedPost.pid,
@@ -97,13 +106,23 @@ export default {
       items: [],
     };
   },
+  // mounted() {
+  //   axios.get(HOST + 'api/posts/postdetail/' + this.selectedPost.pid).then(res => {
+  //     console.log(res);
+  //     this.realContent = res.data.contents;
+  //   });
+  // },
   created() {
     axios.get(HOST + 'auth/posts/comment/' + this.selectedPost.pid).then(res => {
-      console.log(res);
+      // console.log(this.selectedPost);
       this.items = res.data;
     });
+    this.realContent = this.selectedPost.contents;
   },
   methods: {
+    updateContent(text) {
+      this.realContent = text;
+    },
     reviewSubmit() {
       axios.post(HOST + 'auth/posts/comment', this.review).then(res => {
         console.log(res.data);
@@ -112,7 +131,20 @@ export default {
         this.review.contents = null;
       });
     },
+    deletePost() {
+      axios.delete(HOST + 'auth/posts/delete/' + this.selectedPost.pid).then(res => {
+        console.log(res);
+        this.dialog = false;
+      });
+    },
   },
 };
 </script>
-<style></style>
+<style scoped>
+.a {
+  overflow-y: unset;
+}
+.b {
+  overflow-y: scroll;
+}
+</style>

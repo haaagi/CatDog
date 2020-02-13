@@ -155,7 +155,9 @@
             v-for="posting in userInfo.postsList"
             :key="posting.img"
           >
-            <img :src="posting.img" class="gallery-image" :alt="posting.content" />
+            <ModalPost :selectedPost="posting">
+              <img :src="posting.img" class="gallery-image" :alt="posting.content" />
+            </ModalPost>
 
             <!-- <div class="gallery-item-info">
               <ul>
@@ -182,11 +184,13 @@
 </template>
 
 <script>
+import ModalPost from '../components/ModalPost';
 const HOST = process.env.VUE_APP_SERVER_HOST;
 const axios = require('axios');
 
 export default {
   name: 'Userdetail',
+  components: { ModalPost },
   data() {
     return {
       // 유저 정보
@@ -209,7 +213,7 @@ export default {
     const userNickname = sessionStorage.getItem('nickname');
     axios
       // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
-      .get(HOST + 'auth/userPage/' + userNickname)
+      .get(HOST + 'auth/myPage/' + userNickname)
       .then(res => {
         this.userInfo = res.data;
         console.log(res);
