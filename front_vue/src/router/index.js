@@ -96,6 +96,8 @@ const router = new VueRouter({
       path: '/chat/detail/:id',
       name: 'roomid',
       component: ChatDetail,
+    },
+    {
       path: '/followdetail/:nickname',
       name: 'followdetail',
       component: FollowDetail,

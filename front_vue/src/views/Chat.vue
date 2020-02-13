@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     findAllRoom: function() {
-      axios.get('http://70.12.247.57:8080/chat/rooms').then(response => {
+      axios.get('http://70.12.246.72:8080/chat/rooms').then(response => {
         this.chatrooms = response.data;
       });
     },
@@ -54,7 +54,7 @@ export default {
       } else {
         var params = new URLSearchParams();
         params.append('name', this.room_name);
-        axios.post('http://70.12.247.57:8080/chat/room', params).then(response => {
+        axios.post('http://70.12.246.72:8080/chat/room', params).then(response => {
           alert(response.data.name + '방 개설에 성공하였습니다.');
           this.room_name = '';
           this.findAllRoom();
@@ -67,6 +67,7 @@ export default {
         localStorage.setItem('wschat.sender', sender);
         localStorage.setItem('wschat.roomId', roomId);
         location.href = '/chat/detail/' + roomId;
+        console.log(localStorage.getItem('wschat.sender'));
       }
     },
   },
