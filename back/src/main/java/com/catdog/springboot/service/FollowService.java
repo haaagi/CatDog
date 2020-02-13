@@ -18,14 +18,16 @@ public class FollowService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long follow(String follower, String following) {
+    public boolean follow(String follower, String following) {
         User followeruser = userRepository.findAllByNickname(follower);
         User followinguser = userRepository.findAllByNickname(following);
         Follow follow = followRepository.findByFollower_UidAndFollowing_Uid(followeruser.getUid(), followinguser.getUid());
         if(follow != null) {
-            return followRepository.deleteFollowByFid(follow.getFid())-2;
+            followRepository.delete(follow);
+            return false;
         }else {
-            return followRepository.save(Follow.builder().follower(followeruser).following(followinguser).build()).getFid();
+            followRepository.save(Follow.builder().follower(followeruser).following(followinguser).build());
+            return true;
         }
     }
 

@@ -12,6 +12,6 @@ public class PostsResponseDto {
 
     public PostsResponseDto(List comment, boolean islike) {
         this.comment = comment;
-        this.islike = isIslike();
+        this.islike = islike;
     }
 }

@@ -132,15 +132,17 @@ public class PostsService {
     }
 
     @Transactional
-    public Long likesup(PostsLikesupRequestDto likesupRequestDto) {
+    public boolean likesup(PostsLikesupRequestDto likesupRequestDto) {
 
         User user = userRepository.findByNickname(likesupRequestDto.getNickname()).orElse(null);
         Posts posts = postsRepository.findById(likesupRequestDto.getPid()).orElse(null);
         Likes likes = likesRepository.findByPostsPidAndUserUid(posts.getPid(), user.getUid());
         if(likes != null) {
-            return likesRepository.deleteLikesByLid(likes.getLid())-2;
+            likesRepository.delete(likes);
+            return false;
         }else {
-            return likesRepository.save(Likes.builder().user(user).posts(posts).build()).getLid();
+            likesRepository.save(Likes.builder().user(user).posts(posts).build());
+            return true;
         }
     }
 }

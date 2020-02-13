@@ -14,7 +14,7 @@ public class FollowController {
     private final FollowService followService;
 
     @GetMapping("/auth/follow/save/{follower}/{following}") //팔로우 요청하는사람(follower) - 팔로우 요청받는사람  (following)
-    public Long Follow(@PathVariable String follower, @PathVariable String following) {
+    public boolean Follow(@PathVariable String follower, @PathVariable String following) {
         return followService.follow(follower, following);
     }
 }

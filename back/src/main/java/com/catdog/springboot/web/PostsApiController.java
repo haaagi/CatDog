@@ -44,7 +44,7 @@ public class PostsApiController {
     }
 
     @PostMapping("/auth/posts/likesup")  //좋아요 누를때
-    public Long likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
+    public boolean likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
         return postsService.likesup(likesupRequestDto);
     }
 }
