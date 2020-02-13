@@ -18,9 +18,9 @@ public class PostsApiController {
         return postsService.findAll();
     }
 
-    @GetMapping("/api/posts/postdetail/{pid}")
-    public PostsResponseDto detail(@PathVariable Long pid) {
-        return postsService.detail(pid);
+    @GetMapping("/api/posts/postdetail/{mynickname}/{pid}")
+    public PostsResponseDto detail(@PathVariable String mynickname, @PathVariable Long pid) {
+        return postsService.detail(mynickname, pid);
     }
 
     @PostMapping("/auth/posts/posting") // 게시글 업로드
