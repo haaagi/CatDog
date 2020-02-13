@@ -1,27 +1,23 @@
 package com.catdog.springboot.web;
 
 
+import com.catdog.springboot.domain.hashtag.Hashtags;
 import com.catdog.springboot.domain.hashtag.HashtagsRepository;
+import com.catdog.springboot.domain.hashtag.TagsRepository;
 import com.catdog.springboot.domain.user.LoginUser;
 import com.catdog.springboot.domain.user.User;
 
 import com.catdog.springboot.domain.user.UserRepository;
 import com.catdog.springboot.service.JwtService;
 import com.catdog.springboot.service.UserService;
-import com.catdog.springboot.web.dto.JwtResponseDto;
-import com.catdog.springboot.web.dto.SearchRequestDto;
-import com.catdog.springboot.web.dto.UserSaveRequestDto;
-import com.catdog.springboot.web.dto.UserUpdateRequestDto;
+import com.catdog.springboot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,14 +26,14 @@ public class UserController {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final HashtagsRepository hashtagsRepository;
-
+    private final TagsRepository tagsRepository;
     @PostMapping("/api/user/signup") // 회원가입
     public Long save(@RequestBody UserSaveRequestDto requestDto) {
         return userService.save(requestDto);
     }
 
     @PostMapping("/api/user/signin") //로그인
-    public ResponseEntity<?> signin (@RequestBody LoginUser user) {
+    public ResponseEntity<?> signin(@RequestBody LoginUser user) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         String token = "";
@@ -58,6 +54,7 @@ public class UserController {
         }
         return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
     }
+
     @PutMapping("/auth/user/update/{nickname}")
     public User update(@PathVariable String nickname, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         return userService.update(nickname, userUpdateRequestDto);
@@ -77,7 +74,7 @@ public class UserController {
             resultMap.putAll(jwtService.get(req.getHeader("jwt-auth-token")));
             resultMap.put("status", true);
             resultMap.put("info", info);
-            resultMap.put("request_body" , user);
+            resultMap.put("request_body", user);
             status = HttpStatus.ACCEPTED;
         } catch (RuntimeException e) {
 //            log.error("정보조회 실패", e);
@@ -91,8 +88,19 @@ public class UserController {
     public SearchRequestDto Search(@PathVariable String keyword) {
 
         List<Optional<User>> userList = userRepository.searchuser(keyword);
-        List<String> tagList = hashtagsRepository.searchtag(keyword);
-        SearchRequestDto searchRequestDto = new SearchRequestDto(userList, tagList);
+        List<Long> tagList = hashtagsRepository.searchtag(keyword); // 번호를 받아왔어
+
+
+        List<SearchHashTagDto> list = new ArrayList<>();
+        for (int i = 0; i < tagList.size(); i++) {
+            String content = hashtagsRepository.findContent(tagList.get(i));
+            Long content_cnt = tagsRepository.content_cnt(tagList.get(i));
+            if(content_cnt != 0 ) {
+                list.add(new SearchHashTagDto(content, content_cnt));
+            }
+        }
+
+        SearchRequestDto searchRequestDto = new SearchRequestDto(userList, list);
         return searchRequestDto;
     }
 
