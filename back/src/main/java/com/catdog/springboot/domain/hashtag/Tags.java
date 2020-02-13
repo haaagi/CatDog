@@ -4,6 +4,8 @@ import com.catdog.springboot.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -15,11 +17,13 @@ public class Tags {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tid;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pid")
     private Posts posts;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "hid")
     private Hashtags hashtags;
 

@@ -105,20 +105,16 @@ public class PostsService {
     }
 
     @Transactional
-    public Long update(Long pid, PostsUpdateRequestDto requestDto) { //게시글 수정 요청
+    public void update(Long pid, PostsUpdateRequestDto requestDto) { //게시글 수정 요청
         Posts posts = postsRepository.findById(pid)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + pid));
-
-     //   posts.update(requestDto.getImg(), requestDto.getContent(), requestDto.getHashtags());
-
-        return pid;
+        posts.update(requestDto.getContent());
     }
 
     @Transactional
-    public void delete(Long id) {
-        Posts posts = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-
+    public void delete(Long pid) {
+        Posts posts = postsRepository.findById(pid)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + pid));
         postsRepository.delete(posts);
     }
 

@@ -33,15 +33,14 @@ public class PostsApiController {
 //        return postsService.findByNickname(nickname);
 //    }
 
-    @PutMapping("/auth/posts/update/{id}") // 게시글 수정 (아직 구현 안됨)
-    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
-        return postsService.update(id, requestDto);
+    @PutMapping("/auth/posts/update/{pid}") // 게시글 수정
+    public void update(@PathVariable Long pid, @RequestBody PostsUpdateRequestDto requestDto) {
+        postsService.update(pid, requestDto);
     }
 
-    @DeleteMapping("/auth/posts/delete/{id}") //게시글 삭제 (아직 구현 안됨)
-    public Long delete(@PathVariable Long id) {
-        postsService.delete(id);
-        return id;
+    @DeleteMapping("/auth/posts/delete/{pid}") //게시글 삭제
+    public void delete(@PathVariable Long pid) {
+        postsService.delete(pid);
     }
 
     @PostMapping("/auth/posts/likesup")  //좋아요 누를때
