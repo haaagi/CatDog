@@ -1,12 +1,15 @@
 package com.catdog.springboot.web.dto;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PostsListResponseDto {
     private Long pid;
     private String nickname;
@@ -16,7 +19,7 @@ public class PostsListResponseDto {
     private String modifiedDate;
     private Long likes;
 
-
+    @Builder
     public PostsListResponseDto(Long pid, String nickname, String img, String contents, List<String> hashtags, String modifiedDate ,Long likes) {
         this.pid = pid;
         this.nickname = nickname;
