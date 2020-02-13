@@ -6,6 +6,8 @@ import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -18,11 +20,15 @@ public class Likes extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lid;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "uid")
     private User user;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pid")
     private Posts posts;
 
