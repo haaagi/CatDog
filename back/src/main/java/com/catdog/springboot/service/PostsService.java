@@ -49,7 +49,7 @@ public class PostsService {
                 String date = posts.get(i).getModifiedDate().toString();
                 if(tags != null) {
                     for(int j=0; j<tags.size(); j++){
-                        hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
                 postlist.add(new PostsListResponseDto(pid, nickname, img, contents, hashtags, date, likecount));
@@ -60,6 +60,7 @@ public class PostsService {
 
     @Transactional
     public PostsResponseDto detail(String mynickname, Long pid) {
+        List<PostsListResponseDto> postlist = new ArrayList<PostsListResponseDto>();
         List<Comment> comments = commentRepository.findAllByPostsPid(pid);
         Optional<User> user = userRepository.findByNickname(mynickname);
         Long userid = user.get().getUid();
@@ -68,6 +69,17 @@ public class PostsService {
         if(likes != null ) islike = true;
         PostsResponseDto postsResponseDto = new PostsResponseDto(comments, islike);
         return postsResponseDto;
+    }
+
+    @Transactional
+    public PostsResponseDto2 detail2(Long pid) {
+        List<PostsResponseDto2> postlist = new ArrayList<PostsResponseDto2>();
+        Posts post = postsRepository.findByPid(pid);
+      //  Likes likes = likesRepository.findByPostsPidAndUserUid(pid, userid);
+        boolean islike = false;
+       // if(likes != null ) islike = true;
+   //     PostsResponseDto postsResponseDto = new PostsResponseDto(comments, islike);
+        return PostsResponseDto2.builder().build();
     }
 
     @Transactional

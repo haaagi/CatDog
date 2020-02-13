@@ -30,23 +30,30 @@ public class UserPageController {
         Long uid = user.get().getUid();
         String pr = user.get().getPr();
         Long post_cnt = postsRepository.cnt_post(uid);
-        Long follower_cnt = followRepository.follow_F_Count(uid);
-        Long following_cnt = followRepository.follow_T_Count(uid);
-        List<Posts> postsList = postsRepository.postList(uid);
+        Long follower_cnt = followRepository.follow_T_Count(uid);
+        Long following_cnt = followRepository.follow_F_Count(uid);
         List<Long> follower_list = followRepository.follow_T_list(uid);
         List<Long> following_list = followRepository.follow_F_list(uid);
+        List<Posts> postsList = postsRepository.postList(uid);
         // 나를 팔로우 하는 사람
         List<Optional<User>> followerList = new ArrayList<>();
+        List<String> followernicknameList = new ArrayList<>();
         // 내가 팔로우 하는 사람
         List<Optional<User>> followingList = new ArrayList<>();
+        List<String> followingnicknameList = new ArrayList<>();
         String profileimg = user.get().getImg();
         for(int i = 0; i < follower_list.size(); i++) {
-            followerList.add(userRepository.findById(follower_list.get(i)));
+            Optional<User> followeruser = userRepository.findById(follower_list.get(i));
+            followerList.add(followeruser);
+            followingnicknameList.add(followeruser.get().getNickname());
         }
         for(int i = 0; i < following_list.size(); i++) {
-            followingList.add(userRepository.findById(following_list.get(i)));
+            Optional<User> followinguser = userRepository.findById(following_list.get(i));
+            followingList.add(followinguser);
+            followernicknameList.add(followinguser.get().getNickname());
         }
-        MyPageResponseDto mypage = new MyPageResponseDto(nickname, profileimg, pr, post_cnt, follower_cnt, following_cnt , postsList, followerList, followingList);
+        MyPageResponseDto mypage = new MyPageResponseDto(nickname, profileimg, pr, post_cnt, follower_cnt, following_cnt , postsList,
+                followerList, followingList, followernicknameList, followingnicknameList);
         return mypage;
     }
 
@@ -59,25 +66,33 @@ public class UserPageController {
         Long uid = user.get().getUid();
         String pr = user.get().getPr();
         Long post_cnt = postsRepository.cnt_post(uid);
-        Long follower_cnt = followRepository.follow_F_Count(uid);
-        Long following_cnt = followRepository.follow_T_Count(uid);
+        Long follower_cnt = followRepository.follow_T_Count(uid);
+        Long following_cnt = followRepository.follow_F_Count(uid);
         List<Posts> postsList = postsRepository.postList(uid);
         List<Long> follower_list = followRepository.follow_T_list(uid);
         List<Long> following_list = followRepository.follow_F_list(uid);
         // 나를 팔로우 하는 사람
         List<Optional<User>> followerList = new ArrayList<>();
+        List<String> followernicknameList = new ArrayList<>();
         // 내가 팔로우 하는 사람
         List<Optional<User>> followingList = new ArrayList<>();
+        List<String> followingnicknameList = new ArrayList<>();
         String profileimg = user.get().getImg();
         for(int i = 0; i < follower_list.size(); i++) {
-            followerList.add(userRepository.findById(follower_list.get(i)));
+            Optional<User> followeruser = userRepository.findById(follower_list.get(i));
+            followerList.add(followeruser);
+            followingnicknameList.add(followeruser.get().getNickname());
         }
         for(int i = 0; i < following_list.size(); i++) {
-            Long followingid = following_list.get(i);
+            Optional<User> followinguser = userRepository.findById(following_list.get(i));
+            followingList.add(followinguser);
+            followernicknameList.add(followinguser.get().getNickname());
+
+            Long followingid = followinguser.get().getUid();
             if(followingid == myobject.get().getUid()) isfollow = true;
-            followingList.add(userRepository.findById(followingid));
         }
-        UserPageResponseDto userpage = new UserPageResponseDto(nickname, profileimg, pr, post_cnt, follower_cnt, following_cnt , postsList, followerList, followingList, isfollow);
+        UserPageResponseDto userpage = new UserPageResponseDto(nickname, profileimg, pr, post_cnt, follower_cnt, following_cnt , postsList,
+                followerList, followingList, followernicknameList, followingnicknameList, isfollow);
         return userpage;
     }
 }

@@ -30,6 +30,4 @@ public class FollowService {
             return true;
         }
     }
-
-
 }

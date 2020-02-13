@@ -13,6 +13,4 @@ public class PostsUpdateRequestDto {
     public PostsUpdateRequestDto(String content) {
         this.content = content;
     }
-
-
 }
