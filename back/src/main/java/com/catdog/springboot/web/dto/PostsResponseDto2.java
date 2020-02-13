@@ -9,12 +9,12 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class PostsResponseDto {
-  private List<Comment> comment;
-  private boolean islike;
+public class PostsResponseDto2 {
+    private List<Comment> comment;
+    private boolean islike;
 
     @Builder
-    public PostsResponseDto(List comment, boolean islike) {
+    public PostsResponseDto2(List comment, boolean islike) {
         this.comment = comment;
         this.islike = islike;
     }

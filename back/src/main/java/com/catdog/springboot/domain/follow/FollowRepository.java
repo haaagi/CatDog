@@ -13,11 +13,15 @@ public interface FollowRepository extends JpaRepository <Follow , Long > {
     Long follow_T_Count(Long uid);
 
     @Query(value = "select Followrequest_uid from follow where Followresponse_uid = ?1" , nativeQuery = true)
-    List<Long> follow_F_list(Long uid);
-    @Query(value = "select Followresponse_uid from follow where Followrequest_uid = ?1" , nativeQuery = true)
     List<Long> follow_T_list(Long uid);
 
+    @Query(value = "select Followresponse_uid from follow where Followrequest_uid = ?1" , nativeQuery = true)
+    List<Long> follow_F_list(Long uid);
+//
+//    Long countAllByFollowing_Uid(Long uid);
+//    Long countAllByFollower_Uid(Long uid);
+//
+//    List<Long>
 
     Follow findByFollower_UidAndFollowing_Uid(Long followeruser_uid, Long followinguser_uid);
-    Long deleteFollowByFid(Long fid);
 }

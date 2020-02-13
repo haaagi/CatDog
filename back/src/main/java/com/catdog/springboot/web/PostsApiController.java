@@ -23,6 +23,13 @@ public class PostsApiController {
         return postsService.detail(mynickname, pid);
     }
 
+    @GetMapping("/api/posts/postdetail{pid}")
+    public PostsResponseDto2 detail (@PathVariable Long pid){
+
+        return postsService.detail2(pid);
+    }
+
+
     @PostMapping("/auth/posts/posting") // 게시글 업로드
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
@@ -35,6 +42,7 @@ public class PostsApiController {
 
     @PutMapping("/auth/posts/update/{pid}") // 게시글 수정
     public void update(@PathVariable Long pid, @RequestBody PostsUpdateRequestDto requestDto) {
+        System.out.println(requestDto.getContent());
         postsService.update(pid, requestDto);
     }
 
