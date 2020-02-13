@@ -73,13 +73,20 @@ public class PostsService {
 
     @Transactional
     public PostsResponseDto2 detail2(Long pid) {
-        List<PostsResponseDto2> postlist = new ArrayList<PostsResponseDto2>();
         Posts post = postsRepository.findByPid(pid);
-      //  Likes likes = likesRepository.findByPostsPidAndUserUid(pid, userid);
-        boolean islike = false;
-       // if(likes != null ) islike = true;
-   //     PostsResponseDto postsResponseDto = new PostsResponseDto(comments, islike);
-        return PostsResponseDto2.builder().build();
+        String nickname = post.getUser().getNickname();
+        String img = post.getImg();
+        String contents = post.getContent();
+        List<String> hashtags = new ArrayList<>();
+        List<Tags> tags = tagsRepository.findAllByPostsPid(pid);
+        Long likecount = likesRepository.countLikesByPostsPid(pid);
+        String date = post.getModifiedDate().toString();
+        if(tags != null) {
+            for(int j=0; j<tags.size(); j++){
+                hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+            }
+        }
+        return new PostsResponseDto2(nickname, img, contents, hashtags, date, likecount);
     }
 
     @Transactional
