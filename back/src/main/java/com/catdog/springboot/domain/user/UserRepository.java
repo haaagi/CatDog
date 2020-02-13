@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User , Long >  {
     Optional<User> findByNickname(String nickname);
     User findAllByNickname(String nickname);
 
-    @Query(value = "select * from user where user.nickname like %?1%" , nativeQuery = true)
-    List<Optional<User>> searchuser(String nickname);
+    @Query(value = "select * from user where user.nickname like %?1% or user.name like %?1%" , nativeQuery = true)
+    List<Optional<User>> searchuser(String keyword);
 
 }

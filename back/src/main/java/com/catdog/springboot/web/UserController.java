@@ -88,8 +88,7 @@ public class UserController {
     public SearchRequestDto Search(@PathVariable String keyword) {
 
         List<Optional<User>> userList = userRepository.searchuser(keyword);
-        List<Long> tagList = hashtagsRepository.searchtag(keyword); // 번호를 받아왔어
-
+        List<Long> tagList = hashtagsRepository.searchtag(keyword);
 
         List<SearchHashTagDto> list = new ArrayList<>();
         for (int i = 0; i < tagList.size(); i++) {
