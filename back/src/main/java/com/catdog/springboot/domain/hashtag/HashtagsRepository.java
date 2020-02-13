@@ -12,4 +12,7 @@ public interface HashtagsRepository extends JpaRepository<Hashtags,Long> {
 
     @Query(value =  "select * from hashtags where hashtags.content like %?1%", nativeQuery = true)
     List<String> searchtag(String keyword);
+
+    @Query(value = "select hid from hashtags where content = ?1" , nativeQuery = true)
+    Long findhid(String content);
 }

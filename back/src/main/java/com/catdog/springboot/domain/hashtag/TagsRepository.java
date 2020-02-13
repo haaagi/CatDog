@@ -1,10 +1,14 @@
 package com.catdog.springboot.domain.hashtag;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 
 public interface TagsRepository extends JpaRepository<Tags,Long> {
     List<Tags> findAllByPostsPid(Long pid);
+
+    @Query(value = "select pid from tags where hid = ?1", nativeQuery = true)
+    List<Long> findpids(Long pid);
 }
