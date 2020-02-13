@@ -8,10 +8,44 @@
           </div>
 
           <div class="profile-user-settings">
-            <h1 class="profile-user-name">{{ userInfo.nickname }}</h1>
-            <v-btn class="ma-2" outlined color="blue" @click="onClickFollow(userInfo.nickname)"
-              >팔로우</v-btn
-            >
+            <h1 class="profile-user-name">{{ followInfo.nickname }}</h1>
+            <div v-if="followCheck">
+              <v-btn class="ma-2" outlined color="blue" @click="onClickFollow(followInfo.nickname)"
+                >팔로우 취소
+              </v-btn>
+            </div>
+
+            <!-- 나중에 수정이 가능하다면...  -->
+            <div v-else>
+              <v-btn class="ma-2" outlined color="blue" @click="onClickFollow(followInfo.nickname)"
+                >팔로우
+              </v-btn>
+              <!-- <v-dialog v-model="dialog_follow" persistent max-width="600px">
+                <template v-slot:activator="{ on }">
+                  <v-btn v-on="on">팔로잉</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="">@{{ userInfo.nickname }}님의 팔로우를 취소하시겠습니까?</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <v-btn
+                        class="ma-2"
+                        color="blue"
+                        @click="onClickFollow(userInfo.nickname)"
+                        text
+                        >팔로우 취소</v-btn
+                      >
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="dialog_follow = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog> -->
+            </div>
 
             <button class="btn profile-settings-btn" aria-label="profile settings">
               <i class="fas fa-cog" aria-hidden="true"></i>
@@ -23,7 +57,7 @@
             <ul>
               <li>
                 <span class="profile-stat-count"></span
-                ><v-btn text large>{{ userInfo.post_cnt }} posts</v-btn>
+                ><v-btn text large>{{ followInfo.post_cnt }} posts</v-btn>
               </li>
 
               <li>
@@ -32,7 +66,7 @@
                   <v-dialog v-model="dialog" scrollable max-width="300px">
                     <template v-slot:activator="{ on }">
                       <v-btn text color="black" dark v-on="on"
-                        >{{ userInfo.follower_cnt }}followers</v-btn
+                        >{{ followInfo.follower_cnt }}followers</v-btn
                       >
                     </template>
                     <v-card>
@@ -42,7 +76,7 @@
                         <v-list subheader>
                           <!-- 팔로워의 상세페이지로 이동하기 @click 설정하기!!  -->
                           <v-list-item
-                            v-for="follower in userInfo.followerList"
+                            v-for="follower in followInfo.followerList"
                             :key="follower.nickname"
                           >
                             <v-list-item-avatar>
@@ -86,7 +120,7 @@
                   <v-dialog v-model="dialog_f" scrollable max-width="300px">
                     <template v-slot:activator="{ on }">
                       <v-btn text color="black" dark v-on="on"
-                        >{{ userInfo.following_cnt }} following</v-btn
+                        >{{ followInfo.following_cnt }} following</v-btn
                       >
                     </template>
                     <v-card>
@@ -96,7 +130,7 @@
                         <v-list subheader>
                           <!-- 팔로워의 상세페이지로 이동하기 @click 설정하기!!  -->
                           <v-list-item
-                            v-for="following in userInfo.followingList"
+                            v-for="following in followInfo.followingList"
                             :key="following.nickname"
                           >
                             <v-list-item-avatar>
@@ -137,7 +171,7 @@
           </div>
 
           <div class="profile-bio">
-            <p><span class="profile-real-name"></span>{{ userInfo.pr }}</p>
+            <p><span class="profile-real-name"></span>{{ followInfo.pr }}</p>
           </div>
         </div>
         <!-- End of profile section -->
@@ -152,7 +186,7 @@
           <div
             class="gallery-item"
             tabindex="0"
-            v-for="posting in userInfo.postsList"
+            v-for="posting in followInfo.postsList"
             :key="posting.img"
           >
             <img :src="posting.img" class="gallery-image" :alt="posting.content" />
@@ -190,7 +224,12 @@ export default {
   data() {
     return {
       // 유저 정보
-      userInfo: [],
+      followInfo: [],
+      userFollowingList: [],
+
+      // 팔로우 버튼 부분
+      followCheck: null,
+      dialog_follow: false,
 
       text: 'center',
       icon: 'justify',
@@ -205,18 +244,45 @@ export default {
       dialog_f: false,
     };
   },
-  mounted() {
+  beforeCreate() {
     axios
-      .get(HOST + 'auth/userPage/' + this.$route.params.nickname)
+      .get(HOST + 'auth/myPage/' + this.$route.params.nickname)
       .then(res => {
-        // let list = res.data;
-        // this.userInfo = list;
-        this.userInfo = res.data;
-        console.log(this.userInfo);
+        this.followInfo = res.data;
+        console.log(this.followInfo);
+
         // const follower = sessionStorage.getItem('nickname');
         // console.log(follower, this.$route.params.nickname);
       })
       .catch(err => console.error(err));
+
+    // 팔로우 체크하기 위한
+    const userNickname = sessionStorage.getItem('nickname');
+    axios
+      .get(HOST + 'auth/myPage/' + userNickname)
+      .then(res => {
+        let userInfo = res.data;
+        this.userFollowingList = userInfo.followingnicknameList;
+        if (this.userFollowingList.includes(this.$route.params.nickname)) {
+          this.followCheck = true;
+        } else {
+          this.followCheck = false;
+        }
+
+        console.log(this.userFollowingList);
+
+        // const follower = sessionStorage.getItem('nickname');
+        // console.log(follower, this.$route.params.nickname);
+      })
+      .catch(err => console.error(err));
+  },
+  mounted() {
+    // 초기 팔로우 체크
+    // if (this.userInfo.followingList.includes(this.$route.params.nickname)) {
+    //   this.followCheck = true;
+    // } else {
+    //   this.followCheck = false;
+    // }
   },
   methods: {
     onClickFollow(following) {
@@ -225,6 +291,8 @@ export default {
         .get(HOST + 'auth/follow/save/' + follower + '/' + following)
         .then(res => {
           console.log(res);
+          this.followCheck = res.data;
+          console.log(this.followCheck);
         })
         .catch(err => console.error(err));
     },

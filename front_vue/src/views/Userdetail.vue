@@ -209,7 +209,7 @@ export default {
     const userNickname = sessionStorage.getItem('nickname');
     axios
       // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
-      .get(HOST + 'auth/userPage/' + userNickname)
+      .get(HOST + 'auth/myPage/' + userNickname)
       .then(res => {
         this.userInfo = res.data;
         console.log(res);
