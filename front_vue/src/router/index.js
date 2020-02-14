@@ -17,7 +17,7 @@ import infoPomeranian from '../components/pet/pomeranian.vue';
 import ChatDetail from '../components/chat/ChatDetail.vue';
 import Chat from '../views/Chat.vue';
 import FollowDetail from '../views/FollowDetail.vue';
-
+import TagDetail from '../views/TagPage.vue';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -96,10 +96,30 @@ const router = new VueRouter({
       path: '/chat/detail/:id',
       name: 'roomid',
       component: ChatDetail,
+    },
+    {
       path: '/followdetail/:nickname',
       name: 'followdetail',
       component: FollowDetail,
       props: true,
+    },
+    {
+      path: '/tagwdetail/:tagname',
+      name: 'tagname',
+      component: TagDetail,
+      props: true,
+    },
+    // {
+    //   path: '/search?keyword=:keywoed',
+    //   name: 'search',
+    //   component: About,
+    //   props: true,
+    // },
+
+    {
+      path: '/search',
+      component: About,
+      props: route => ({ query: route.query.keyword }),
     },
   ],
 });

@@ -2,16 +2,20 @@
   <div id="fh5co-page">
     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
     <aside id="fh5co-aside" role="complementary" class="border js-fullheight" style="z-index:1">
-      <h1 id="fh5co-logo">
+      <h1 id="fh5co-logo" style="margin-bottom: 1em">
         <a href="/"
           ><center><img src="../src/assets/logo.png" style="width:180px" /></center
         ></a>
       </h1>
-      <form>
-        <fieldset>
-          <input type="search" /><button type="submit"><i class="fa fa-search"></i></button>
-        </fieldset>
-      </form>
+      <center>
+        <form style="margin-bottom: 30px">
+          <input type="text" name="keyword" style=" border-style: solid; border-color: #228896;" />
+          <button type="submit" formaction="/search">
+            <v-icon style="color: #228896">mdi-magnify</v-icon>
+          </button>
+        </form>
+      </center>
+
       <nav id="fh5co-main-menu" role="navigation">
         <ul>
           <li><a href="/main">Home</a></li>
@@ -69,75 +73,4 @@ export default {
   // comments: { board },
 };
 </script>
-<style scoped>
-fieldset {
-  position: relative;
-  display: inline-block;
-  padding: 0 0 0 40px;
-  background: #fff;
-  border: none;
-  border-radius: 5px;
-}
-
-input,
-button {
-  position: relative;
-  width: 200px;
-  height: 50px;
-  padding: 0;
-  display: inline-block;
-  float: left;
-}
-
-input {
-  color: #666;
-  z-index: 2;
-  border: 0 none;
-}
-input:focus {
-  outline: 0 none;
-}
-input:focus + button {
-  -webkit-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
-  transform: translate(0, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-}
-input:focus + button .fa {
-  -webkit-transform: translate(0px, 0);
-  -ms-transform: translate(0px, 0);
-  transform: translate(0px, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  color: #fff;
-}
-
-button {
-  z-index: 1;
-  width: 50px;
-  border: 0 none;
-  background: #ceb980;
-  cursor: pointer;
-  border-radius: 0 5px 5px 0;
-  -webkit-transform: translate(-50px, 0);
-  -ms-transform: translate(-50px, 0);
-  transform: translate(-50px, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-}
-
-.fa-search {
-  font-size: 1.4rem;
-  color: #29abe2;
-  z-index: 3;
-  top: 25%;
-  -webkit-transform: translate(-190px, 0);
-  -ms-transform: translate(-190px, 0);
-  transform: translate(-190px, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
-}
-</style>
+<style scoped></style>
