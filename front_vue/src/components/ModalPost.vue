@@ -2,8 +2,18 @@
 
 <template>
   <v-row justify="center">
-    <v-btn icon @click.stop="dialog = true">
-      <v-icon color="orange">mdi-heart</v-icon>
+    <v-btn
+      icon
+      @click.stop="dialog = true"
+      absolute
+      color="orange"
+      class="white--text"
+      fab
+      large
+      right
+      top
+    >
+      <v-icon color="orange">mdi-dog</v-icon>
     </v-btn>
 
     <v-dialog v-model="dialog">
