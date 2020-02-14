@@ -40,7 +40,7 @@
             </v-list-item>
 
             <v-card-text>
-              {{ realContent }}
+              {{ selectedPost.contents }}
             </v-card-text>
             <v-item v-for="(hash, i) in selectedPost.hashtags" :key="i">
               <v-chip active-class="purple--text">
@@ -68,7 +68,7 @@
               </v-col>
               <v-col cols="12" sm="2">
                 <v-btn icon @click="reviewSubmit">
-                  <v-icon l>{{ icons.mdiSend }}</v-icon>
+                  <v-icon>{{ icons.mdiSend }}</v-icon>
                 </v-btn>
               </v-col>
             </v-container>
@@ -99,6 +99,7 @@ export default {
   },
   data() {
     return {
+      flag: 0,
       realContent: '',
       icons: {
         mdiAccount,
@@ -109,7 +110,7 @@ export default {
       },
       review: {
         pid: this.selectedPost.pid,
-        nickname: this.selectedPost.nickname,
+        nickname: sessionStorage.getItem('nickname'),
         contents: '',
       },
       dialog: false,
@@ -122,13 +123,18 @@ export default {
   //     this.realContent = res.data.contents;
   //   });
   // },
-  beforecreated() {
+  created() {
     axios.get(HOST + 'auth/posts/comment/' + this.selectedPost.pid).then(res => {
       // console.log(this.selectedPost);
       this.items = res.data;
     });
     this.realContent = this.selectedPost.contents;
   },
+  // watch: {
+  //   realContent: function() {
+  //     this.selectedPost.contents = this.realContent;
+  //   },
+  // },
   methods: {
     updateContent(text) {
       this.realContent = text;

@@ -29,8 +29,9 @@
         </v-text-field>
       </v-col>
 
-      <v-btn class="mr-4" @click="submit">change</v-btn>
-      <router-link to="/userdetail"> <v-btn>cancle</v-btn></router-link>
+      <v-btn class="mr-4" @click="submit">제출하기</v-btn>
+      <hr />
+      <router-link to="/userdetail"> <v-btn>취소</v-btn></router-link>
     </v-card-text>
   </div>
 </template>

@@ -4,10 +4,12 @@
       <div class="container">
         <div class="profile">
           <div class="profile-image">
-            <img
-              :src="userInfo.profileimg"
-              alt="https://image.flaticon.com/icons/svg/1077/1077063.svg"
-            />
+            <div v-if="userInfo.profileimg">
+              <img :src="userInfo.profileimg" />
+            </div>
+            <div v-else>
+              <img src="https://image.flaticon.com/icons/svg/1077/1077063.svg" />
+            </div>
           </div>
 
           <div class="profile-user-settings">
@@ -34,7 +36,7 @@
                   <v-row justify="center">
                     <v-dialog v-model="dialog" scrollable max-width="300px">
                       <template v-slot:activator="{ on }">
-                        <v-btn text color="primary" dark v-on="on"
+                        <v-btn text color="primary" v-on="on"
                           >{{ userInfo.follower_cnt }}followers</v-btn
                         >
                       </template>
@@ -88,7 +90,7 @@
                   <v-row justify="center">
                     <v-dialog v-model="dialog_f" scrollable max-width="300px">
                       <template v-slot:activator="{ on }">
-                        <v-btn text color="primary" dark v-on="on"
+                        <v-btn text color="primary" v-on="on"
                           >{{ userInfo.following_cnt }} following</v-btn
                         >
                       </template>

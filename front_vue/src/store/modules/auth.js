@@ -20,20 +20,6 @@ const getters = {
   isLoading: state => state.loading,
   getuserinfo: state => state.userinfo,
   isStart: state => state.start,
-  // isStart: () => {
-  //   if (!localStorage.getItem('start')) {
-  //     return 0;
-  //   } else {
-  //     return 1;
-  //   }
-  // },
-  // isStart: state => {
-  //   if (state.start === false) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // },
 };
 const mutations = {
   setLoading: (state, flag) => (state.loading = flag),
@@ -80,39 +66,35 @@ const actions = {
       commit('clearErrors');
       commit('setLoading', true);
       if (!credentials.email) {
-        commit('pushError', '이메일을 입력하세요');
+        alert('이메일을 입력하세요');
+        // commit('pushError', '이메일을 입력하세요');
         commit('setLoading', false);
       }
       // if (credentials.email)
       if (credentials.password.length < 8) {
-        commit('pushError', 'password must be at least 8');
+        alert('비밀번호는 8자리 이상입니다.');
+        // commit('pushError', 'password must be at least 8');
         commit('setLoading', false);
       } else {
         axios
           .post(HOST + 'api/user/signin', credentials)
           .then(res => {
             console.log(res);
-            sessionStorage.setItem('email', res.data.email);
-            sessionStorage.setItem('nickname', res.data.nickname);
-            console.log(res.data.accessToken);
-            commit('setToken', res.data.accessToken);
-            commit('setLoading', false);
-            router.push('/main');
+            if (res.data.accessToken.length >= 15) {
+              console.log(res);
+              sessionStorage.setItem('email', res.data.email);
+              sessionStorage.setItem('nickname', res.data.nickname);
+              console.log(res.data.accessToken);
+              commit('setToken', res.data.accessToken);
+              commit('setLoading', false);
+              router.push('/main');
+            } else {
+              alert('아이디 또는 패스워드가 틀렸습니다');
+              commit('setLoading', false);
+              commit('clearErrors');
+              router.push('/login');
+            }
           })
-          // .then(token => {
-
-          // const hash = sessionStorage.getItem('jwt');
-
-          // const options = {
-          //   headers: {
-          //     Authorization: 'JWT ' + hash,
-          //   },
-          // };
-          // axios.post(HOST + 'api/accounts/userinfo/', null, options).then(res => {
-          //   console.log(res);
-          //   commit('setuserinfo', res.data);
-          // });
-          // })
           .catch(err => {
             if (!err.response) {
               // no reponse
@@ -140,25 +122,27 @@ const actions = {
       router.push('/home');
     } else {
       if (userInput.passwordConfirmation != userInput.password) {
+        alert('비밀번호와 비밀번호확인이 일치하지 않습니다.');
         commit('pushError', '비밀번호가 일치하지 않습니다.');
+      } else {
+        axios
+          .post(HOST + 'api/user/signup', userInput)
+          .then(res => {
+            console.log(res);
+            if (res.status === 200) {
+              const credentials = {
+                email: userInput.email,
+                password: userInput.password,
+              };
+              dispatch('login', credentials);
+            } else {
+              router.push('/signup');
+            }
+          })
+          .catch(err => {
+            commit('pushError', err.response);
+          });
       }
-      axios
-        .post(HOST + 'api/user/signup', userInput)
-        .then(res => {
-          console.log(res);
-          if (res.status === 200) {
-            const credentials = {
-              email: userInput.email,
-              password: userInput.password,
-            };
-            dispatch('login', credentials);
-          } else {
-            router.push('/signup');
-          }
-        })
-        .catch(err => {
-          commit('pushError', err.response);
-        });
     }
   },
 };
