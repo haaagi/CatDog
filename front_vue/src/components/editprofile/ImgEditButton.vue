@@ -17,7 +17,7 @@
           <!-- 프로필사진버튼 리스트 -->
           <v-card-text>
             <v-list dense>
-              <v-list-item-group v-model="item" color="primary">
+              <v-list-item-group color="primary">
                 <v-list-item @click="sheet = !sheet">
                   <v-list-item-icon>
                     <v-icon>mdi-image</v-icon>
@@ -35,7 +35,6 @@
                     <v-container>
                       <div class="">
                         <v-file-input
-                          :rules="rules"
                           accept="image/png, image/jpeg, image/bmp"
                           placeholder="Pick an avatar"
                           prepend-icon="mdi-camera"
@@ -92,11 +91,10 @@ export default {
   methods: {
     onSubmit() {
       const userNickname = sessionStorage.getItem('nickname');
-      axios
-        .put(HOST + 'auth/user/update/' + userNickname, { profileimg: this.profileFile })
-        .then(res => {
-          console.log(res);
-        });
+      console.log(userNickname);
+      axios.put(HOST + 'auth/user/update/' + userNickname, { img: this.profileFile }).then(res => {
+        console.log(res);
+      });
     },
     onSave(event) {
       console.log(event);

@@ -21,7 +21,7 @@
         <v-flex lg5>
           <v-col>
             <v-text-field
-              v-model="nickname"
+              v-model="editInfo.nickname"
               :rules="nameRules"
               :counter="20"
               label="Nick Name"
@@ -33,8 +33,7 @@
 
           <v-col>
             <v-text-field
-              v-model="phoneNumber"
-              :rules="phoneRules"
+              v-model="editInfo.pr"
               label="자기소개"
               required
               :placeholder="userInfo.pr"
@@ -78,7 +77,7 @@
         </v-flex> -->
       </v-layout>
 
-      <v-btn class="mr-4" :click="save">save</v-btn>
+      <v-btn class="mr-4" @click="onSave">save</v-btn>
       <router-link to="/userdetail"> <v-btn>cancle</v-btn></router-link>
     </v-card-text>
   </div>
@@ -97,12 +96,15 @@ export default {
   },
   data: () => ({
     userInfo: [],
+    editInfo: {
+      nickname: '',
+      pr: '',
+    },
 
-    nickname: '',
     // nick name 유효성 검사
     nameRules: [
       v => !!v || 'Name is required',
-      v => v.length <= 1 || 'Name must be less than 10 characters',
+      v => v.length >= 1 || 'Name must be less than 10 characters',
     ],
 
     img: '',
@@ -122,11 +124,25 @@ export default {
     myPet: ['포메라니안'],
     dogs: ['시츄', '말티즈', '포메라니안', '푸들'],
   }),
-  methods: {},
+  methods: {
+    onSave() {
+      const userNickname = sessionStorage.getItem('nickname');
+      axios
+        .put(HOST + 'auth/user/update/' + userNickname, {
+          pr: this.editInfo.pr,
+          nickname: this.editInfo.nickname,
+        })
+        .then(res => {
+          console.log(res);
+          sessionStorage.removeItem('nickname');
+          sessionStorage.setItem('nickname', res.data.nickname);
+        });
+    },
+  },
   beforeCreate() {
     const userNickname = sessionStorage.getItem('nickname');
     axios
-      .get(HOST + 'auth/userPage/' + userNickname)
+      .get(HOST + 'auth/myPage/' + userNickname)
       .then(res => {
         this.userInfo = res.data;
         console.log(res);

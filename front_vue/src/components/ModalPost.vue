@@ -112,7 +112,7 @@ export default {
   //     this.realContent = res.data.contents;
   //   });
   // },
-  created() {
+  beforecreated() {
     axios.get(HOST + 'auth/posts/comment/' + this.selectedPost.pid).then(res => {
       // console.log(this.selectedPost);
       this.items = res.data;

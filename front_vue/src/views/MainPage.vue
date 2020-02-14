@@ -19,9 +19,7 @@
               <v-col cols="auto" class="text-center pl-0">
                 <v-row class="flex-column ma-0 fill-height" justify="center">
                   <v-col class="px-0">
-                    <v-btn icon class="ma-2" text color="blue lighten-2">
-                      <ModalPost :selectedPost="selectedPost" />
-                    </v-btn>
+                    <ModalPost :selectedPost="selectedPost" />
                   </v-col>
                 </v-row>
               </v-col>
