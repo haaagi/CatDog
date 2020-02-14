@@ -74,6 +74,16 @@
             </v-container>
             <v-list three-line v-for="(item, index) in items" :key="index">
               <v-list-item-content>
+                <v-list-item v-if="item.user.img">
+                  <div>
+                    <img :src="item.user.img" />
+                  </div>
+                </v-list-item>
+                <v-list-item v-else>
+                  <div>
+                    <img src="https://image.flaticon.com/icons/svg/1077/1077063.svg" />
+                  </div>
+                </v-list-item>
                 <v-list-item-subtitle v-html="item.user.nickname"></v-list-item-subtitle>
 
                 <v-list-item-title v-html="item.content"></v-list-item-title>

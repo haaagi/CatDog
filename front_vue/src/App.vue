@@ -22,7 +22,7 @@
           <li><a href="/userdetail">Blog</a></li>
           <li><a href="/info">강아지 소개</a></li>
           <li><a href="/userdetail">Userdetail</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a @click="logout" href="/login">logout</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -61,7 +61,7 @@ export default {
   },
   name: 'App',
   methods: {
-    ...mapActions(['callStart', 'chkLogin', 'chkStart']),
+    ...mapActions(['callStart', 'chkLogin', 'chkStart', 'logout']),
   },
   created() {
     this.check = this.$store.dispatch('chkLogin');

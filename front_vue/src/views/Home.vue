@@ -6,7 +6,7 @@
           <div class="box">
             <div class="title">
               <span class="block"></span>
-              <div @click="callStart()">
+              <div>
                 <h1>CAT & DOG<span></span></h1>
               </div>
             </div>
@@ -25,7 +25,7 @@
           <div class="box">
             <div class="title">
               <span class="block"></span>
-              <div @click="callStart()">
+              <div>
                 <h1>CAT & DOG<span></span></h1>
               </div>
             </div>

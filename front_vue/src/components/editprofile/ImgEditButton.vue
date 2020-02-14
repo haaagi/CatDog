@@ -93,9 +93,11 @@ export default {
     onSubmit() {
       const userNickname = sessionStorage.getItem('nickname');
       console.log(userNickname);
-      axios.put(HOST + 'auth/user/update/' + userNickname, { img: this.profileFile }).then(res => {
-        console.log(res);
-      });
+      axios
+        .put(HOST + 'auth/user/update/' + userNickname, { img: this.editProfileImg.profileimg })
+        .then(res => {
+          console.log(res);
+        });
     },
     onSave(event) {
       console.log(event);
