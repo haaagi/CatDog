@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringTokenizer;
 
 @RequiredArgsConstructor
@@ -48,7 +49,7 @@ public class PostsService {
                 String date = posts.get(i).getModifiedDate().toString();
                 if(tags != null) {
                     for(int j=0; j<tags.size(); j++){
-                        hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
                 postlist.add(new PostsListResponseDto(pid, nickname, img, contents, hashtags, date, likecount));
@@ -58,10 +59,34 @@ public class PostsService {
     }
 
     @Transactional
-    public PostsResponseDto detail(Long pid) {
+    public PostsResponseDto detail(String mynickname, Long pid) {
+        List<PostsListResponseDto> postlist = new ArrayList<PostsListResponseDto>();
         List<Comment> comments = commentRepository.findAllByPostsPid(pid);
-        PostsResponseDto postsResponseDto = new PostsResponseDto(comments);
+        Optional<User> user = userRepository.findByNickname(mynickname);
+        Long userid = user.get().getUid();
+        Likes likes = likesRepository.findByPostsPidAndUserUid(pid, userid);
+        boolean islike = false;
+        if(likes != null ) islike = true;
+        PostsResponseDto postsResponseDto = new PostsResponseDto(comments, islike);
         return postsResponseDto;
+    }
+
+    @Transactional
+    public PostsResponseDto2 detail2(Long pid) {
+        Posts post = postsRepository.findByPid(pid);
+        String nickname = post.getUser().getNickname();
+        String img = post.getImg();
+        String contents = post.getContent();
+        List<String> hashtags = new ArrayList<>();
+        List<Tags> tags = tagsRepository.findAllByPostsPid(pid);
+        Long likecount = likesRepository.countLikesByPostsPid(pid);
+        String date = post.getModifiedDate().toString();
+        if(tags != null) {
+            for(int j=0; j<tags.size(); j++){
+                hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+            }
+        }
+        return new PostsResponseDto2(nickname, img, contents, hashtags, date, likecount);
     }
 
     @Transactional
@@ -105,20 +130,16 @@ public class PostsService {
     }
 
     @Transactional
-    public Long update(Long pid, PostsUpdateRequestDto requestDto) { //게시글 수정 요청
+    public void update(Long pid, PostsUpdateRequestDto requestDto) { //게시글 수정 요청
         Posts posts = postsRepository.findById(pid)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + pid));
-
-     //   posts.update(requestDto.getImg(), requestDto.getContent(), requestDto.getHashtags());
-
-        return pid;
+        posts.update(requestDto.getContent());
     }
 
     @Transactional
-    public void delete(Long id) {
-        Posts posts = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-
+    public void delete(Long pid) {
+        Posts posts = postsRepository.findById(pid)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + pid));
         postsRepository.delete(posts);
     }
 
@@ -130,15 +151,17 @@ public class PostsService {
     }
 
     @Transactional
-    public Long likesup(PostsLikesupRequestDto likesupRequestDto) {
+    public boolean likesup(PostsLikesupRequestDto likesupRequestDto) {
 
         User user = userRepository.findByNickname(likesupRequestDto.getNickname()).orElse(null);
         Posts posts = postsRepository.findById(likesupRequestDto.getPid()).orElse(null);
         Likes likes = likesRepository.findByPostsPidAndUserUid(posts.getPid(), user.getUid());
         if(likes != null) {
-            return likesRepository.deleteLikesByLid(likes.getLid())-2;
+            likesRepository.delete(likes);
+            return false;
         }else {
-            return likesRepository.save(Likes.builder().user(user).posts(posts).build()).getLid();
+            likesRepository.save(Likes.builder().user(user).posts(posts).build());
+            return true;
         }
     }
 }

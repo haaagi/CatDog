@@ -1,15 +1,9 @@
 package com.catdog.springboot.web.dto;
 
 import com.catdog.springboot.domain.posts.Posts;
-import com.catdog.springboot.domain.posts.PostsRepository;
 import com.catdog.springboot.domain.user.User;
-import com.catdog.springboot.domain.user.UserRepository;
-import com.catdog.springboot.service.PostsService;
-import com.catdog.springboot.service.UserService;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +12,7 @@ import java.util.Optional;
 @Setter
 public class MyPageResponseDto {
 
-    private Long uid; // User id
+    private String nickname; // User id
 
     private String profileimg; // User img
 
@@ -26,25 +20,31 @@ public class MyPageResponseDto {
 
     private Long post_cnt; // 내 게시물 수
 
-    private Long follow_from; // 나를 팔로우 한사람
+    private Long follower_cnt; // 나를 팔로우 한사람
 
-    private Long follow_to;   // 내가 팔로우 한사람
+    private Long following_cnt;   // 내가 팔로우 한사람
 
     private List<Posts> postsList; // 게시물 리스트
 
     private List<Optional<User>> followerList;
 
     private List<Optional<User>> followingList;
+    private List<String> followingnicknameList;
+    private List<String> followernicknameList;
 
-    public MyPageResponseDto(Long uid, String img , Long post_cnt , Long follow_from, Long follow_to, List<Posts> postsList, List<Optional<User>> follower, List<Optional<User>> folloing) {
-        this.uid = uid;
-        this.profileimg = "";
-        this.pr = "";
+    public MyPageResponseDto(String nickname, String profileimg , String pr, Long post_cnt , Long follower_cnt, Long following_cnt,
+                               List<Posts> postsList, List<Optional<User>> followerList, List<Optional<User>> followingList
+    ,List<String> followingnicknameList,List<String> followernicknameList ) {
+        this.nickname = nickname;
+        this.profileimg = profileimg;
+        this.pr = pr;
         this.post_cnt =  post_cnt;
-        this.follow_from = follow_from;
-        this.follow_to = follow_to;
+        this.follower_cnt = follower_cnt;
+        this.following_cnt = following_cnt;
         this.postsList = postsList;
-        this.followerList = follower;
-        this.followingList = folloing;
+        this.followerList = followerList;
+        this.followingList = followingList;
+        this.followingnicknameList = followingnicknameList;
+        this.followernicknameList = followernicknameList;
     }
 }

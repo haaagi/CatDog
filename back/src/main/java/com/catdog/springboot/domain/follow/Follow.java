@@ -4,6 +4,8 @@ import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -16,11 +18,13 @@ public class Follow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fid;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "Followrequest_uid")
     private User follower; // 신청한 사람
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "Followresponse_uid")
     private User following; // 신청 받는 사람
 

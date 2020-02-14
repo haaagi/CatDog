@@ -3,15 +3,12 @@ package com.catdog.springboot.web.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
-public class PostsListResponseDto {
-    private Long pid;
+public class PostsResponseDto2 {
     private String nickname;
     private String img;
     private String contents;
@@ -20,8 +17,9 @@ public class PostsListResponseDto {
     private Long likes;
 
     @Builder
-    public PostsListResponseDto(Long pid, String nickname, String img, String contents, List<String> hashtags, String modifiedDate ,Long likes) {
-        this.pid = pid;
+    public PostsResponseDto2(String nickname, String img,
+                             String contents, List<String> hashtags,
+                             String modifiedDate ,Long likes) {
         this.nickname = nickname;
         this.img = img;
         this.contents = contents;
@@ -29,5 +27,4 @@ public class PostsListResponseDto {
         this.modifiedDate = modifiedDate;
         this.likes = likes;
     }
-
 }

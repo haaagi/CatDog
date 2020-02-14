@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -25,8 +27,9 @@ public class Posts extends BaseTimeEntity {
     @Column
     private String content;
 
-    @ManyToOne(cascade=CascadeType.ALL)
     @JsonBackReference
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "uid")
     private User user;
 
@@ -37,8 +40,7 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
     }
 
-    public void update(String img, String content) {
-        this.img = img;
+    public void update( String content) {
         this.content = content;
     }
 

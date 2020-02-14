@@ -15,11 +15,13 @@ public interface PostsRepository extends JpaRepository<Posts,Long> {
     List<Posts> findAllByOrderByCreatedDateDesc();
     List<Posts> findAllByUserUid(Long uid);
 
-
     @Query(value = "select * from posts where posts.uid = ?1" , nativeQuery = true)
     List<Posts> postList(Long uid);
 
     @Query(value = "select count(*) from posts where uid = ?1" , nativeQuery = true)
     Long cnt_post(Long uid);
+
+    @Query(value = "select * from posts where pid = ?1", nativeQuery = true)
+    Posts findAllByPid(Long pid);
 
 }

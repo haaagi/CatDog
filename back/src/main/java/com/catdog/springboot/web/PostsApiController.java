@@ -18,9 +18,14 @@ public class PostsApiController {
         return postsService.findAll();
     }
 
+    @GetMapping("/api/posts/postdetail/{mynickname}/{pid}")
+    public PostsResponseDto detail(@PathVariable String mynickname, @PathVariable Long pid) {
+        return postsService.detail(mynickname, pid);
+    }
+
     @GetMapping("/api/posts/postdetail/{pid}")
-    public PostsResponseDto detail(@PathVariable Long pid) {
-        return postsService.detail(pid);
+    public PostsResponseDto2 detail (@PathVariable Long pid){
+        return postsService.detail2(pid);
     }
 
     @PostMapping("/auth/posts/posting") // 게시글 업로드
@@ -28,24 +33,19 @@ public class PostsApiController {
         return postsService.save(requestDto);
     }
 
-//    @GetMapping("/api/posts/{nickname}") //해당 닉네임 유저 페이지
-//    public List<PostsListResponseDto> findByNickname(@PathVariable String nickname) {
-//        return postsService.findByNickname(nickname);
-//    }
-
-    @PutMapping("/auth/posts/update/{id}") // 게시글 수정 (아직 구현 안됨)
-    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
-        return postsService.update(id, requestDto);
+    @PutMapping("/auth/posts/update/{pid}") // 게시글 수정
+    public void update(@PathVariable Long pid, @RequestBody PostsUpdateRequestDto requestDto) {
+        System.out.println(requestDto.getContent());
+        postsService.update(pid, requestDto);
     }
 
-    @DeleteMapping("/auth/posts/delete/{id}") //게시글 삭제 (아직 구현 안됨)
-    public Long delete(@PathVariable Long id) {
-        postsService.delete(id);
-        return id;
+    @DeleteMapping("/auth/posts/delete/{pid}") //게시글 삭제
+    public void delete(@PathVariable Long pid) {
+        postsService.delete(pid);
     }
 
     @PostMapping("/auth/posts/likesup")  //좋아요 누를때
-    public Long likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
+    public boolean likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
         return postsService.likesup(likesupRequestDto);
     }
 }
