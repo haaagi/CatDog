@@ -1,11 +1,16 @@
 package com.catdog.springboot.web;
 
 import com.catdog.springboot.domain.follow.FollowRepository;
+import com.catdog.springboot.domain.hashtag.HashtagsRepository;
+import com.catdog.springboot.domain.hashtag.Tags;
+import com.catdog.springboot.domain.hashtag.TagsRepository;
+import com.catdog.springboot.domain.likes.LikesRepository;
 import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.posts.PostsRepository;
 import com.catdog.springboot.domain.user.User;
 import com.catdog.springboot.domain.user.UserRepository;
 import com.catdog.springboot.web.dto.MyPageResponseDto;
+import com.catdog.springboot.web.dto.PostsListResponseDto;
 import com.catdog.springboot.web.dto.UserPageResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +28,9 @@ public class UserPageController {
     private final UserRepository userRepository;
     private final PostsRepository postsRepository;
     private final FollowRepository followRepository;
+    private final TagsRepository tagsRepository;
+    private final HashtagsRepository hashtagsRepository;
+    private final LikesRepository likesRepository;
 
     @GetMapping("/auth/myPage/{nickname}")
     public MyPageResponseDto MyPage(@PathVariable String nickname) {
@@ -34,7 +42,28 @@ public class UserPageController {
         Long following_cnt = followRepository.follow_F_Count(uid);
         List<Long> follower_list = followRepository.follow_T_list(uid);
         List<Long> following_list = followRepository.follow_F_list(uid);
-        List<Posts> postsList = postsRepository.postList(uid);
+        List<Posts> posts = postsRepository.postList(uid);
+        List<PostsListResponseDto> postsList = new ArrayList<>();
+        if(posts != null) {
+            for(int i=0; i<posts.size(); i++){
+                Long pid = posts.get(i).getPid();
+                String postsnickname = posts.get(i).getUser().getNickname();
+                String profileimg = posts.get(i).getUser().getImg();
+                String img = posts.get(i).getImg();
+                String contents = posts.get(i).getContent();
+                List<String> hashtags = new ArrayList<>();
+                List<Tags> tags = tagsRepository.findAllByPostsPid(pid);
+                Long likecount = likesRepository.countLikesByPostsPid(pid);
+                String date = posts.get(i).getModifiedDate().toString();
+                if(tags != null) {
+                    for(int j=0; j<tags.size(); j++){
+                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                    }
+                }
+                postsList.add(new PostsListResponseDto(pid, postsnickname,profileimg, img, contents, hashtags, date, likecount));
+            }
+        }
+
         // 나를 팔로우 하는 사람
         List<Optional<User>> followerList = new ArrayList<>();
         List<String> followernicknameList = new ArrayList<>();
@@ -68,9 +97,32 @@ public class UserPageController {
         Long post_cnt = postsRepository.cnt_post(uid);
         Long follower_cnt = followRepository.follow_T_Count(uid);
         Long following_cnt = followRepository.follow_F_Count(uid);
-        List<Posts> postsList = postsRepository.postList(uid);
         List<Long> follower_list = followRepository.follow_T_list(uid);
         List<Long> following_list = followRepository.follow_F_list(uid);
+        List<Posts> posts = postsRepository.postList(uid);
+        List<PostsListResponseDto> postsList = new ArrayList<>();
+        if(posts != null) {
+            for(int i=0; i<posts.size(); i++){
+                Long pid = posts.get(i).getPid();
+                String postsnickname = posts.get(i).getUser().getNickname();
+                String profileimg = posts.get(i).getUser().getImg();
+                String img = posts.get(i).getImg();
+                String contents = posts.get(i).getContent();
+                List<String> hashtags = new ArrayList<>();
+                List<Tags> tags = tagsRepository.findAllByPostsPid(pid);
+                Long likecount = likesRepository.countLikesByPostsPid(pid);
+                String date = posts.get(i).getModifiedDate().toString();
+                if(tags != null) {
+                    for(int j=0; j<tags.size(); j++){
+                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                    }
+                }
+                postsList.add(new PostsListResponseDto(pid, postsnickname,profileimg, img, contents, hashtags, date, likecount));
+            }
+        }
+
+
+
         // 나를 팔로우 하는 사람
         List<Optional<User>> followerList = new ArrayList<>();
         List<String> followernicknameList = new ArrayList<>();

@@ -72,16 +72,14 @@ public class User extends BaseTimeEntity {
     }
 
     public User update(UserUpdateRequestDto userUpdateRequestDto) {
-
-        this.password = userUpdateRequestDto.getPassword();
-        this.name = userUpdateRequestDto.getName();
-        this.nickname = userUpdateRequestDto.getNickname();
-        this.pr = userUpdateRequestDto.getPr();
-        this.birthday = userUpdateRequestDto.getBirthday();
-        this.img = userUpdateRequestDto.getImg();
-        this.likepet = userUpdateRequestDto.getLikePet();
-        this.mypet = userUpdateRequestDto.getMyPet();
-        this.phonenumber = userUpdateRequestDto.getPhoneNumber();
+        if(userUpdateRequestDto.getPassword() != null) this.password = userUpdateRequestDto.getPassword();
+        if(userUpdateRequestDto.getNickname() != null) this.nickname = userUpdateRequestDto.getNickname();
+        if(userUpdateRequestDto.getPr() != null) this.pr = userUpdateRequestDto.getPr();
+        if(userUpdateRequestDto.getBirthday() != null) this.birthday = userUpdateRequestDto.getBirthday();
+        if(userUpdateRequestDto.getImg() != null) this.img = userUpdateRequestDto.getImg();
+        if(userUpdateRequestDto.getLikePet() != null) this.likepet = userUpdateRequestDto.getLikePet();
+        if(userUpdateRequestDto.getMyPet() != null) this.mypet = userUpdateRequestDto.getMyPet();
+        if(userUpdateRequestDto.getPhoneNumber() != null) this.phonenumber = userUpdateRequestDto.getPhoneNumber();
         return this;
     }
 

@@ -18,6 +18,11 @@ public class PostsApiController {
         return postsService.findAll();
     }
 
+    @GetMapping("/api/posts/list/{nickname}") //포스트 리스트 가져오기 (메인화면에 사용)
+    public List<PostsListResponseDto> list(@PathVariable String nickname) {
+        return postsService.findAll(nickname);
+    }
+
     @GetMapping("/api/posts/postdetail/{mynickname}/{pid}")
     public PostsResponseDto detail(@PathVariable String mynickname, @PathVariable Long pid) {
         return postsService.detail(mynickname, pid);

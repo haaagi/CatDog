@@ -1,12 +1,9 @@
 package com.catdog.springboot.web;
 
-
-import com.catdog.springboot.domain.hashtag.Hashtags;
 import com.catdog.springboot.domain.hashtag.HashtagsRepository;
 import com.catdog.springboot.domain.hashtag.TagsRepository;
 import com.catdog.springboot.domain.user.LoginUser;
 import com.catdog.springboot.domain.user.User;
-
 import com.catdog.springboot.domain.user.UserRepository;
 import com.catdog.springboot.service.JwtService;
 import com.catdog.springboot.service.UserService;
@@ -39,20 +36,30 @@ public class UserController {
         String token = "";
         String email = "";
         String nickname = "";
-        try {
-            LoginUser loginUser = userService.signin(user.getEmail(), user.getPassword());
-            token = jwtService.create(loginUser);
-            email = loginUser.getEmail();
-            nickname = loginUser.getNickname();
-            System.out.println(token);
-            status = HttpStatus.ACCEPTED;
-            System.out.println(loginUser.getEmail() + " " + loginUser.getPassword());
-        } catch (RuntimeException e) {
+        Optional<User> logincheckuser = userRepository.findByEmail(user.getEmail());
+        if(logincheckuser == null) {
+            token = "no user";
+            return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
+        }else if( logincheckuser != null && !(logincheckuser.get().getPassword().equals(user.getPassword()))){
+            token ="no password";
+            return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
+        }else {
+            try {
+                LoginUser loginUser = userService.signin(user.getEmail(), user.getPassword());
+                token = jwtService.create(loginUser);
+                email = loginUser.getEmail();
+                nickname = loginUser.getNickname();
+                System.out.println(token);
+                status = HttpStatus.ACCEPTED;
+                System.out.println(loginUser.getEmail() + " " + loginUser.getPassword());
+            } catch (RuntimeException e) {
 //            log.error("로그인 실패", e);
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
+                resultMap.put("message", e.getMessage());
+                status = HttpStatus.INTERNAL_SERVER_ERROR;
+            }
+            return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
         }
-        return ResponseEntity.ok(new JwtResponseDto(token, email, nickname));
+
     }
 
     @PutMapping("/auth/user/update/{nickname}")
