@@ -87,16 +87,15 @@ export default {
     sheet: false,
 
     //
-    profileFile: '',
+    // profileFile: null,
+    editProfileImg: { profileimg: null },
   }),
   methods: {
     onSubmit() {
       const userNickname = sessionStorage.getItem('nickname');
-      axios
-        .put(HOST + 'auth/user/update/' + userNickname, { profileimg: this.profileFile })
-        .then(res => {
-          console.log(res);
-        });
+      axios.put(HOST + 'auth/user/update/' + userNickname, this.editProfileImg).then(res => {
+        console.log(res);
+      });
     },
     onSave(event) {
       console.log(event);
@@ -115,8 +114,8 @@ export default {
         .then(res => {
           console.log(res);
           console.log(res.data.data.link);
-          this.profileFile = res.data.data.link;
-          console.log(this.profileFile);
+          this.profileFile.profileimg = res.data.data.link;
+          console.log(this.profileFile.profileimg);
         });
     },
   },

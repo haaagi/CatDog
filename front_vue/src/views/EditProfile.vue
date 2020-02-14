@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-app id="inspire">
-      <v-container>
+      <v-container style="margin-top: 40px;">
         <v-card>
-          <v-toolbar flat color="primary" dark>
+          <v-toolbar flat color="amber" dark>
             <v-toolbar-title>User Profile</v-toolbar-title>
           </v-toolbar>
-          <v-tabs vertical>
+          <v-tabs vertical color="amber">
             <v-tab>
               <v-icon left>mdi-account</v-icon>
               프로필 편집
