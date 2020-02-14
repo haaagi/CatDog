@@ -21,7 +21,7 @@
         <v-flex lg5>
           <v-col>
             <v-text-field
-              v-model="nickname"
+              v-model="editInfo.nickname"
               :rules="nameRules"
               :counter="20"
               label="Nick Name"
@@ -32,7 +32,13 @@
           </v-col>
 
           <v-col>
-            <v-text-field label="자기소개" required :placeholder="userInfo.pr"> </v-text-field>
+            <v-text-field
+              v-model="editInfo.pr"
+              label="자기소개"
+              required
+              :placeholder="userInfo.pr"
+            >
+            </v-text-field>
           </v-col>
         </v-flex>
 
@@ -71,7 +77,7 @@
         </v-flex> -->
       </v-layout>
 
-      <v-btn class="mr-4" :click="onSave">save</v-btn>
+      <v-btn class="mr-4" @click="onSave">save</v-btn>
       <router-link to="/userdetail"> <v-btn>cancle</v-btn></router-link>
     </v-card-text>
   </div>
@@ -90,9 +96,11 @@ export default {
   },
   data: () => ({
     userInfo: [],
-    editInfo: {},
+    editInfo: {
+      nickname: '',
+      pr: '',
+    },
 
-    nickname: '',
     // nick name 유효성 검사
     nameRules: [
       v => !!v || 'Name is required',
@@ -120,9 +128,14 @@ export default {
     onSave() {
       const userNickname = sessionStorage.getItem('nickname');
       axios
-        .put(HOST + 'auth/user/update/' + userNickname, { profileimg: this.profileFile })
+        .put(HOST + 'auth/user/update/' + userNickname, {
+          pr: this.editInfo.pr,
+          nickname: this.editInfo.nickname,
+        })
         .then(res => {
           console.log(res);
+          sessionStorage.removeItem('nickname');
+          sessionStorage.setItem('nickname', res.data.nickname);
         });
     },
   },
