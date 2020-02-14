@@ -28,9 +28,11 @@
     </div>
   </div>
 </template>
-
+<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
 const axios = require('axios');
+const HOST = process.env.VUE_APP_SERVER_HOST;
 export default {
   data: function() {
     return {
@@ -43,18 +45,19 @@ export default {
   },
   methods: {
     findAllRoom: function() {
-      axios.get('http://70.12.246.72:8080/chat/rooms').then(response => {
+      axios.get(HOST + '/chat/rooms').then(response => {
         this.chatrooms = response.data;
       });
     },
     createRoom: function() {
       if ('' === this.room_name) {
         alert('방 제목을 입력해 주십시요.');
+
         return;
       } else {
         var params = new URLSearchParams();
         params.append('name', this.room_name);
-        axios.post('http://70.12.246.72:8080/chat/room', params).then(response => {
+        axios.post(HOST + '/chat/room', params).then(response => {
           alert(response.data.name + '방 개설에 성공하였습니다.');
           this.room_name = '';
           this.findAllRoom();
@@ -67,7 +70,6 @@ export default {
         localStorage.setItem('wschat.sender', sender);
         localStorage.setItem('wschat.roomId', roomId);
         location.href = '/chat/detail/' + roomId;
-        console.log(localStorage.getItem('wschat.sender'));
       }
     },
   },

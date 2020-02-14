@@ -7,6 +7,7 @@ import com.catdog.springboot.domain.user.User;
 import com.catdog.springboot.domain.user.UserRepository;
 import com.catdog.springboot.web.dto.UserPageResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RestController
 public class UserPageController {

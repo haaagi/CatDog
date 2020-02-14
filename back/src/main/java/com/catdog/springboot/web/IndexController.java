@@ -5,11 +5,13 @@ import com.catdog.springboot.config.auth.dto.SessionUser;
 import com.catdog.springboot.service.PostsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
+@CrossOrigin("*")
 @Controller
 public class IndexController {
     public static HashMap<Long, Long> map;

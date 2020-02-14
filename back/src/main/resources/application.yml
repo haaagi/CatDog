@@ -6,3 +6,7 @@ spring:
       enabled: false
   freemarker:
     cache: false
+  couchbase:
+    env:
+      timeouts:
+        socket-connect:

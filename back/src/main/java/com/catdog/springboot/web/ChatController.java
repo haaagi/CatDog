@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@CrossOrigin("*")
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class ChatController {
 
     private final SimpMessageSendingOperations messagingTemplate;
