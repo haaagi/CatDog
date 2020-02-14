@@ -1,6 +1,5 @@
 package com.catdog.springboot.web.dto;
 
-import com.catdog.springboot.domain.posts.Posts;
 import com.catdog.springboot.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +23,7 @@ public class MyPageResponseDto {
 
     private Long following_cnt;   // 내가 팔로우 한사람
 
-    private List<Posts> postsList; // 게시물 리스트
+    private List<PostsListResponseDto> postsList; // 게시물 리스트
 
     private List<Optional<User>> followerList;
 
@@ -33,7 +32,7 @@ public class MyPageResponseDto {
     private List<String> followernicknameList;
 
     public MyPageResponseDto(String nickname, String profileimg , String pr, Long post_cnt , Long follower_cnt, Long following_cnt,
-                               List<Posts> postsList, List<Optional<User>> followerList, List<Optional<User>> followingList
+                               List<PostsListResponseDto> postsList, List<Optional<User>> followerList, List<Optional<User>> followingList
     ,List<String> followingnicknameList,List<String> followernicknameList ) {
         this.nickname = nickname;
         this.profileimg = profileimg;

@@ -13,6 +13,7 @@ import java.util.List;
 public class PostsListResponseDto {
     private Long pid;
     private String nickname;
+    private String profileimg;
     private String img;
     private String contents;
     private List<String> hashtags;
@@ -20,9 +21,10 @@ public class PostsListResponseDto {
     private Long likes;
 
     @Builder
-    public PostsListResponseDto(Long pid, String nickname, String img, String contents, List<String> hashtags, String modifiedDate ,Long likes) {
+    public PostsListResponseDto(Long pid, String nickname, String profileimg, String img, String contents, List<String> hashtags, String modifiedDate ,Long likes) {
         this.pid = pid;
         this.nickname = nickname;
+        this.profileimg = profileimg;
         this.img = img;
         this.contents = contents;
         this.hashtags = hashtags;

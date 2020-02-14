@@ -12,7 +12,6 @@ import java.util.List;
 public class UserUpdateRequestDto {
 
     private String password;
-    private String name;
     private String nickname;
     private String pr;
     private String birthday;
@@ -22,11 +21,10 @@ public class UserUpdateRequestDto {
     private String phoneNumber;
 
     @Builder
-    public UserUpdateRequestDto(String password,String name, String nickname, String pr, String birthday, String img
+    public UserUpdateRequestDto(String password, String nickname, String pr, String birthday, String img
             ,List likepet,List mypet, String phonenumber) {
 
         this.password = password;
-        this.name = name;
         this.nickname = nickname;
         this.pr = pr;
         this.birthday = birthday;

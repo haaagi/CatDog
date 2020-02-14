@@ -41,6 +41,7 @@ public class PostsService {
             for(int i=0; i<posts.size(); i++){
                 Long pid = posts.get(i).getPid();
                 String nickname = posts.get(i).getUser().getNickname();
+                String profileimg = posts.get(i).getUser().getImg();
                 String img = posts.get(i).getImg();
                 String contents = posts.get(i).getContent();
                 List<String> hashtags = new ArrayList<>();
@@ -52,7 +53,35 @@ public class PostsService {
                         hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
-                postlist.add(new PostsListResponseDto(pid, nickname, img, contents, hashtags, date, likecount));
+                postlist.add(new PostsListResponseDto(pid, nickname, profileimg, img, contents, hashtags, date, likecount));
+            }
+        }
+        return postlist; //이거 잘 리턴되는지 봐야함
+    }
+
+    @Transactional
+    public List<PostsListResponseDto> findAll(String nickname) {
+        List<PostsListResponseDto> postlist = new ArrayList<PostsListResponseDto>();
+        Optional<User> user = userRepository.findByNickname(nickname);
+        Long uid = user.get().getUid();
+        List<Posts> posts = postsRepository.followingpostList(uid);
+        if(posts != null) {
+            for(int i=0; i<posts.size(); i++){
+                Long pid = posts.get(i).getPid();
+                String followernickname = posts.get(i).getUser().getNickname();
+                String profileimg = posts.get(i).getUser().getImg();
+                String img = posts.get(i).getImg();
+                String contents = posts.get(i).getContent();
+                List<String> hashtags = new ArrayList<>();
+                List<Tags> tags = tagsRepository.findAllByPostsPid(pid);
+                Long likecount = likesRepository.countLikesByPostsPid(pid);
+                String date = posts.get(i).getModifiedDate().toString();
+                if(tags != null) {
+                    for(int j=0; j<tags.size(); j++){
+                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                    }
+                }
+                postlist.add(new PostsListResponseDto(pid, followernickname,profileimg, img, contents, hashtags, date, likecount));
             }
         }
         return postlist; //이거 잘 리턴되는지 봐야함
