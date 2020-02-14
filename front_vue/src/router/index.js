@@ -18,11 +18,20 @@ import ChatDetail from '../components/chat/ChatDetail.vue';
 import Chat from '../views/Chat.vue';
 import FollowDetail from '../views/FollowDetail.vue';
 import TagDetail from '../views/TagPage.vue';
+import PageNotFound from '@/views/PageNotFound';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
+    {
+      path : "*",
+      redirect : '/404'
+    },
+    {
+      path:'/404',
+      component : PageNotFound
+    },
     {
       path: '/',
       name: 'home',

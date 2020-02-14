@@ -15,7 +15,6 @@ public class CommentController {
     private final CommentService commentService;
     @GetMapping("/auth/posts/comment/{pid}") // 해당 포스트에 달려있는 댓글 보여주기
     public List<Comment> commentlist(@PathVariable Long pid) {
-        System.out.println("request");
         return commentService.findAllAsc(pid);
     }
 
