@@ -24,7 +24,6 @@ public class UserController {
     private final JwtService jwtService;
     private final HashtagsRepository hashtagsRepository;
     private final TagsRepository tagsRepository;
-
     @PostMapping("/api/user/signup") // 회원가입
     public Long save(@RequestBody UserSaveRequestDto requestDto) {
         return userService.save(requestDto);

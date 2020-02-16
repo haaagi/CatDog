@@ -14,7 +14,7 @@ public class PostsResponseDto {
   private boolean islike;
 
     @Builder
-    public PostsResponseDto(List comment, boolean islike){
+    public PostsResponseDto(List comment, boolean islike) {
         this.comment = comment;
         this.islike = islike;
     }
