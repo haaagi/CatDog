@@ -33,6 +33,7 @@ public class PostsService {
     private final TagsRepository tagsRepository;
     private final CommentRepository commentRepository;
     private final FollowRepository followRepository;
+
     @Transactional
     public List<PostsListResponseDto> findAll() {
         List<PostsListResponseDto> postlist = new ArrayList<PostsListResponseDto>();
@@ -60,7 +61,7 @@ public class PostsService {
     }
 
     @Transactional
-    public List<PostsListResponseDto> findAll(String nickname) {
+    public List<PostsListResponseDto> findAllByNickname(String nickname) {
         List<PostsListResponseDto> postlist = new ArrayList<PostsListResponseDto>();
         Optional<User> user = userRepository.findByNickname(nickname);
         Long uid = user.get().getUid();
@@ -87,9 +88,38 @@ public class PostsService {
         return postlist; //이거 잘 리턴되는지 봐야함
     }
 
+
+    @Transactional
+    public List<PostsListResponseDto> findAllByHashtag(String hashtag) {
+        List<PostsListResponseDto> postlist = new ArrayList<PostsListResponseDto>();
+        Hashtags selecctedhashtags = hashtagsRepository.findByContent(hashtag);
+        List<Long> pids = tagsRepository.findpids(selecctedhashtags.getHid());
+
+        if(pids != null) {
+            for(int i=0; i<pids.size(); i++){
+                Long pid = pids.get(i);
+                Posts post = postsRepository.findByPid(pid);
+                String nickname = post.getUser().getNickname();
+                String profileimg = post.getUser().getImg();
+                String img = post.getImg();
+                String contents = post.getContent();
+                List<String> hashtags = new ArrayList<>();
+                List<Tags> tags = tagsRepository.findAllByPostsPid(pid);
+                Long likecount = likesRepository.countLikesByPostsPid(pid);
+                String date = post.getModifiedDate().toString();
+                if(tags != null) {
+                    for(int j=0; j<tags.size(); j++){
+                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                    }
+                }
+                postlist.add(new PostsListResponseDto(pid, nickname,profileimg, img, contents, hashtags, date, likecount));
+            }
+        }
+        return postlist; //이거 잘 리턴되는지 봐야함
+    }
+
     @Transactional
     public PostsResponseDto detail(String mynickname, Long pid) {
-        List<PostsListResponseDto> postlist = new ArrayList<PostsListResponseDto>();
         List<Comment> comments = commentRepository.findAllByPostsPid(pid);
         Optional<User> user = userRepository.findByNickname(mynickname);
         Long userid = user.get().getUid();
@@ -192,5 +222,18 @@ public class PostsService {
             likesRepository.save(Likes.builder().user(user).posts(posts).build());
             return true;
         }
+    }
+
+    @Transactional
+    public List<String> likeslist(Long pid) {
+        List<Likes> likesList = likesRepository.findAllByPostsPid(pid);
+        List<String> likeslist = new ArrayList<>();
+
+        if(likesList != null) {
+            for(int i=0; i<likesList.size(); i++){
+                likeslist.add(likesList.get(i).getUser().getNickname());
+            }
+        }
+        return likeslist;
     }
 }

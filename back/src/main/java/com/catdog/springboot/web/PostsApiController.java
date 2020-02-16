@@ -20,10 +20,15 @@ public class PostsApiController {
 
     @GetMapping("/api/posts/list/{nickname}") //포스트 리스트 가져오기 (메인화면에 사용)
     public List<PostsListResponseDto> list(@PathVariable String nickname) {
-        return postsService.findAll(nickname);
+        return postsService.findAllByNickname(nickname);
     }
 
-    @GetMapping("/api/posts/postdetail/{mynickname}/{pid}")
+    @GetMapping("/api/posts/search/{hashtag}") //검색한 리스트에서 선택한 해시태그달린 게시물 전체 검색
+    public List<PostsListResponseDto> tagsearch(@PathVariable String hashtag) {
+        return postsService.findAllByHashtag(hashtag);
+    }
+
+    @GetMapping("/api/posts/postdetail/{mynickname}/{pid}") // 해당 포스트 보기
     public PostsResponseDto detail(@PathVariable String mynickname, @PathVariable Long pid) {
         return postsService.detail(mynickname, pid);
     }
@@ -32,6 +37,7 @@ public class PostsApiController {
     public PostsResponseDto2 detail (@PathVariable Long pid){
         return postsService.detail2(pid);
     }
+
 
     @PostMapping("/auth/posts/posting") // 게시글 업로드
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
@@ -53,4 +59,11 @@ public class PostsApiController {
     public boolean likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
         return postsService.likesup(likesupRequestDto);
     }
+
+    @GetMapping("/api/posts/likeslist/{pid}") // 해당 Post 좋아요 누른 사람들 목록
+    public List<String> likeslist(@PathVariable Long pid) {
+        return postsService.likeslist(pid);
+    }
+
+
 }

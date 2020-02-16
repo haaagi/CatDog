@@ -10,7 +10,7 @@ public interface TagsRepository extends JpaRepository<Tags,Long> {
     List<Tags> findAllByPostsPid(Long pid);
 
     @Query(value = "select pid from tags where hid = ?1", nativeQuery = true)
-    List<Long> findpids(Long pid);
+    List<Long> findpids(Long hid);
 
     @Query(value = "select count(*) from tags where hid = ?1" , nativeQuery = true)
     Long content_cnt(Long hid);
