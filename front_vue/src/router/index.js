@@ -19,18 +19,20 @@ import Chat from '../views/Chat.vue';
 import FollowDetail from '../views/FollowDetail.vue';
 import TagDetail from '../views/TagPage.vue';
 import PageNotFound from '@/views/PageNotFound';
+import Search from '../views/Search.vue';
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path : "*",
-      redirect : '/404'
+      path: '*',
+      redirect: '/404',
     },
     {
-      path:'/404',
-      component : PageNotFound
+      path: '/404',
+      component: PageNotFound,
     },
     {
       path: '/',
@@ -127,7 +129,7 @@ const router = new VueRouter({
 
     {
       path: '/search',
-      component: About,
+      component: Search,
       props: route => ({ query: route.query.keyword }),
     },
   ],

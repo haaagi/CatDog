@@ -1,89 +1,68 @@
 /* eslint-disable vue/no-unused-vars */
 
 <template>
-  <v-row justify="center">
-    <v-btn
-      icon
-      @click.stop="dialog = true"
-      absolute
-      color="orange"
-      class="white--text"
-      fab
-      large
-      right
-      top
-    >
-      <v-icon color="orange">mdi-dog</v-icon>
-    </v-btn>
-
-    <v-dialog v-model="dialog">
-      <v-card justify-center>
-        <v-row>
-          <v-col class="a">
-            <v-img aspect-ratio="1" :src="selectedPost.img"></v-img>
-          </v-col>
-
-          <v-col class="b">
-            <v-list-item>
-              <v-list-item-avatar color="grey"></v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title class="headline">{{ selectedPost.nickname }}</v-list-item-title>
-                <v-list-item-subtitle>{{ selectedPost.modifiedDate }}</v-list-item-subtitle>
-              </v-list-item-content>
-              <v-flex xs2>
-                <v-list-item>
-                  <v-btn class="ma-2" color="blue darken-2" dark @click="dialog = false">
-                    <v-icon dark center>mdi-arrow-left</v-icon>
-                  </v-btn>
-                </v-list-item>
-              </v-flex>
-            </v-list-item>
-
-            <v-card-text>
-              {{ realContent }}
-            </v-card-text>
-            <v-item v-for="(hash, i) in selectedPost.hashtags" :key="i">
-              <v-chip active-class="purple--text">
-                {{ hash }}
-              </v-chip>
-            </v-item>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <EditPost :selectedPost="selectedPost" :realContent="realContent" />
-              </v-btn>
-              <v-btn icon @click="deletePost">
-                <v-icon>{{ icons.mdiDelete }}</v-icon>
-              </v-btn>
-            </v-card-actions>
-            <hr />
-            <v-container>
-              <v-col cols="12" sm="9">
-                <v-text-field
-                  v-model="review.contents"
-                  label="댓글을 남겨주세요"
-                  solo
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="2">
-                <v-btn icon @click="reviewSubmit">
-                  <v-icon l>{{ icons.mdiSend }}</v-icon>
+  <v-card justify-center>
+    <v-row>
+      <v-col class="a">
+        <v-img style="height=100%" aspect-ratio="1" :src="selectedPost.img"></v-img>
+      </v-col>
+      <div style="overflow:scroll;">
+        <v-col class="b">
+          <v-list-item>
+            <v-list-item-avatar color="grey"></v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="headline">{{ selectedPost.nickname }}</v-list-item-title>
+              <v-list-item-subtitle>{{ selectedPost.modifiedDate }}</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-flex xs2>
+              <v-list-item>
+                <v-btn class="ma-2" color="blue darken-2" dark @click="dialog = false">
+                  <v-icon dark center>mdi-arrow-left</v-icon>
                 </v-btn>
-              </v-col>
-            </v-container>
-            <v-list three-line v-for="(item, index) in items" :key="index">
-              <v-list-item-content>
-                <v-list-item-subtitle v-html="item.user.nickname"></v-list-item-subtitle>
+              </v-list-item>
+            </v-flex>
+          </v-list-item>
 
-                <v-list-item-title v-html="item.content"></v-list-item-title>
-              </v-list-item-content>
-            </v-list>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-dialog>
-  </v-row>
+          <v-card-text>
+            {{ realContent }}
+          </v-card-text>
+          <v-item v-for="(hash, i) in selectedPost.hashtags" :key="i">
+            <v-chip active-class="purple--text">
+              {{ hash }}
+            </v-chip>
+          </v-item>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn icon>
+              <EditPost :selectedPost="selectedPost" :realContent="realContent" />
+            </v-btn>
+            <v-btn icon @click="deletePost">
+              <v-icon>{{ icons.mdiDelete }}</v-icon>
+            </v-btn>
+          </v-card-actions>
+          <hr />
+          <v-container>
+            <v-col cols="12" sm="9">
+              <v-text-field v-model="review.contents" label="댓글을 남겨주세요" solo></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="2">
+              <v-btn icon @click="reviewSubmit">
+                <v-icon l>{{ icons.mdiSend }}</v-icon>
+              </v-btn>
+            </v-col>
+          </v-container>
+          <v-list three-line v-for="(item, index) in items" :key="index">
+            <v-list-item-content>
+              <v-list-item-subtitle v-html="item.user.nickname"></v-list-item-subtitle>
+
+              <v-list-item-title v-html="item.content"></v-list-item-title>
+            </v-list-item-content>
+          </v-list>
+        </v-col>
+      </div>
+    </v-row>
+  </v-card>
 </template>
 
 <script>
