@@ -19,7 +19,13 @@ const getters = {
   getErrors: state => state.errors,
   isLoading: state => state.loading,
   getuserinfo: state => state.userinfo,
-  isStart: state => state.start,
+  isStart: state => {
+    if (state.start === 1) {
+      return false;
+    } else {
+      return true;
+    }
+  },
 };
 const mutations = {
   setLoading: (state, flag) => (state.loading = flag),
@@ -34,7 +40,7 @@ const mutations = {
   setuserinfo: (state, info) => (state.userinfo = info),
   clearErrors: state => (state.errors = []),
   setStart: state => {
-    state.start = localStorage.getItem('start');
+    state.start = 0;
   },
 };
 const actions = {
@@ -87,6 +93,7 @@ const actions = {
               console.log(res.data.accessToken);
               commit('setToken', res.data.accessToken);
               commit('setLoading', false);
+              commit('isStart');
               router.push('/main');
             } else {
               alert('아이디 또는 패스워드가 틀렸습니다');

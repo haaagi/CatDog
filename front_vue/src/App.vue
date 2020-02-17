@@ -23,8 +23,9 @@
           <li><a href="/info">강아지 소개</a></li>
           <li><a href="/userdetail">Userdetail</a></li>
           <li><a @click="logout" href="/login">logout</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="board">Board</a></li>
+          <li><a href="aboutus">About Us</a></li>
+
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -40,7 +41,9 @@
     <div v-if="check">
       <div id="fh5co-main"><router-view /></div>
     </div>
-    <Posting />
+    <div v-if="isStart">
+      <Posting />
+    </div>
   </div>
 </template>
 
@@ -52,7 +55,8 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      check: null,
+      chkPosting: 0,
+      check: 0,
     };
   },
   computed: {
@@ -61,12 +65,16 @@ export default {
   },
   name: 'App',
   methods: {
-    ...mapActions(['callStart', 'chkLogin', 'chkStart', 'logout']),
+    ...mapActions(['callStart', 'chkStart', 'logout']),
   },
   created() {
+    this.chkPosting = 1;
     this.check = this.$store.dispatch('chkLogin');
-    this.$store.dispatch('chkStart');
+    // this.$store.dispatch('chkStart');
     // this.temp2 = this.$store.dispatch('callStart');
+  },
+  mounted() {
+    this.chkPosting = this.$store.start;
   },
   components: { Posting },
 
