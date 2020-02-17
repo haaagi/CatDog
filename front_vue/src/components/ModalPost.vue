@@ -116,6 +116,7 @@
     </v-card>
   </div>
 </template>
+
 <script>
 import EditPost from './EditPost';
 import { mdiAccount, mdiPencil, mdiDelete, mdiArrowRightBoldBox, mdiSend } from '@mdi/js';

@@ -5,6 +5,7 @@
         <div class="profile">
           <div class="profile-image">
             <img
+              style="width: 200px; height: 200px;"
               :src="userInfo.profileimg"
               alt="https://image.flaticon.com/icons/svg/1077/1077063.svg"
             />
@@ -16,9 +17,9 @@
               <button class="btn profile-edit-btn">Edit Profile</button>
             </router-link>
 
-            <button class="btn profile-settings-btn" aria-label="profile settings">
+            <!-- <button class="btn profile-settings-btn" aria-label="profile settings">
               <i class="fas fa-cog" aria-hidden="true"></i>
-            </button>
+            </button> -->
           </div>
 
           <!-- 팔로잉 팔로워 버튼 -->
@@ -152,35 +153,16 @@
     <!-- 포스팅 리스트 -->
     <main>
       <div class="container">
-        <div class="gallery">
-          <div
-            class="gallery-item"
-            tabindex="0"
-            v-for="selectedPost in userInfo.postsList"
-            :key="selectedPost.img"
-          >
-            <ModalPost :selectedPost="selectedPost" />
-
-            <!-- <div class="gallery-item-info">
-              <ul>
-                <li class="gallery-item-likes">
-                  <span class="visually-hidden">Likes:</span
-                  ><i class="fas fa-heart" aria-hidden="true"></i> 56
-                </li>
-                <li class="gallery-item-comments">
-                  <span class="visually-hidden">Comments:</span
-                  ><i class="fas fa-comment" aria-hidden="true"></i> 2
-                </li>
-              </ul>
-            </div> -->
-          </div>
-          <!--  -->
+        <div
+          class="gallery-item"
+          tabindex="0"
+          v-for="selectedPost in userInfo.postsList"
+          :key="selectedPost.img"
+          style="margin-bottom: 15px;"
+        >
+          <ModalPost :selectedPost="selectedPost" />
         </div>
-        <!-- End of gallery -->
-
-        <!-- <div class="loader"></div> -->
       </div>
-      <!-- End of container -->
     </main>
   </div>
 </template>
