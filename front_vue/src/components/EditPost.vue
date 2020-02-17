@@ -2,8 +2,9 @@
 
 <template>
   <v-row justify="center">
-    <v-btn icon @click.stop="dialog = true">
-      <v-icon color="orange">{{ icons.mdiPencil }}</v-icon>
+    <v-btn color="blue darken-1" text @click.stop="dialog = true">
+      <!-- <v-icon color="orange">{{ icons.mdiPencil }}</v-icon> -->
+      Edit
     </v-btn>
 
     <v-dialog v-model="dialog">

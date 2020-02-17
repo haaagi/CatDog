@@ -2,15 +2,29 @@
   <div>
     <Banner />
     <!-- hover 도즈언2  -->
-
-    <div class="container" v-for="(selectedPost, i) in postList" :key="i">
-      <img :src="selectedPost.img" :alt="selectedPost.nickname" class="image" style="width:100%" />
-      <div class="middle">
-        <div class="text">
-          {{ selectedPost.contents }} <ModalPost :selectedPost="selectedPost" />
+    <v-col grid-list-4>
+      <v-layout row>
+        <div class="container" v-for="(selectedPost, i) in postList" :key="i">
+          <v-col>
+            <v-row>
+              <v-img
+                height="300"
+                width="300"
+                :src="selectedPost.img"
+                :alt="selectedPost.nickname"
+                class="image"
+              />
+              <div class="middle">
+                <div class="text">
+                  <ModalPost :selectedPost="selectedPost" />
+                </div>
+              </div>
+            </v-row>
+          </v-col>
         </div>
-      </div>
-    </div>
+      </v-layout>
+    </v-col>
+
     <!-- hover 도즈언 끝  -->
 
     <!-- 도즈언1  -->
@@ -231,8 +245,7 @@ export default {
 }
 
 .text {
-  color: black;
+  color: blue;
   font-size: 16px;
-  padding: 16px 32px;
 }
 </style>

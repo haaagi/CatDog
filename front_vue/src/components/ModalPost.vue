@@ -1,19 +1,122 @@
-/* eslint-disable vue/no-unused-vars */
-
 <template>
-  <v-row justify="center">
-    <v-btn
-      icon
-      @click.stop="dialog = true"
-      absolute
-      color="orange"
-      class="white--text"
-      fab
-      large
-      right
-      top
-    >
-      <v-icon color="orange">mdi-dog</v-icon>
+  <div>
+    <v-row justify="center">
+      <v-btn text x-large="" @click.stop="dialog = true" absolute class="white--text">
+        {{ selectedPost.contents }}
+      </v-btn>
+
+      <!-- 모달 부분  -->
+      <v-dialog v-model="dialog" persistent max-width="800px">
+        <v-card>
+          <!-- 작성자 나오는 부분  -->
+          <v-card-title>
+            <v-col cols="12" sm="4" md="4">
+              <v-list-item>
+                <!-- 글쓴이 프로필 사진 -->
+                <v-list-item-avatar>
+                  <div v-if="selectedPost.profileimg === null">
+                    <v-icon>mdi-dog</v-icon>
+                  </div>
+                  <div v-else>
+                    <v-img :src="selectedPost.profileimg" />
+                  </div>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title class="headline">{{
+                    selectedPost.nickname
+                  }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ selectedPost.modifiedDate }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-col>
+            <v-col cols="12" sm="4" md="8">
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn color="blue darken-1" text>
+                  <EditPost :selectedPost="selectedPost" :realContent="realContent"
+                /></v-btn>
+                <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+              </v-card-actions>
+            </v-col>
+          </v-card-title>
+          <v-card-text>
+            <!-- 내용 나오는 부분  -->
+            <v-container>
+              <v-row>
+                <!-- 사진 나오는 부분  -->
+
+                <v-col cols="12" sm="8" md="8">
+                  <v-img
+                    aspect-ratio="1"
+                    :src="selectedPost.img"
+                    :alt="selectedPost.contents"
+                  ></v-img>
+                </v-col>
+
+                <!-- 내용 해쉬태그 댓글  -->
+                <v-col cols="12" sm="4" md="4">
+                  <v-card-text class="title">
+                    {{ selectedPost.contents }}
+                  </v-card-text>
+                  <v-item v-for="(hash, i) in selectedPost.hashtags" :key="i">
+                    <v-chip active-class="purple--text">
+                      {{ hash }}
+                    </v-chip></v-item
+                  >
+                  <!-- 좋아요 버튼  -->
+                  <v-btn text icon color="pink" @click="onClickLike">
+                    <v-icon>mdi-heart</v-icon>
+                  </v-btn>
+
+                  <!-- 댓글 리스트  -->
+                  <v-divider></v-divider>
+
+                  <v-list three-line v-for="(item, index) in items" :key="index">
+                    <v-row>
+                      <v-list-item-avatar>
+                        <div v-if="item.user.img === null">
+                          <v-icon>mdi-dog</v-icon>
+                        </div>
+                        <div v-else>
+                          <v-img :src="item.user.img" />
+                        </div>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-subtitle class="overline">{{
+                          item.user.nickname
+                        }}</v-list-item-subtitle>
+                        <v-list-item-title class="subtitle-1">{{ item.content }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-row>
+                  </v-list>
+                  <v-divider></v-divider>
+                  <!-- 댓글 입력창  -->
+                  <v-row>
+                    <v-text-field
+                      v-model="review.contents"
+                      label="Comment"
+                      placeholder="댓글을 남겨주세요"
+                      outlined
+                    ></v-text-field>
+
+                    <v-btn icon @click="reviewSubmit">
+                      <v-icon l>{{ icons.mdiSend }}</v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </v-row>
+  </div>
+  <!-- 오빠가 한 부분 -->
+  <!-- <v-row justify="center">
+    <v-btn text x-large="" @click.stop="dialog = true" absolute class="white--text">
+     
+      {{ selectedPost.contents }}
     </v-btn>
 
     <v-dialog v-model="dialog">
@@ -40,7 +143,7 @@
             </v-list-item>
 
             <v-card-text>
-              {{ realContent }}
+              {{ selectedPost.contents }}
             </v-card-text>
             <v-item v-for="(hash, i) in selectedPost.hashtags" :key="i">
               <v-chip active-class="purple--text">
@@ -62,8 +165,9 @@
               <v-col cols="12" sm="9">
                 <v-text-field
                   v-model="review.contents"
-                  label="댓글을 남겨주세요"
-                  solo
+                  label="Comment"
+                  placeholder="댓글을 남겨주세요"
+                  outlined
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="2">
@@ -83,7 +187,8 @@
         </v-row>
       </v-card>
     </v-dialog>
-  </v-row>
+  </v-row> -->
+  <!-- 오빠가 한 부분 끝  -->
 </template>
 
 <script>
@@ -99,6 +204,7 @@ export default {
   },
   data() {
     return {
+      flag: 0,
       realContent: '',
       icons: {
         mdiAccount,
@@ -109,7 +215,7 @@ export default {
       },
       review: {
         pid: this.selectedPost.pid,
-        nickname: this.selectedPost.nickname,
+        nickname: sessionStorage.getItem('nickname'),
         contents: '',
       },
       dialog: false,
@@ -122,13 +228,18 @@ export default {
   //     this.realContent = res.data.contents;
   //   });
   // },
-  beforecreated() {
+  created() {
     axios.get(HOST + 'auth/posts/comment/' + this.selectedPost.pid).then(res => {
       // console.log(this.selectedPost);
       this.items = res.data;
     });
     this.realContent = this.selectedPost.contents;
   },
+  // watch: {
+  //   realContent: function() {
+  //     this.selectedPost.contents = this.realContent;
+  //   },
+  // },
   methods: {
     updateContent(text) {
       this.realContent = text;
@@ -146,6 +257,13 @@ export default {
         console.log(res);
         this.dialog = false;
       });
+    },
+    onClickLike() {
+      const userNickname = sessionStorage.getItem('nickname');
+      axios
+        .post(HOST + 'auth/posts/likesup/', { pid: this.selectedPost.pid, nickname: userNickname })
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
     },
   },
 };

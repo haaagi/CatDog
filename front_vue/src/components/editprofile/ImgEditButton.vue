@@ -86,8 +86,7 @@ export default {
     sheet: false,
 
     //
-    // profileFile: null,
-    editProfileImg: { profileimg: null },
+    profileFile: '',
   }),
   methods: {
     onSubmit() {
@@ -114,8 +113,8 @@ export default {
         .then(res => {
           console.log(res);
           console.log(res.data.data.link);
-          this.profileFile.profileimg = res.data.data.link;
-          console.log(this.profileFile.profileimg);
+          this.profileFile = res.data.data.link;
+          console.log(this.profileFile);
         });
     },
   },
