@@ -18,7 +18,6 @@
     </v-container>
   </div>
 </template>
-
 <script>
 const HOST = process.env.VUE_APP_SERVER_HOST;
 const axios = require('axios');
@@ -56,7 +55,6 @@ export default {
     axios.get(HOST + 'api/posts/list').then(res => {
       this.postList = res.data;
       this.flag = true;
-
       this.words.push({
         resource: this.postList[this.Index++].img,
         //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
@@ -110,7 +108,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .grid-layout {
   display: grid;
@@ -120,17 +117,14 @@ export default {
   padding: 15px;
   grid-column-end: auto;
 }
-
 .grid-item {
   padding: 1rem;
   border-radius: 5px;
 }
-
 .span-2 {
   grid-column-end: span 2;
   grid-row-end: span 2;
 }
-
 .feed-grid {
   padding-right: 150px;
   padding-left: 150px;
