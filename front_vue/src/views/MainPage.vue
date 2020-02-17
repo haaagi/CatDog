@@ -11,9 +11,9 @@
         @click="onclick(index)"
       >
       </v-img>
+      {{ post }}
       <v-dialog v-model="modal">
-        <ModalPost :selectedPost="postList[modalIdx]" />
-        <span>{{ modalIdx }}</span>
+        <ModalPost v-bind:selectedPost="post" />
       </v-dialog>
     </v-container>
   </div>
@@ -36,7 +36,7 @@ export default {
     test: 'test',
     flag: false,
     modal: false,
-    modalIdx: 0,
+    post: [],
   }),
   watch: {
     bottom(bottom) {
@@ -101,9 +101,8 @@ export default {
       }, 10);
     },
     onclick(index) {
-      this.modalIdx = index;
       this.modal = true;
-      // alert(this.modalIdx);
+      this.post = this.postList[index];
     },
   },
 };
