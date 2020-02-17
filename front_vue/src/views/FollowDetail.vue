@@ -65,9 +65,7 @@
                 <v-row justify="center">
                   <v-dialog v-model="dialog" scrollable max-width="300px">
                     <template v-slot:activator="{ on }">
-                      <v-btn text color="black" dark v-on="on"
-                        >{{ followInfo.follower_cnt }}followers</v-btn
-                      >
+                      <v-btn text color="black" dark v-on="on">{{ followerCnt }}followers</v-btn>
                     </template>
                     <v-card>
                       <v-card-title>Follower List</v-card-title>
@@ -119,9 +117,7 @@
                 <v-row justify="center">
                   <v-dialog v-model="dialog_f" scrollable max-width="300px">
                     <template v-slot:activator="{ on }">
-                      <v-btn text color="black" dark v-on="on"
-                        >{{ followInfo.following_cnt }} following</v-btn
-                      >
+                      <v-btn text color="black" dark v-on="on">{{ followingCnt }} following</v-btn>
                     </template>
                     <v-card>
                       <v-card-title>Following List</v-card-title>
@@ -182,35 +178,16 @@
     <!-- 포스팅 리스트 -->
     <main>
       <div class="container">
-        <div class="gallery">
-          <div
-            class="gallery-item"
-            tabindex="0"
-            v-for="posting in followInfo.postsList"
-            :key="posting.img"
-          >
-            <img :src="posting.img" class="gallery-image" :alt="posting.content" />
-
-            <!-- <div class="gallery-item-info">
-              <ul>
-                <li class="gallery-item-likes">
-                  <span class="visually-hidden">Likes:</span
-                  ><i class="fas fa-heart" aria-hidden="true"></i> 56
-                </li>
-                <li class="gallery-item-comments">
-                  <span class="visually-hidden">Comments:</span
-                  ><i class="fas fa-comment" aria-hidden="true"></i> 2
-                </li>
-              </ul>
-            </div> -->
-          </div>
-          <!--  -->
+        <div
+          class="gallery-item"
+          tabindex="0"
+          v-for="selectedPost in followInfo.postsList"
+          :key="selectedPost.img"
+          style="margin-bottom: 15px;"
+        >
+          <ModalPost :selectedPost="selectedPost" />
         </div>
-        <!-- End of gallery -->
-
-        <!-- <div class="loader"></div> -->
       </div>
-      <!-- End of container -->
     </main>
   </div>
 </template>
@@ -218,9 +195,12 @@
 <script>
 const HOST = process.env.VUE_APP_SERVER_HOST;
 const axios = require('axios');
-
+import ModalPost from '../components/ModalPost';
 export default {
   name: 'Userdetail',
+  components: {
+    ModalPost,
+  },
   data() {
     return {
       // 유저 정보
@@ -230,6 +210,8 @@ export default {
       // 팔로우 버튼 부분
       followCheck: null,
       dialog_follow: false,
+      followingCnt: null,
+      followerCnt: null,
 
       text: 'center',
       icon: 'justify',
@@ -249,6 +231,8 @@ export default {
       .get(HOST + 'auth/myPage/' + this.$route.params.nickname)
       .then(res => {
         this.followInfo = res.data;
+        this.followingCnt = res.data.following_cnt;
+        this.followerCnt = res.data.follower_cnt;
         console.log(this.followInfo);
 
         // const follower = sessionStorage.getItem('nickname');
@@ -276,14 +260,7 @@ export default {
       })
       .catch(err => console.error(err));
   },
-  mounted() {
-    // 초기 팔로우 체크
-    // if (this.userInfo.followingList.includes(this.$route.params.nickname)) {
-    //   this.followCheck = true;
-    // } else {
-    //   this.followCheck = false;
-    // }
-  },
+  mounted() {},
   methods: {
     onClickFollow(following) {
       const follower = sessionStorage.getItem('nickname');
@@ -293,6 +270,15 @@ export default {
           console.log(res);
           this.followCheck = res.data;
           console.log(this.followCheck);
+
+          // 팔로우 수 바로 반영
+          axios
+            .get(HOST + 'auth/myPage/' + this.$route.params.nickname)
+            .then(res => {
+              this.followingCnt = res.data.following_cnt;
+              this.followerCnt = res.data.follower_cnt;
+            })
+            .catch(err => console.error(err));
         })
         .catch(err => console.error(err));
     },

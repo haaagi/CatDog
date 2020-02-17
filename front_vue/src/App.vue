@@ -40,7 +40,10 @@
     <div v-if="check">
       <div id="fh5co-main"><router-view /></div>
     </div>
-    <Posting />
+
+    <div v-if="isLoggedIn">
+      <Posting />
+    </div>
   </div>
 </template>
 

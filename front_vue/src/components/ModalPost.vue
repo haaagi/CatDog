@@ -43,7 +43,11 @@
         <v-row>
           <!-- 사진 나오는 부분  -->
           <v-col cols="12" sm="8" md="8">
-            <v-img aspect-ratio="1" :src="selectedPost.img" :alt="selectedPost.contents"></v-img>
+            <v-img
+              :src="selectedPost.img"
+              :alt="selectedPost.contents"
+              style="width= auto; height= auto;"
+            ></v-img>
           </v-col>
           <!-- 내용 해쉬태그 댓글  -->
           <v-col cols="12" sm="4" md="4">
@@ -59,12 +63,12 @@
             <v-row>
               <div v-if="likeCheck">
                 <v-btn text icon color="pink" @click="onClickLike">
-                  <v-icon>mdi-heart-outline</v-icon>
+                  <v-icon>mdi-heart</v-icon>
                 </v-btn>
               </div>
               <div v-else>
                 <v-btn text icon color="pink" @click="onClickLike">
-                  <v-icon>mdi-heart</v-icon>
+                  <v-icon>mdi-heart-outline</v-icon>
                 </v-btn>
               </div>
               <div class="body-1" style="padding-top: 8px;">
@@ -184,6 +188,7 @@
   </v-row> -->
   <!-- 오빠가 한 부분 끝  -->
 </template>
+
 <script>
 import EditPost from './EditPost';
 import { mdiAccount, mdiPencil, mdiDelete, mdiArrowRightBoldBox, mdiSend } from '@mdi/js';
