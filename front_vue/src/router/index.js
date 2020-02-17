@@ -18,6 +18,7 @@ import ChatDetail from '../components/chat/ChatDetail.vue';
 import Chat from '../views/Chat.vue';
 import FollowDetail from '../views/FollowDetail.vue';
 import TagDetail from '../views/TagPage.vue';
+import Search from '../views/Search.vue';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -118,7 +119,7 @@ const router = new VueRouter({
 
     {
       path: '/search',
-      component: About,
+      component: Search,
       props: route => ({ query: route.query.keyword }),
     },
   ],
