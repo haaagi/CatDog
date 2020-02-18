@@ -26,6 +26,8 @@ public class UserController {
     private final TagsRepository tagsRepository;
     @PostMapping("/api/user/signup") // 회원가입
     public Long save(@RequestBody UserSaveRequestDto requestDto) {
+        User user = userRepository.findByNickname(requestDto.getNickname()).orElse(null);
+        if(user != null) {return -1L;}
         return userService.save(requestDto);
     }
 
@@ -53,7 +55,7 @@ public class UserController {
                 status = HttpStatus.ACCEPTED;
                 System.out.println(loginUser.getEmail() + " " + loginUser.getPassword());
             } catch (RuntimeException e) {
-//            log.error("로그인 실패", e);
+//              log.error("로그인 실패", e);
                 resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
@@ -72,7 +74,7 @@ public class UserController {
         return userService.delete(nickname);
     }
 
-    @PostMapping("/auth/user/info") //유저정보
+    @PostMapping("/test/auth/user/info") //유저정보
     public ResponseEntity<Map<String, Object>> getInfo(HttpServletRequest req, @RequestBody LoginUser user) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
@@ -85,7 +87,7 @@ public class UserController {
             status = HttpStatus.ACCEPTED;
         } catch (RuntimeException e) {
 //            log.error("정보조회 실패", e);
-            resultMap.put("message", e.getMessage());
+            resultMap.put("message", "유효한 토큰이 아닙니다");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);

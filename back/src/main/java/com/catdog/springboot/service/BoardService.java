@@ -29,7 +29,7 @@ public class BoardService {
         if(boards != null) {
             for(int i=0; i<boards.size(); i++){
                 boardlist.add(new BoardListResponseDto(boards.get(i).getBid(), boards.get(i).getType(), boards.get(i).getTitle()
-                        , boards.get(i).getContents(), boards.get(i).getModifiedDate().toString()));
+                        , boards.get(i).getContents(),  boards.get(i).getUser().getNickname() ,boards.get(i).getModifiedDate().toString()));
             }
         }
         return boardlist; //이거 잘 리턴되는지 봐야함
@@ -57,7 +57,7 @@ public class BoardService {
     public void update(Long bid, BoardUpdateRequestDto updateDto) {
         Board board = boardRepository.findById(bid)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + bid));
-        board.update(updateDto.getContents());
+        board.update(updateDto.getContents(), updateDto.getTitle());
     }
 
     @Transactional

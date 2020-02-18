@@ -1,5 +1,6 @@
 package com.catdog.springboot.interceptor;
 
+import com.catdog.springboot.exception.InvalidTokenException;
 import com.catdog.springboot.service.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class JwtInterceptor implements HandlerInterceptor {
             String token = request.getHeader("jwt-auth-token");
             if(token != null && token.length() > 0) {
                 jwtService.checkValid(token);
-                //log.trace("토큰 사용 가능 : {}" ,token);
+                log.trace("토큰 사용 가능 : {}" ,token);
                 return true;
             }else {
-                throw new RuntimeException("인증 토큰이 없습니다.");
+                throw new InvalidTokenException("인증 토큰이 없습니다.");
             }
         }
     }
