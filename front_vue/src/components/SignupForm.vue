@@ -8,7 +8,7 @@
               CatDog SignUp
             </div>
             <v-spacer></v-spacer>
-            <v-btn text icon>
+            <v-btn to="/" text icon>
               <v-icon>close</v-icon>
             </v-btn>
           </v-card-title>
@@ -164,7 +164,7 @@
             <v-btn text class="font-weight-bold" large @click.prevent="signup(userInput)"
               >회원가입</v-btn
             >
-            <v-btn to="/login" text class="font-weight-bold" large>로그인</v-btn>
+            <!-- <v-btn to="/login" text class="font-weight-bold" large>로그인</v-btn> -->
           </v-card-actions>
         </v-card>
       </v-row>
