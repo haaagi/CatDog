@@ -83,6 +83,7 @@ export default {
   methods: {
     onSubmit() {
       this.postingFile.nickname = sessionStorage.getItem('nickname');
+      this.postingFile.content = this.postingFile.content.replace(/(\n|\r\n)/g, '<br>');
       axios.post(HOST + 'auth/posts/posting', this.postingFile).then(res => {
         console.log(res);
         this.dialog = false;

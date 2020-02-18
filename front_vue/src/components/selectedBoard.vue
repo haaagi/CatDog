@@ -20,9 +20,9 @@
             <v-icon>{{ icons.mdiDelete }}</v-icon>
           </v-btn>
         </router-link>
-        <div>
-          {{ onePost.contents }}
-        </div>
+        <td scope="col" colspan="20" v-html="onePost.contents">
+          <!-- {{ onePost.contents }} -->
+        </td>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
@@ -100,6 +100,7 @@ export default {
   },
   created() {
     this.onePost = this.post;
+    this.onePost.contents = this.onePost.contents.replace(/(\n|\r\n)/g, '<br>');
 
     axios.get(HOST + 'api/board/boarddetail/' + this.post.bid).then(res => {
       this.reviewList = res.data;
