@@ -21,16 +21,12 @@
             </div>
           </div>
 
+          <!-- 프로필 수정 버튼  -->
           <div class="profile-user-settings">
             <h1 class="profile-user-name">{{ userInfo.nickname }}</h1>
             <router-link to="/editprofile">
               <button class="btn profile-edit-btn">Edit Profile</button>
-              <!-- <v-btn class="btn profile-edit-btn">Edit Profile</v-btn> -->
             </router-link>
-
-            <!-- <button class="btn profile-settings-btn" aria-label="profile settings">
-              <i class="fas fa-cog" aria-hidden="true"></i>
-            </button> -->
           </div>
 
           <!-- 포스팅 수 팔로잉 팔로워 버튼 -->
@@ -336,7 +332,7 @@ img {
 }
 
 .profile-edit-btn {
-  font-size: 1.4rem;
+  font-size: 1em;
   line-height: 1.8;
   border: 0.1rem solid #dbdbdb;
   border-radius: 0.3rem;
@@ -345,7 +341,8 @@ img {
 }
 
 .profile-settings-btn {
-  font-size: 2rem;
+  /* font-size: 2rem; */
+  font-size: 1px;
   margin-left: 1rem;
 }
 
@@ -598,6 +595,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
     .profile-edit-btn,
     .profile-stats,
     .profile-bio {
+      /* grid-column: 1 / -1; */
       grid-column: 1 / -1;
     }
 
