@@ -1,6 +1,5 @@
 package com.catdog.springboot.web;
 
-
 import com.catdog.springboot.domain.board.BoardComment;
 import com.catdog.springboot.service.BoardService;
 import com.catdog.springboot.web.dto.*;
@@ -43,7 +42,6 @@ public class BoardController {
         boardService.delete(bid);
     }
 
-
     @PostMapping("/auth/board/comment") // 게시글에 댓글 달기
     public List<BoardComment> comment(@RequestBody BoardCommentRequestDto commentRequestDto) {
         return boardService.comment(commentRequestDto);
@@ -53,6 +51,4 @@ public class BoardController {
         public List<BoardComment> commentdelete(@PathVariable Long bid, @PathVariable Long bcid) {
         return boardService.commentdelete(bid , bcid);
     }
-
-
 }

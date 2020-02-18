@@ -49,8 +49,14 @@ public class PostsApiController {
         postsService.delete(pid);
     }
 
+
     @PostMapping("/auth/posts/likesup")  //좋아요 누를때
     public boolean likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
         return postsService.likesup(likesupRequestDto);
+    }
+
+    @GetMapping("/api/posts/like/likeslist/{pid}")
+    public List<String> likeslist(@PathVariable Long pid){
+        return postsService.likeslist(pid);
     }
 }
