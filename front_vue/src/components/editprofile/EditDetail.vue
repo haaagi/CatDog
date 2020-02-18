@@ -94,6 +94,7 @@ export default {
   data: () => ({
     userInfo: [],
     editInfo: {
+      img: '',
       nickname: '',
       pr: '',
     },
@@ -124,12 +125,16 @@ export default {
   methods: {
     onSave() {
       const userNickname = sessionStorage.getItem('nickname');
-
+      this.editInfo.img = sessionStorage.getItem('profileFile');
+      if (this.editInfo.img.constructor.name != String) {
+        this.editInfo.img = this.userInfo.profileimg;
+      }
       if (this.editInfo.nickname === '') {
         alert('닉네임을 한글자 이상 설정해주세요.');
       } else {
         axios
           .put(HOST + 'auth/user/update/' + userNickname, {
+            img: this.editInfo.img,
             pr: this.editInfo.pr,
             nickname: this.editInfo.nickname,
           })
@@ -137,6 +142,7 @@ export default {
             console.log(res);
             sessionStorage.removeItem('nickname');
             sessionStorage.setItem('nickname', res.data.nickname);
+            sessionStorage.removeItem('profileFile');
           });
       }
     },
