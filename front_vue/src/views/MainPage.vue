@@ -15,8 +15,7 @@
         <ModalPost v-bind:selectedPost="post" />
       </v-dialog>
     </v-container>
-    {{ total }}
-    {{ Index }}
+
     <Hint v-if="total <= Index" />
   </div>
 </template>
@@ -60,29 +59,17 @@ export default {
       this.postList = res.data;
       this.flag = true;
       this.total = this.postList.length;
+      if (this.total > this.Index)
+        this.words.push({
+          resource: this.postList[this.Index++].img,
+          tag: Math.random(),
+        });
       this.words.push({
         resource: this.postList[this.Index++].img,
-        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
         tag: Math.random(),
       });
       this.words.push({
         resource: this.postList[this.Index++].img,
-        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
-        tag: Math.random(),
-      });
-      this.words.push({
-        resource: this.postList[this.Index++].img,
-        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
-        tag: Math.random(),
-      });
-      this.words.push({
-        resource: this.postList[this.Index++].img,
-        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
-        tag: Math.random(),
-      });
-      this.words.push({
-        resource: this.postList[this.Index++].img,
-        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
         tag: Math.random(),
       });
     });
@@ -98,10 +85,11 @@ export default {
     },
     addWord() {
       setTimeout(() => {
-        this.words.push({
-          resource: this.postList[this.Index++].img,
-          tag: Math.random(),
-        });
+        if (this.total > this.Index)
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            tag: Math.random(),
+          });
 
         if (this.bottomVisible()) {
           this.addWord();

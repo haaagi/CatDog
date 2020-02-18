@@ -1,7 +1,12 @@
 <template>
   <div id="fh5co-page">
     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
-    <aside id="fh5co-aside" role="complementary" class="border js-fullheight" style="z-index:1">
+    <aside
+      id="fh5co-aside"
+      role="complementary"
+      class="border js-fullheight"
+      style="z-index:1; background-color: whitesmoke; widht "
+    >
       <h1 id="fh5co-logo" style="margin-bottom: 1em">
         <a href="/"
           ><center><img src="../src/assets/logo.png" style="width:180px" /></center
