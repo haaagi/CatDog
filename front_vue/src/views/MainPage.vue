@@ -33,7 +33,7 @@ export default {
   data: () => ({
     bottom: false,
     words: [],
-    Index: -1,
+    Index: 0,
     total: 0,
     postList: [],
     test: 'test',

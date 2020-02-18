@@ -208,11 +208,7 @@ export default {
         .catch(err => console.error(err));
     },
   },
-  // watch: {
-  //   realContent: function() {
-  //     this.selectedPost.contents = this.realContent;
-  //   },
-  // },
+
   methods: {
     // 댓글 리스트
     reviewSubmit() {
