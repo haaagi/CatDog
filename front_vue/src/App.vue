@@ -7,7 +7,12 @@
       class="border js-fullheight"
       style="z-index:1; background-color: whitesmoke; widht "
     >
-      <h1 id="fh5co-logo" style="margin-bottom: 1em">
+      <h1 id="fh5co-logo" style="margin-bottom: 1em" v-if="isLoggedIn">
+        <a href="/main"
+          ><center><img src="../src/assets/logo.png" style="width:180px" /></center
+        ></a>
+      </h1>
+      <h1 v-else>
         <a href="/"
           ><center><img src="../src/assets/logo.png" style="width:180px" /></center
         ></a>
