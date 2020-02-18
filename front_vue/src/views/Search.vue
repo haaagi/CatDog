@@ -23,7 +23,7 @@
           <v-icon>TAG</v-icon>
         </v-btn>
       </v-btn-toggle>
-      <div v-if="tog === 0">
+      <div v-if="tog === 0" style="margin-top: 40px;">
         <h2>검색된 유저 수: {{ data.search_nickname.length }}</h2>
         <v-container>
           <div class="column" v-for="(item, i) in data.search_nickname" :key="i">
@@ -57,7 +57,7 @@
           </div>
         </v-container>
       </div>
-      <div v-else>
+      <div v-else style="margin-top: 40px;">
         <h2>검색된 태그 수: {{ data.search_content.length }}</h2>
         <v-container>
           <div class="column" v-for="(item, i) in data.search_content" :key="i">

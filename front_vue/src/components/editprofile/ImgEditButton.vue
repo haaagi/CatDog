@@ -87,8 +87,7 @@ export default {
     dialog: false,
     sheet: false,
 
-    //
-    profileFile: '',
+    profileFile: '', // 임그루에 담긴 파일
   }),
   methods: {
     onSubmit() {
