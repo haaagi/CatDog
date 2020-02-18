@@ -23,8 +23,9 @@
           <li><a href="/info">강아지 소개</a></li>
           <li><a href="/userdetail">Userdetail</a></li>
           <li><a @click="logout" href="/login">logout</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="board">Board</a></li>
+          <li><a href="aboutus">About Us</a></li>
+
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -55,7 +56,8 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      check: null,
+      chkPosting: 0,
+      check: 0,
     };
   },
   computed: {
@@ -67,9 +69,13 @@ export default {
     ...mapActions(['callStart', 'chkLogin', 'chkStart', 'logout']),
   },
   created() {
+    this.chkPosting = 1;
     this.check = this.$store.dispatch('chkLogin');
-    this.$store.dispatch('chkStart');
+    // this.$store.dispatch('chkStart');
     // this.temp2 = this.$store.dispatch('callStart');
+  },
+  mounted() {
+    this.chkPosting = this.$store.start;
   },
   components: { Posting },
 

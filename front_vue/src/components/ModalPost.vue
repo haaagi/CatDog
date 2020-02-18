@@ -176,6 +176,11 @@ export default {
       })
       .catch(err => console.error(err));
   },
+  // watch: {
+  //   realContent: function() {
+  //     this.selectedPost.contents = this.realContent;
+  //   },
+  // },
   methods: {
     updateContent(text) {
       this.realContent = text;

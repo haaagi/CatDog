@@ -35,7 +35,7 @@
                   <v-row justify="center">
                     <v-dialog v-model="dialog" scrollable max-width="300px">
                       <template v-slot:activator="{ on }">
-                        <v-btn text color="primary" dark v-on="on"
+                        <v-btn text color="primary" v-on="on"
                           >{{ userInfo.follower_cnt }}followers</v-btn
                         >
                       </template>
@@ -89,7 +89,7 @@
                   <v-row justify="center">
                     <v-dialog v-model="dialog_f" scrollable max-width="300px">
                       <template v-slot:activator="{ on }">
-                        <v-btn text color="primary" dark v-on="on"
+                        <v-btn text color="primary" v-on="on"
                           >{{ userInfo.following_cnt }} following</v-btn
                         >
                       </template>
