@@ -5,6 +5,21 @@
       <v-card-title class="headline mb-1">{{ onePost.title }}</v-card-title>
 
       <v-card-text>
+        <router-link
+          :to="{
+            name: 'updateboard',
+            params: { onePost: onePost },
+          }"
+        >
+          <v-btn icon style="float:right">
+            <v-icon>{{ icons.mdiPencil }}</v-icon>
+          </v-btn>
+        </router-link>
+        <router-link to="board">
+          <v-btn icon style="float:right" @click="onDelete">
+            <v-icon>{{ icons.mdiDelete }}</v-icon>
+          </v-btn>
+        </router-link>
         <div>
           {{ onePost.contents }}
         </div>
@@ -13,18 +28,35 @@
       <v-divider class="mx-4"></v-divider>
 
       <v-card-title>Comments</v-card-title>
-
-      <v-card-text> 댓글 리스트 나오는 부분 </v-card-text>
+      <v-list three-line v-for="(item, index) in reviewList" :key="index">
+        <v-row style="margin-left:20px;">
+          <v-list-item-avatar>
+            <div v-if="!item.user || item.user.img === null">
+              <v-icon>mdi-dog</v-icon>
+            </div>
+            <div v-else>
+              <v-img :src="item.user.img" />
+            </div>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-subtitle class="overline">{{
+              !item.user || item.user.nickname
+            }}</v-list-item-subtitle>
+            <v-list-item-title class="subtitle-1">{{ item.contents }}</v-list-item-title>
+          </v-list-item-content>
+        </v-row>
+      </v-list>
 
       <!-- 댓글 입력창  -->
       <v-row>
         <v-text-field
+          v-model="review.contents"
           label="Comment"
           placeholder="댓글을 남겨주세요"
           outlined
           style="max-width: 1000px; margin-left: 50px;"
         ></v-text-field>
-        <v-btn icon style="margin-top: 15px;">
+        <v-btn @click="reviewSubmit" icon style="margin-top: 15px;">
           <v-icon>mdi-send</v-icon>
         </v-btn>
       </v-row>
@@ -32,7 +64,7 @@
       <!-- 뒤로가기  -->
       <v-card-actions style="float:right">
         <router-link to="/board">
-          <v-btn color="deep-purple lighten-2" text @click="reserve">
+          <v-btn color="deep-purple lighten-2" text>
             Back
           </v-btn>
         </router-link>
@@ -41,15 +73,23 @@
   </div>
 </template>
 <script>
-// const axios = require('axios');
-// const HOST = process.env.VUE_APP_SERVER_HOST;
+import { mdiDelete, mdiPencil } from '@mdi/js';
+const axios = require('axios');
+const HOST = process.env.VUE_APP_SERVER_HOST;
 export default {
   props: {
     post: Object,
   },
   data() {
     return {
+      review: {
+        nickname: '',
+        bid: 0,
+        contents: '',
+      },
+      icons: { mdiDelete, mdiPencil },
       onePost: [],
+      reviewList: [],
       selectedBoard: {
         bid: 0,
         title: '',
@@ -60,8 +100,27 @@ export default {
   },
   created() {
     this.onePost = this.post;
+
+    axios.get(HOST + 'api/board/boarddetail/' + this.post.bid).then(res => {
+      this.reviewList = res.data;
+      console.log(this.reviewList);
+    });
   },
-  methods: {},
+  methods: {
+    onDelete() {
+      const bid = this.post.bid;
+      axios.delete(HOST + 'auth/board/delete/' + bid);
+    },
+    reviewSubmit() {
+      this.review.nickname = sessionStorage.getItem('nickname');
+      this.review.bid = this.post.bid;
+      axios.post(HOST + 'auth/board/comment/', this.review).then(res => {
+        console.log(res);
+        this.reviewList = res.data;
+        this.review.contents = '';
+      });
+    },
+  },
 };
 </script>
 <style></style>

@@ -25,6 +25,7 @@ import AboutUs from '../views/AboutUs.vue';
 import Board from '../views/Board.vue';
 import writeBoard from '../components/writeBoard.vue';
 import selectedBoard from '../components/selectedBoard.vue';
+import updateBoard from '../components/updateBoard.vue';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -143,6 +144,12 @@ const router = new VueRouter({
       path: '/selectedboard/:bid',
       name: 'selectedboard',
       component: selectedBoard,
+      props: true,
+    },
+    {
+      path: '/updateboard/',
+      name: 'updateboard',
+      component: updateBoard,
       props: true,
     },
     // {
