@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1># {{ this.$route.params.tagname }}</h1>
-    <h2>게시물 수: {{ this.$route.params.tagcnt }}</h2>
+    <Banner />
     <v-container class="grid-layout">
       <v-img
         class="grid-item"
@@ -22,9 +21,10 @@
 <script>
 const HOST = process.env.VUE_APP_SERVER_HOST;
 const axios = require('axios');
+import Banner from '../components/Banner.vue';
 import ModalPost from '../components/ModalPost.vue';
 export default {
-  components: { ModalPost },
+  components: { Banner, ModalPost },
   props: {
     selectedPost: Object,
   },
@@ -52,7 +52,7 @@ export default {
     this.addWord();
   },
   created() {
-    axios.get(HOST + 'hashtag/' + this.$route.params.tagname).then(res => {
+    axios.get(HOST + 'api/posts/list').then(res => {
       this.postList = res.data;
       this.flag = true;
       this.words.push({
