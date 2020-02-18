@@ -230,7 +230,7 @@ export default {
       axios
         .post(HOST + 'auth/posts/likesup/', {
           pid: this.selectedPost.pid,
-          nickname: this.userNickname,
+          nickname: sessionStorage.getItem('nickname'),
         })
         .then(res => {
           console.log(res.data);
