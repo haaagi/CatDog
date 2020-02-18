@@ -4,7 +4,7 @@
     <div class="text-center">
       <v-dialog v-model="dialog" width="500">
         <template v-slot:activator="{ on }">
-          <v-btn text small color="primary" dark v-on="on">
+          <v-btn text small style="color: rgb(34, 136, 150);" dark v-on="on">
             프로필 사진 변경
           </v-btn>
         </template>
@@ -43,12 +43,13 @@
                         >
                         </v-file-input>
                       </div>
+
                       <v-btn color="primary" text @click="onSubmit">submit</v-btn>
                     </v-container>
                   </v-sheet>
                 </v-bottom-sheet>
 
-                <v-list-item>
+                <v-list-item @click="onClickDelete">
                   <v-list-item-icon>
                     <v-icon>mdi-delete</v-icon>
                   </v-list-item-icon>
@@ -64,8 +65,9 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false">
-              cancle
+
+            <v-btn style="color: rgb(34, 136, 150);" text @click="dialog = false">
+              close
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -95,6 +97,7 @@ export default {
       axios.put(HOST + 'auth/user/update/' + userNickname, { img: this.profileFile }).then(res => {
         console.log(res);
       });
+      this.dialog = false;
     },
     onSave(event) {
       console.log(event);
@@ -116,6 +119,15 @@ export default {
           this.profileFile = res.data.data.link;
           console.log(this.profileFile);
         });
+    },
+    onClickDelete() {
+      console.log('삭제하기');
+      const userNickname = sessionStorage.getItem('nickname');
+
+      axios.put(HOST + 'auth/user/update/' + userNickname, { img: '' }).then(res => {
+        console.log(res.data.img);
+      });
+      this.dialog = false;
     },
   },
 };

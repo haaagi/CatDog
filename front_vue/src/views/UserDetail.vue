@@ -4,17 +4,28 @@
       <div class="container">
         <div class="profile">
           <div class="profile-image">
-            <img
-              style="width: 200px; height: 200px;"
-              :src="userInfo.profileimg"
-              alt="https://image.flaticon.com/icons/svg/1077/1077063.svg"
-            />
+            <!-- 프로필 이미지  -->
+            <div v-if="userInfo.profileimg === null || userInfo.profileimg === ''">
+              <img
+                style="width: 200px; height: 200px;"
+                src="https://image.flaticon.com/icons/svg/1077/1077063.svg"
+                :alt="userInfo.nickname"
+              />
+            </div>
+            <div v-else>
+              <img
+                style="width: 200px; height: 200px;"
+                :src="userInfo.profileimg"
+                :alt="userInfo.nickname"
+              />
+            </div>
           </div>
 
           <div class="profile-user-settings">
             <h1 class="profile-user-name">{{ userInfo.nickname }}</h1>
             <router-link to="/editprofile">
               <button class="btn profile-edit-btn">Edit Profile</button>
+              <!-- <v-btn class="btn profile-edit-btn">Edit Profile</v-btn> -->
             </router-link>
 
             <!-- <button class="btn profile-settings-btn" aria-label="profile settings">
@@ -22,12 +33,14 @@
             </button> -->
           </div>
 
-          <!-- 팔로잉 팔로워 버튼 -->
+          <!-- 포스팅 수 팔로잉 팔로워 버튼 -->
           <div class="profile-stats">
             <ul>
               <li>
                 <span class="profile-stat-count"></span
-                ><v-btn text large>{{ userInfo.post_cnt }} posts</v-btn>
+                ><v-btn text large disabled style="color: black;"
+                  >{{ userInfo.post_cnt }} posts</v-btn
+                >
               </li>
               <v-layout>
                 <li>
@@ -50,7 +63,7 @@
                               :key="follower.nickname"
                             >
                               <v-list-item-avatar>
-                                <div v-if="follower.img === null">
+                                <div v-if="follower.img === ''">
                                   <v-avatar color="">
                                     <v-icon>mdi-dog</v-icon>
                                   </v-avatar>
@@ -68,6 +81,7 @@
                                     name: 'followdetail',
                                     params: { nickname: follower.nickname },
                                   }"
+                                  style="color: rgb(34, 136, 150);   text-decoration: none;"
                                 >
                                   <v-list-item-title>{{ follower.nickname }}</v-list-item-title>
                                 </router-link>
@@ -77,7 +91,9 @@
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions>
-                          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+                          <v-btn style="color: rgb(34, 136, 150);" text @click="dialog = false"
+                            >Close</v-btn
+                          >
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -104,8 +120,8 @@
                               :key="following.nickname"
                             >
                               <v-list-item-avatar>
-                                <div v-if="following.img === null">
-                                  <v-avatar color="">
+                                <div v-if="following.img === ''">
+                                  <v-avatar>
                                     <v-icon>mdi-dog</v-icon>
                                   </v-avatar>
                                 </div>
@@ -122,6 +138,7 @@
                                     name: 'followdetail',
                                     params: { nickname: following.nickname },
                                   }"
+                                  style="color: rgb(34, 136, 150);   text-decoration: none;"
                                 >
                                   <v-list-item-title>{{ following.nickname }}</v-list-item-title>
                                 </router-link>
@@ -131,7 +148,9 @@
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions>
-                          <v-btn color="blue darken-1" text @click="dialog_f = false">Close</v-btn>
+                          <v-btn style="color: rgb(34, 136, 150);" text @click="dialog_f = false"
+                            >Close</v-btn
+                          >
                         </v-card-actions>
                       </v-card>
                     </v-dialog>

@@ -4,7 +4,20 @@
       <div class="container">
         <div class="profile">
           <div class="profile-image">
-            <img src="https://image.flaticon.com/icons/svg/1077/1077063.svg" alt="" />
+            <div v-if="followInfo.profileimg === null">
+              <img
+                style="width: 200px; height: 200px;"
+                src="https://image.flaticon.com/icons/svg/1077/1077063.svg"
+                :alt="followInfo.nickname"
+              />
+            </div>
+            <div v-else>
+              <img
+                style="width: 200px; height: 200px;"
+                :src="followInfo.profileimg"
+                :alt="followInfo.nickname"
+              />
+            </div>
           </div>
 
           <div class="profile-user-settings">

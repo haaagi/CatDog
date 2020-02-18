@@ -30,21 +30,22 @@
       </div>
     </div>
     <div class="row full-screen no-gutters">
-      <div class="hover-screen" style="width:20%">
-        <h2>Nombre NOMBRE</h2>
+      <div class="hover-screen" style="width:20%;">
+        <h2 style="margin-left: -70px;"><a href="https://github.com/ponyong">Backend</a></h2>
       </div>
+
       <div class=" hover-screen" style="width:20%">
-        <h2>Nombre NOMBRE</h2>
+        <h2 style="margin-left: -70px;"><a href="https://github.com/daehi4u">Backend</a></h2>
       </div>
       <div class="hover-screen" style="width:20%">
-        <h2>Nombre</h2>
+        <h2 style="margin-left: -70px;"><a href="https://github.com/haaagi">Frontend</a></h2>
       </div>
       <div class="hover-screen" style="width:20%">
-        <h2>Nombre</h2>
+        <h2 style="margin-left: -70px;"><a href="https://github.com/Han-kiyeon">Frontend</a></h2>
       </div>
 
       <div class="hover-screen" style="width:20%">
-        <h2>Nombre</h2>
+        <h2 style="margin-left: -70px;"><a href="https://github.com/sooya14">Frontend</a></h2>
       </div>
     </div>
     <div
@@ -74,6 +75,12 @@ export default {};
 </script>
 <style scoped>
 /* @import url('https://fonts.googleapis.com/css?family=Lato:300,400|Poppins:300,400,800&display=swap'); */
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
 .box {
   padding: 0;
   position: relative;
@@ -181,7 +188,7 @@ h3 {
   background-position: 85% 0;
 }
 .hover-screen:nth-child(5) {
-  background: url(https://i.imgur.com/4o5TgbF.png);
+  background: url(https://i.imgur.com/YTdLfKu.png);
   background-size: cover;
   background-position: 85% 0;
 }

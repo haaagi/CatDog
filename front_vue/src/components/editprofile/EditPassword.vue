@@ -29,9 +29,12 @@
         </v-text-field>
       </v-col>
 
-      <v-btn class="mr-4" @click="submit">제출하기</v-btn>
-      <hr />
-      <router-link to="/userdetail"> <v-btn>취소</v-btn></router-link>
+      <v-col cols="12" md="10">
+        <v-row style="place-content: center;">
+          <v-btn class="mr-4" @click="submit">save</v-btn>
+          <router-link to="/userdetail"> <v-btn>cancle</v-btn></router-link>
+        </v-row>
+      </v-col>
     </v-card-text>
   </div>
 </template>
