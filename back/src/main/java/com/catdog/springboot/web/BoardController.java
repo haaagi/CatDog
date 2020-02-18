@@ -21,7 +21,7 @@ public class BoardController {
 
 
     @GetMapping("/api/board/boarddetail/{bid}") // 해당 게시글 보기
-    public BoardResponseDto detail(@PathVariable Long bid) {
+    public List<BoardComment> detail(@PathVariable Long bid) {
         return boardService.detail(bid);
     }
 

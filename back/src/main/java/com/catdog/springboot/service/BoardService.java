@@ -36,9 +36,8 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardResponseDto detail(Long bid) {
-        List<BoardComment> boardComments = boardCommentRepository.findAllByBoardBid(bid);
-        return new BoardResponseDto(boardComments);
+    public List<BoardComment> detail(Long bid) {
+        return boardCommentRepository.findAllByBoardBid(bid);
     }
 
     @Transactional

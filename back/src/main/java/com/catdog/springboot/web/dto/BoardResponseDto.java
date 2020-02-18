@@ -1,21 +1,20 @@
 package com.catdog.springboot.web.dto;
 
-import com.catdog.springboot.domain.board.BoardComment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 public class BoardResponseDto {
-    private List<BoardComment> comment;
+    private String nickname;
+    private String contents;
 
     @Builder
-    public BoardResponseDto( List comment) {
-        this.comment = comment;
+    public BoardResponseDto(String nickname, String contents) {
+        this.nickname = nickname;
+        this.contents = contents;
     }
 }
