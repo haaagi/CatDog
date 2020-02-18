@@ -5,7 +5,7 @@
         <h1>Cat & Dog</h1>
         <p>
           우리들의 반려견을 위한 SNS <br />
-          #강아지 #고양이 #선팔하면맞팔
+          #강아지 #좋아요 #선팔하면맞팔
         </p>
       </div>
       <div class="d-flex justify-content-center" style="width:20%">

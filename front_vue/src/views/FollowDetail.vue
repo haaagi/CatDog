@@ -65,7 +65,7 @@
                             <!-- 팔로워의 상세페이지로 이동하기 @click 설정하기!!  -->
                             <v-list-item v-for="follower in followerList" :key="follower.nickname">
                               <v-list-item-avatar>
-                                <div v-if="follower.img === ''">
+                                <div v-if="follower.img === '' || follower.img === null">
                                   <v-avatar color="">
                                     <v-icon>mdi-dog</v-icon>
                                   </v-avatar>
@@ -120,7 +120,7 @@
                               :key="following.nickname"
                             >
                               <v-list-item-avatar>
-                                <div v-if="following.img === ''">
+                                <div v-if="following.img === '' || following.img === null">
                                   <v-avatar>
                                     <v-icon>mdi-dog</v-icon>
                                   </v-avatar>

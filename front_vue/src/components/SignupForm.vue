@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-app>
+  <v-container class="signupform">
+    <v-app class="signupform">
       <v-row justify="center" align="center">
         <v-card elevation="24" max-width="474" color="amber" class="px-6 pb-2">
           <v-card-title class="title py-8 pl-10 mb-3">
@@ -240,4 +240,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.signupform {
+  background-color: whitesmoke;
+}
+</style>

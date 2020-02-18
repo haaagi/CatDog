@@ -131,6 +131,9 @@ const actions = {
       if (userInput.passwordConfirmation != userInput.password) {
         alert('비밀번호와 비밀번호확인이 일치하지 않습니다.');
         commit('pushError', '비밀번호가 일치하지 않습니다.');
+      } // 만약 비밀번호가 8글자 이하일 경우
+      else if (userInput.password.length < 8) {
+        alert('비밀번호는 8글자 이상으로 설정해주세요.');
       } else {
         axios
           .post(HOST + 'api/user/signup', userInput)
