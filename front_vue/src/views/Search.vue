@@ -66,7 +66,6 @@
                 name: 'tagname',
                 params: {
                   tagname: item.content,
-                  tagcnt: item.content_cnt,
                 },
               }"
             >

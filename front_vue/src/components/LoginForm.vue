@@ -2,15 +2,11 @@
   <v-container>
     <v-app>
       <v-row justify="center" align="center">
-        <v-card elevation="24" max-width="474" color="#FFEC19" class="px-6 pb-2">
+        <v-card elevation="24" max-width="474" color="amber" class="px-6 pb-2">
           <v-card-title class="title py-8 pl-10 mb-3">
             <div class="font-weight-thin display-1">
               CatDog Login
             </div>
-            <v-spacer></v-spacer>
-            <v-btn text icon>
-              <v-icon>close</v-icon>
-            </v-btn>
           </v-card-title>
           <div v-if="isLoading" class="spinner-border" role="status">
             <span class="sr-only">Loading</span>

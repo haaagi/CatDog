@@ -11,11 +11,13 @@
         @click="onclick(index)"
       >
       </v-img>
-      {{ post }}
       <v-dialog v-model="modal">
         <ModalPost v-bind:selectedPost="post" />
       </v-dialog>
     </v-container>
+    {{ total }}
+    {{ Index }}
+    <Hint v-if="total <= Index" />
   </div>
 </template>
 <script>
@@ -23,15 +25,17 @@ const HOST = process.env.VUE_APP_SERVER_HOST;
 const axios = require('axios');
 import Banner from '../components/Banner.vue';
 import ModalPost from '../components/ModalPost.vue';
+import Hint from '../components/hint.vue';
 export default {
-  components: { Banner, ModalPost },
+  components: { Banner, ModalPost, Hint },
   props: {
     selectedPost: Object,
   },
   data: () => ({
     bottom: false,
     words: [],
-    Index: 0,
+    Index: -1,
+    total: 0,
     postList: [],
     test: 'test',
     flag: false,
@@ -52,9 +56,30 @@ export default {
     this.addWord();
   },
   created() {
-    axios.get(HOST + 'api/posts/list').then(res => {
+    axios.get(HOST + 'api/posts/list/' + sessionStorage.getItem('nickname')).then(res => {
       this.postList = res.data;
       this.flag = true;
+      this.total = this.postList.length;
+      this.words.push({
+        resource: this.postList[this.Index++].img,
+        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      });
+      this.words.push({
+        resource: this.postList[this.Index++].img,
+        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      });
+      this.words.push({
+        resource: this.postList[this.Index++].img,
+        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      });
+      this.words.push({
+        resource: this.postList[this.Index++].img,
+        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      });
       this.words.push({
         resource: this.postList[this.Index++].img,
         //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
@@ -73,13 +98,11 @@ export default {
     },
     addWord() {
       setTimeout(() => {
-        var len = this.postList.length - this.Index < 5 ? this.postList.length - this.Index : 5;
-        for (var i = 0; i < len; i++) {
-          this.words.push({
-            resource: this.postList[this.Index++].img,
-            tag: Math.random(),
-          });
-        }
+        this.words.push({
+          resource: this.postList[this.Index++].img,
+          tag: Math.random(),
+        });
+
         if (this.bottomVisible()) {
           this.addWord();
         }

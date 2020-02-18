@@ -4,25 +4,35 @@
       <!-- 작성자 나오는 부분  -->
       <v-card-title style="margin: 0;padding: 0;">
         <v-col cols="12" sm="4" md="4" style="margin: 0;padding: 0;">
-          <v-list-item>
-            <!-- 글쓴이 프로필 사진 -->
-            <v-list-item-avatar>
+          <router-link
+            :to="{
+              name: 'followdetail',
+              params: {
+                nickname: selectedPost.nickname,
+              },
+            }"
+          >
+            <v-list-item>
+              <!-- 글쓴이 프로필 사진 -->
               <div v-if="selectedPost.profileimg === null">
                 <v-icon>mdi-dog</v-icon>
               </div>
               <div v-else>
-                <v-img :src="selectedPost.profileimg" />
+                <v-img
+                  :src="selectedPost.profileimg"
+                  style="height:50px; width:50px; border-radius: 50%;"
+                />
               </div>
-            </v-list-item-avatar>
-            <v-list-item-content style="padding:0;">
-              <v-list-item-title class="headline" style="font-size: 1em !important; margin:0">{{
-                selectedPost.nickname
-              }}</v-list-item-title>
-              <v-list-item-subtitle style="font-size: 0.5em !important;">{{
-                selectedPost.modifiedDate
-              }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
+              <v-list-item-content style="padding:0;">
+                <v-list-item-title class="headline" style="font-size: 1em !important; margin:0">{{
+                  selectedPost.nickname
+                }}</v-list-item-title>
+                <v-list-item-subtitle style="font-size: 0.5em !important;">{{
+                  selectedPost.modifiedDate
+                }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
         </v-col>
         <v-col cols="12" sm="4" md="8" style="margin: 0;padding: 0;">
           <v-card-actions>
@@ -53,10 +63,17 @@
               {{ this.usercontents }}
             </v-card-text>
             <v-item v-for="(hash, i) in selectedPost.hashtags" :key="i">
-              <v-chip active-class="purple--text">
-                {{ hash }}
-              </v-chip></v-item
-            >
+              <router-link
+                :to="{
+                  name: 'tagname',
+                  params: {
+                    tagname: hash,
+                  },
+                }"
+              >
+                <v-chip active-class="purple--text"> #{{ hash }} </v-chip>
+              </router-link>
+            </v-item>
             <!-- 좋아요 버튼  -->
             <v-row>
               <div v-if="likeCheck">
@@ -78,22 +95,33 @@
             <div v-if="items.length >= 1">
               <v-divider></v-divider>
               <v-list three-line v-for="(item, index) in items" :key="index">
-                <v-row>
-                  <v-list-item-avatar>
+                <router-link
+                  :to="{
+                    name: 'followdetail',
+                    params: {
+                      nickname: item.user.nickname,
+                    },
+                  }"
+                >
+                  <v-row>
                     <div v-if="!item.user || item.user.img === null">
                       <v-icon>mdi-dog</v-icon>
                     </div>
                     <div v-else>
-                      <v-img :src="item.user.img" />
+                      <v-img
+                        :src="item.user.img"
+                        style="height:30px; width:30px; border-radius: 50%;"
+                      />
                     </div>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-subtitle class="overline">{{
-                      !item.user || item.user.nickname
-                    }}</v-list-item-subtitle>
-                    <v-list-item-title class="subtitle-1">{{ item.content }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-row>
+
+                    <v-list-item-content>
+                      <v-list-item-subtitle class="overline">{{
+                        !item.user || item.user.nickname
+                      }}</v-list-item-subtitle>
+                      <v-list-item-title class="subtitle-1">{{ item.content }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-row>
+                </router-link>
               </v-list>
             </div>
             <v-divider></v-divider>

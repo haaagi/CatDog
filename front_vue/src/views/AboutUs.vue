@@ -78,7 +78,7 @@ export default {};
   padding: 0;
   position: relative;
   background-size: 400% 400%;
-  background-image: linear-gradient(-45deg, #ceedfa, #ffe082, #a2ca45, #c5e1a5, #d3b42c);
+  background-image: linear-gradient(-45deg, #eff3f5, #ffc107, #b9d47a, #a8d673, #ffa000);
   transition-duration: 0.5s;
   animation: Gradient 5s ease infinite;
   opacity: 0.9;

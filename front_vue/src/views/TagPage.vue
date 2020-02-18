@@ -1,7 +1,23 @@
 <template>
   <div>
-    <h1># {{ this.$route.params.tagname }}</h1>
-    <h2>게시물 수: {{ this.$route.params.tagcnt }}</h2>
+    <div class="card">
+      <tr>
+        <td rowspan="2" style="width:120px">
+          <center>
+            <h1 style="font-size: 60px;">
+              #
+            </h1>
+          </center>
+        </td>
+        <td style="font-size:50px; align-content:center;">
+          {{ this.$route.params.tagname }}
+        </td>
+      </tr>
+      <tr>
+        <td>게시물 수: {{ length }}</td>
+      </tr>
+    </div>
+
     <v-container class="grid-layout">
       <v-img
         class="grid-item"
@@ -12,7 +28,6 @@
         @click="onclick(index)"
       >
       </v-img>
-      {{ post }}
       <v-dialog v-model="modal">
         <ModalPost v-bind:selectedPost="post" />
       </v-dialog>
@@ -37,6 +52,7 @@ export default {
     flag: false,
     modal: false,
     post: [],
+    length: 0,
   }),
   watch: {
     bottom(bottom) {
@@ -54,7 +70,28 @@ export default {
   created() {
     axios.get(HOST + 'hashtag/' + this.$route.params.tagname).then(res => {
       this.postList = res.data;
+      this.length = this.postList.length;
       this.flag = true;
+      this.words.push({
+        resource: this.postList[this.Index++].img,
+        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      });
+      this.words.push({
+        resource: this.postList[this.Index++].img,
+        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      });
+      this.words.push({
+        resource: this.postList[this.Index++].img,
+        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      });
+      this.words.push({
+        resource: this.postList[this.Index++].img,
+        //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+        tag: Math.random(),
+      });
       this.words.push({
         resource: this.postList[this.Index++].img,
         //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
@@ -119,5 +156,12 @@ export default {
   grid-column-end: span 3;
   grid-row-end: span 1;
   height: 10px;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  text-align: start;
+  margin: 90 90 0 0;
+  padding: 100px;
 }
 </style>
