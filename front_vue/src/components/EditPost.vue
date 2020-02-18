@@ -98,7 +98,8 @@
               </v-flex>
             </v-list-item>
             <v-card-text>
-              <v-text-field v-model="propContent"> </v-text-field>
+              <v-text-field :placeholder="selectedPost.contents" v-model="propContent">
+              </v-text-field>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>

@@ -21,6 +21,10 @@ import TagDetail from '../views/TagPage.vue';
 import PageNotFound from '@/views/PageNotFound';
 import Search from '../views/Search.vue';
 
+import AboutUs from '../views/AboutUs.vue';
+import Board from '../views/Board.vue';
+import writeBoard from '../components/writeBoard.vue';
+import selectedBoard from '../components/selectedBoard.vue';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -115,9 +119,30 @@ const router = new VueRouter({
       props: true,
     },
     {
+      path: '/aboutus',
+      name: 'aboutus',
+      component: AboutUs,
+    },
+    {
+      path: '/board',
+      name: 'board',
+      component: Board,
+    },
+    {
+      path: '/writeboard',
+      name: 'writeboard',
+      component: writeBoard,
+    },
+    {
       path: '/tagwdetail/:tagname',
       name: 'tagname',
       component: TagDetail,
+      props: true,
+    },
+    {
+      path: '/selectedboard/:bid',
+      name: 'selectedboard',
+      component: selectedBoard,
       props: true,
     },
     // {
