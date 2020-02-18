@@ -92,7 +92,6 @@
                       !item.user || item.user.nickname
                     }}</v-list-item-subtitle>
                     <v-list-item-title class="subtitle-1">{{ item.content }}</v-list-item-title>
-                    {{ item.content }}
                   </v-list-item-content>
                 </v-row>
               </v-list>

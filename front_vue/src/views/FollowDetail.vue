@@ -59,6 +59,7 @@
                 <span class="profile-stat-count"></span
                 ><v-btn text large>{{ followInfo.post_cnt }} posts</v-btn>
               </li>
+
               <li>
                 <span class="profile-stat-count"></span>
 
