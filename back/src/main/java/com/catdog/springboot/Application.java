@@ -26,7 +26,7 @@ public class Application implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor).addPathPatterns("/jwtapi/**")
+        registry.addInterceptor(jwtInterceptor).addPathPatterns("/test/**")
                 .excludePathPatterns(Arrays.asList("/auth/**"))
                 .excludePathPatterns(Arrays.asList("/api/**"));
     }

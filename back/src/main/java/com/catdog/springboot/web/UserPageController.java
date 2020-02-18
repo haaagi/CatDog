@@ -32,7 +32,7 @@ public class UserPageController {
     private final HashtagsRepository hashtagsRepository;
     private final LikesRepository likesRepository;
 
-    @GetMapping("/auth/myPage/{nickname}")
+    @GetMapping("/auth/myPage/{nickname}") //내 마이페이지 보는 요청
     public MyPageResponseDto MyPage(@PathVariable String nickname) {
         Optional<User> user = userRepository.findByNickname(nickname);
         Long uid = user.get().getUid();
@@ -45,7 +45,7 @@ public class UserPageController {
         List<Posts> posts = postsRepository.postList(uid);
         List<PostsListResponseDto> postsList = new ArrayList<>();
         if(posts != null) {
-            for(int i=0; i<posts.size(); i++){
+            for(int i=posts.size()-1; i>=0; i--){
                 Long pid = posts.get(i).getPid();
                 String postsnickname = posts.get(i).getUser().getNickname();
                 String profileimg = posts.get(i).getUser().getImg();
@@ -57,7 +57,7 @@ public class UserPageController {
                 String date = posts.get(i).getModifiedDate().toString();
                 if(tags != null) {
                     for(int j=0; j<tags.size(); j++){
-                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                        hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
                 postsList.add(new PostsListResponseDto(pid, postsnickname,profileimg, img, contents, hashtags, date, likecount));
@@ -87,7 +87,7 @@ public class UserPageController {
     }
 
 
-    @GetMapping("/auth/userPage/{mynickname}/{nickname}")
+    @GetMapping("/auth/userPage/{mynickname}/{nickname}") //다른사람 페이지 보는 요청
     public UserPageResponseDto UserPage(@PathVariable String mynickname, @PathVariable String nickname) {
         Optional<User> user = userRepository.findByNickname(nickname);
         Optional<User> myobject = userRepository.findByNickname(mynickname);
@@ -102,7 +102,7 @@ public class UserPageController {
         List<Posts> posts = postsRepository.postList(uid);
         List<PostsListResponseDto> postsList = new ArrayList<>();
         if(posts != null) {
-            for(int i=0; i<posts.size(); i++){
+            for(int i=posts.size()-1; i>=0; i--){
                 Long pid = posts.get(i).getPid();
                 String postsnickname = posts.get(i).getUser().getNickname();
                 String profileimg = posts.get(i).getUser().getImg();
@@ -114,7 +114,7 @@ public class UserPageController {
                 String date = posts.get(i).getModifiedDate().toString();
                 if(tags != null) {
                     for(int j=0; j<tags.size(); j++){
-                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                        hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
                 postsList.add(new PostsListResponseDto(pid, postsnickname,profileimg, img, contents, hashtags, date, likecount));

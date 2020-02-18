@@ -50,7 +50,7 @@ public class PostsService {
                 String date = posts.get(i).getModifiedDate().toString();
                 if(tags != null) {
                     for(int j=0; j<tags.size(); j++){
-                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                        hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
                 postlist.add(new PostsListResponseDto(pid, nickname, profileimg, img, contents, hashtags, date, likecount));
@@ -66,7 +66,7 @@ public class PostsService {
         Long uid = user.get().getUid();
         List<Posts> posts = postsRepository.followingpostList(uid);
         if(posts != null) {
-            for(int i=0; i<posts.size(); i++){
+            for(int i= posts.size()-1; i>=0; i--){
                 Long pid = posts.get(i).getPid();
                 String followernickname = posts.get(i).getUser().getNickname();
                 String profileimg = posts.get(i).getUser().getImg();
@@ -78,7 +78,7 @@ public class PostsService {
                 String date = posts.get(i).getModifiedDate().toString();
                 if(tags != null) {
                     for(int j=0; j<tags.size(); j++){
-                        hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                        hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
                     }
                 }
                 postlist.add(new PostsListResponseDto(pid, followernickname,profileimg, img, contents, hashtags, date, likecount));
@@ -112,7 +112,7 @@ public class PostsService {
         String date = post.getModifiedDate().toString();
         if(tags != null) {
             for(int j=0; j<tags.size(); j++){
-                hashtags.add("#"+hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
+                hashtags.add(hashtagsRepository.findByHid(tags.get(j).getHashtags().getHid()).getContent());
             }
         }
         return new PostsResponseDto2(nickname, img, contents, hashtags, date, likecount);
@@ -192,5 +192,17 @@ public class PostsService {
             likesRepository.save(Likes.builder().user(user).posts(posts).build());
             return true;
         }
+    }
+
+    @Transactional
+    public List<String> likeslist(Long pid) {
+        List<Likes> likeslist = likesRepository.findAllByPostsPid(pid);
+        List<String> list = new ArrayList<>();
+        if(likeslist != null) {
+            for(int i=0; i<likeslist.size(); i++){
+                list.add(likeslist.get(i).getUser().getNickname());
+            }
+        }
+        return list;
     }
 }
