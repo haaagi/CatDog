@@ -7,7 +7,11 @@
           ><center><img src="../src/assets/logo.png" style="width:180px" /></center
         ></a>
       </h1>
-      <center>
+      <!-- 검색창 -->
+      <center v-if="isLoggedIn">
+        <v-btn rounded style="color: #FFC107; margin-bottom: 30px;" @click="logout"
+          ><v-icon>mdi-account </v-icon>Logout</v-btn
+        >
         <form style="margin-bottom: 30px">
           <input type="text" name="keyword" style=" border-style: solid; border-color: #228896;" />
           <button type="submit" formaction="/search">
@@ -24,24 +28,17 @@
             <li><a href="/info">강아지 소개</a></li>
             <li><a href="/userdetail">Userdetail</a></li>
             <li><a @click="logout" href="/login">logout</a></li>
-            <v-btn rounded color="primary" dark>Rounded Button</v-btn>
+
             <li><a href="board">Board</a></li>
             <li><a href="aboutus">About Us</a></li>
           </div>
 
           <div v-else>
-            <li><a href="aboutus">About Us</a></li>
+            <router-link to="/login">
+              <v-btn rounded style="color: #FFC107;"><v-icon>mdi-account </v-icon>Login</v-btn>
+            </router-link>
+            <li style="margin-top: 50px;"><a href="aboutus">About Us</a></li>
           </div>
-
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </aside>
