@@ -31,7 +31,7 @@ export default {
   data: () => ({
     bottom: false,
     words: [],
-    Index: -1,
+    Index: 0,
     postList: [],
     test: 'test',
     flag: false,
@@ -73,23 +73,8 @@ export default {
     },
     addWord() {
       setTimeout(() => {
-        if (this.postList.length !== 0) {
-          this.words.push({
-            resource: this.postList[this.Index++].img,
-            tag: Math.random(),
-          });
-          this.words.push({
-            resource: this.postList[this.Index++].img,
-            tag: Math.random(),
-          });
-          this.words.push({
-            resource: this.postList[this.Index++].img,
-            tag: Math.random(),
-          });
-          this.words.push({
-            resource: this.postList[this.Index++].img,
-            tag: Math.random(),
-          });
+        var len = this.postList.length - this.Index < 5 ? this.postList.length - this.Index : 5;
+        for (var i = 0; i < len; i++) {
           this.words.push({
             resource: this.postList[this.Index++].img,
             tag: Math.random(),

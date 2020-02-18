@@ -29,7 +29,7 @@
             <v-spacer></v-spacer>
             <div v-if="userNickname === selectedPost.nickname">
               <v-btn color="blue darken-1" text>
-                <EditPost :selectedPost="selectedPost" :realContent="realContent" @post="postUpdate"
+                <EditPost :selectedPost="selectedPost" :hashTag="hashTag" @post="postUpdate"
               /></v-btn>
             </div>
             <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
@@ -80,7 +80,7 @@
               <v-list three-line v-for="(item, index) in items" :key="index">
                 <v-row>
                   <v-list-item-avatar>
-                    <div v-if="item.user.img === null">
+                    <div v-if="!item.user || item.user.img === null">
                       <v-icon>mdi-dog</v-icon>
                     </div>
                     <div v-else>
@@ -89,7 +89,7 @@
                   </v-list-item-avatar>
                   <v-list-item-content>
                     <v-list-item-subtitle class="overline">{{
-                      item.user.nickname
+                      !item.user || item.user.nickname
                     }}</v-list-item-subtitle>
                     <v-list-item-title class="subtitle-1">{{ item.content }}</v-list-item-title>
                     {{ item.content }}
@@ -131,7 +131,7 @@ export default {
   data() {
     return {
       flag: 0,
-      realContent: '',
+      hashTag: '',
       icons: {
         mdiAccount,
         mdiPencil,
@@ -145,7 +145,9 @@ export default {
         contents: '',
       },
       dialog: false,
+      //댓글
       items: [],
+
       // 좋아요 유무 체크
       likeCheck: null,
       likeList: [],
@@ -154,27 +156,30 @@ export default {
       usercontents: this.selectedPost.contents,
     };
   },
-  created() {
-    axios.get(HOST + 'auth/posts/comment/' + this.selectedPost.pid).then(res => {
-      // console.log(this.selectedPost);
-      this.items = res.data;
-    });
-    this.realContent = this.selectedPost.contents;
-    // 좋아요 체크하기 위한
-    this.userNickname = sessionStorage.getItem('nickname');
-    axios
-      .get(HOST + 'api/posts/like/likeslist/' + this.selectedPost.pid)
-      .then(res => {
-        console.log(res);
-        this.likeList = res.data;
-        console.log(this.likeList);
-        if (this.likeList.includes(this.userNickname)) {
-          this.likeCheck = true;
-        } else {
-          this.likeCheck = false;
-        }
-      })
-      .catch(err => console.error(err));
+  watch: {
+    selectedPost() {
+      axios.get(HOST + 'auth/posts/comment/' + this.selectedPost.pid).then(res => {
+        // console.log(this.selectedPost);
+        console.log('get', res.data);
+        this.items = res.data;
+        this.review.pid = this.selectedPost.pid;
+        this.usercontents = this.selectedPost.contents;
+      });
+      this.hashTag = this.selectedPost.contents;
+      // 좋아요 체크하기 위한
+      this.userNickname = sessionStorage.getItem('nickname');
+      axios
+        .get(HOST + 'api/posts/like/likeslist/' + this.selectedPost.pid)
+        .then(res => {
+          this.likeList = res.data;
+          if (this.likeList.includes(this.userNickname)) {
+            this.likeCheck = true;
+          } else {
+            this.likeCheck = false;
+          }
+        })
+        .catch(err => console.error(err));
+    },
   },
   // watch: {
   //   realContent: function() {
@@ -182,16 +187,13 @@ export default {
   //   },
   // },
   methods: {
-    updateContent(text) {
-      this.realContent = text;
-    },
     // 댓글 리스트
     reviewSubmit() {
       axios.post(HOST + 'auth/posts/comment', this.review).then(res => {
         console.log(res.data);
+        this.items = [];
         this.items = res.data;
-        console.lvog(this.items);
-        this.review.contents = null;
+        this.review.contents = '';
       });
     },
     deletePost() {
@@ -208,9 +210,8 @@ export default {
           nickname: this.userNickname,
         })
         .then(res => {
-          console.log(res);
+          console.log(res.data);
           this.likeCheck = res.data;
-          console.log(this.likeCheck);
           axios.get(HOST + 'api/posts/postdetail/' + this.selectedPost.pid).then(res => {
             console.log(res);
             this.likeCnt = res.data.likes;
@@ -221,7 +222,6 @@ export default {
     // 수정완료후 호출
     postUpdate() {
       axios.get(HOST + 'api/posts/postdetail/' + this.selectedPost.pid).then(res => {
-        console.log(res);
         //alert(res.data.contents);
         this.usercontents = res.data.contents;
       });
