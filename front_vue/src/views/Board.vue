@@ -25,8 +25,9 @@
                 name: 'selectedboard',
                 params: { post: post },
               }"
+              style="color: black; text-decoration: none;"
             >
-              <td>{{ post.title }}</td>
+              <td style="padding-top: 12px">{{ post.title }}</td>
             </router-link>
             <td class="text-right">{{ post.nickname }}</td>
             <td class="text-right">{{ post.modifiedDate }}</td>
@@ -49,12 +50,18 @@ export default {
       boardList: [],
     };
   },
-  created() {
+  beforeCreate() {
     axios.get(HOST + 'api/board/list').then(res => {
       console.log(res);
       this.boardList = res.data;
     });
   },
+  // beforeUpdate() {
+  //   axios.get(HOST + 'api/board/list').then(res => {
+  //     console.log(res);
+  //     this.boardList = res.data;
+  //   });
+  // },
 };
 </script>
 <style scoped></style>

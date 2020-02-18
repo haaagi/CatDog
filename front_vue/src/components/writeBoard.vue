@@ -19,7 +19,7 @@
       label="본문"
       auto-grow
     ></v-textarea>
-    <v-btn @click="onSubmit">제출하기</v-btn>
+    <router-link to="/board"><v-btn @click="onSubmit">제출하기</v-btn></router-link>
   </v-container>
 </template>
 <script>
