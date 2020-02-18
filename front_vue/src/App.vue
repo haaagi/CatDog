@@ -26,7 +26,7 @@
             <li><a href="/main">Home</a></li>
             <li><a href="/userdetail">Blog</a></li>
             <li><a href="/info">강아지 소개</a></li>
-            <li><a href="/userdetail">Userdetail</a></li>
+            <li><a href="/userdetail">my page</a></li>
             <li><a href="board">Board</a></li>
             <li><a href="aboutus">About Us</a></li>
           </div>

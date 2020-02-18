@@ -35,10 +35,10 @@
       </div>
 
       <div class=" hover-screen" style="width:20%">
-        <h2 style="margin-left: -70px;"><a href="">Backend</a></h2>
+        <h2 style="margin-left: -70px;"><a href="https://github.com/daehi4u">Backend</a></h2>
       </div>
       <div class="hover-screen" style="width:20%">
-        <h2 style="margin-left: -70px;"><a href="">Frontend</a></h2>
+        <h2 style="margin-left: -70px;"><a href="https://github.com/haaagi">Frontend</a></h2>
       </div>
       <div class="hover-screen" style="width:20%">
         <h2 style="margin-left: -70px;"><a href="https://github.com/Han-kiyeon">Frontend</a></h2>

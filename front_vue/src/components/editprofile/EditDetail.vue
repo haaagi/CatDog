@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-text style="height: 600px;">
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="10">
         <div v-if="userInfo.profileimg === null">
           <v-avatar size="80"> <v-icon>mdi-dog</v-icon> </v-avatar>
         </div>
@@ -17,32 +17,24 @@
         <ImgEditButton />
       </v-col>
 
-      <v-layout row wrap justify-center>
-        <v-flex lg5>
-          <v-col>
-            <v-text-field
-              v-model="editInfo.nickname"
-              :rules="nameRules"
-              :counter="20"
-              label="Nick Name"
-              required
-              :placeholder="userInfo.nickname"
-            >
-            </v-text-field>
-          </v-col>
+      <v-col cols="12" md="10">
+        <v-text-field
+          v-model="editInfo.nickname"
+          :rules="nameRules"
+          :counter="20"
+          label="Nick Name"
+          required
+          :placeholder="userInfo.nickname"
+        >
+        </v-text-field>
+      </v-col>
 
-          <v-col>
-            <v-text-field
-              v-model="editInfo.pr"
-              label="자기소개"
-              required
-              :placeholder="userInfo.pr"
-            >
-            </v-text-field>
-          </v-col>
-        </v-flex>
+      <v-col cols="12" md="10">
+        <v-text-field v-model="editInfo.pr" label="자기소개" required :placeholder="userInfo.pr">
+        </v-text-field>
+      </v-col>
 
-        <!-- <v-flex lg5>
+      <!-- <v-flex lg5>
           <v-col>
             <v-container fluid>
               <v-row>
@@ -75,10 +67,15 @@
             </v-container>
           </v-col>
         </v-flex> -->
-      </v-layout>
 
-      <v-btn class="mr-4" @click="onSave">save</v-btn>
-      <router-link to="/userdetail"> <v-btn>cancle</v-btn></router-link>
+      <v-col cols="12" md="10">
+        <v-row style="place-content: center;">
+          <router-link to="/userdetail">
+            <v-btn class="mr-4" @click="onSave">save</v-btn>
+          </router-link>
+          <router-link to="/userdetail"> <v-btn>cancle</v-btn></router-link>
+        </v-row>
+      </v-col>
     </v-card-text>
   </div>
 </template>
@@ -127,16 +124,21 @@ export default {
   methods: {
     onSave() {
       const userNickname = sessionStorage.getItem('nickname');
-      axios
-        .put(HOST + 'auth/user/update/' + userNickname, {
-          pr: this.editInfo.pr,
-          nickname: this.editInfo.nickname,
-        })
-        .then(res => {
-          console.log(res);
-          sessionStorage.removeItem('nickname');
-          sessionStorage.setItem('nickname', res.data.nickname);
-        });
+
+      if (this.editInfo.nickname === '') {
+        alert('닉네임을 한글자 이상 설정해주세요.');
+      } else {
+        axios
+          .put(HOST + 'auth/user/update/' + userNickname, {
+            pr: this.editInfo.pr,
+            nickname: this.editInfo.nickname,
+          })
+          .then(res => {
+            console.log(res);
+            sessionStorage.removeItem('nickname');
+            sessionStorage.setItem('nickname', res.data.nickname);
+          });
+      }
     },
   },
   beforeCreate() {
