@@ -27,8 +27,6 @@
             <li><a href="/userdetail">Blog</a></li>
             <li><a href="/info">강아지 소개</a></li>
             <li><a href="/userdetail">Userdetail</a></li>
-            <li><a @click="logout" href="/login">logout</a></li>
-
             <li><a href="board">Board</a></li>
             <li><a href="aboutus">About Us</a></li>
           </div>
@@ -37,7 +35,7 @@
             <router-link to="/login">
               <v-btn rounded style="color: #FFC107;"><v-icon>mdi-account </v-icon>Login</v-btn>
             </router-link>
-            <li style="margin-top: 50px;"><a href="aboutus">About Us</a></li>
+            <li style="margin-top: 30px;"><a href="aboutus">About Us</a></li>
           </div>
         </ul>
       </nav>
