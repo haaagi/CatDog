@@ -2,7 +2,7 @@
   <div class="container-fluid box">
     <div class="row ux">
       <div class="col-12 top">
-        <h1>Cat Dog</h1>
+        <h1>Cat & Dog</h1>
         <p>
           우리들의 반려견을 위한 SNS <br />
           #강아지 #고양이 #선팔하면맞팔
@@ -42,6 +42,7 @@
       <div class="hover-screen" style="width:20%">
         <h2>Nombre</h2>
       </div>
+
       <div class="hover-screen" style="width:20%">
         <h2>Nombre</h2>
       </div>
@@ -72,6 +73,7 @@
 export default {};
 </script>
 <style scoped>
+/* @import url('https://fonts.googleapis.com/css?family=Lato:300,400|Poppins:300,400,800&display=swap'); */
 .box {
   padding: 0;
   position: relative;
@@ -81,6 +83,7 @@ export default {};
   animation: Gradient 5s ease infinite;
   opacity: 0.9;
   overflow: hidden;
+  /* font-family: 'Poppins'; */
 }
 @keyframes Gradient {
   0% {

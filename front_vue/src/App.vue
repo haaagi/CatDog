@@ -18,13 +18,20 @@
 
       <nav id="fh5co-main-menu" role="navigation">
         <ul>
-          <li><a href="/main">Home</a></li>
-          <li><a href="/userdetail">Blog</a></li>
-          <li><a href="/info">강아지 소개</a></li>
-          <li><a href="/userdetail">Userdetail</a></li>
-          <li><a @click="logout" href="/login">logout</a></li>
-          <li><a href="board">Board</a></li>
-          <li><a href="aboutus">About Us</a></li>
+          <div v-if="isLoggedIn">
+            <li><a href="/main">Home</a></li>
+            <li><a href="/userdetail">Blog</a></li>
+            <li><a href="/info">강아지 소개</a></li>
+            <li><a href="/userdetail">Userdetail</a></li>
+            <li><a @click="logout" href="/login">logout</a></li>
+            <v-btn rounded color="primary" dark>Rounded Button</v-btn>
+            <li><a href="board">Board</a></li>
+            <li><a href="aboutus">About Us</a></li>
+          </div>
+
+          <div v-else>
+            <li><a href="aboutus">About Us</a></li>
+          </div>
 
           <li><a href="contact.html">Contact</a></li>
           <li><a href="contact.html">Contact</a></li>
