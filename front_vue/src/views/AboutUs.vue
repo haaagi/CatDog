@@ -1,73 +1,81 @@
 <template>
-  <div class="container-fluid box">
-    <div class="row ux">
-      <div class="col-12 top">
-        <h1>Cat & Dog</h1>
-        <p>
-          우리들의 반려견을 위한 SNS <br />
-          #강아지 #좋아요 #선팔하면맞팔
-        </p>
-      </div>
-      <div class="d-flex justify-content-center" style="width:20%">
-        <h3>Hyuk Jin</h3>
-        <h3>Kwon</h3>
-      </div>
-      <div class="d-flex justify-content-center" style="width:20%">
-        <h3>daehee</h3>
-        <h3>Lim</h3>
-      </div>
-      <div class="d-flex justify-content-center" style="width:20%">
-        <h3 class="cm">ByeongHak</h3>
-        <h3>Jeong</h3>
-      </div>
-      <div class=" d-flex justify-content-center" style="width:20%">
-        <h3 class="wd">kiyeon</h3>
-        <h3>Han</h3>
-      </div>
-      <div class="d-flex justify-content-center" style="width:20%">
-        <h3 class="gd">sukyung</h3>
-        <h3>Hong</h3>
-      </div>
-    </div>
-    <div class="row full-screen no-gutters">
-      <div class="hover-screen" style="width:20%;">
-        <h2 style="margin-left: -70px;"><a href="https://github.com/ponyong">Backend</a></h2>
-      </div>
+  <v-container>
+    <v-layout>
+      <div class="container-fluid box">
+        <div class="row ux">
+          <div class="col-12 top">
+            <h1>Cat & Dog</h1>
+            <p>
+              우리들의 반려견을 위한 SNS <br />
+              #강아지 #좋아요 #선팔하면맞팔
+            </p>
+          </div>
 
-      <div class=" hover-screen" style="width:20%">
-        <h2 style="margin-left: -70px;"><a href="https://github.com/daehi4u">Backend</a></h2>
-      </div>
-      <div class="hover-screen" style="width:20%">
-        <h2 style="margin-left: -70px;"><a href="https://github.com/haaagi">Frontend</a></h2>
-      </div>
-      <div class="hover-screen" style="width:20%">
-        <h2 style="margin-left: -70px;"><a href="https://github.com/Han-kiyeon">Frontend</a></h2>
-      </div>
+          <div class="d-flex justify-content-center" style="width:20%">
+            <h3>Hyuk Jin</h3>
+            <h3>Kwon</h3>
+          </div>
 
-      <div class="hover-screen" style="width:20%">
-        <h2 style="margin-left: -70px;"><a href="https://github.com/sooya14">Frontend</a></h2>
+          <div class="d-flex justify-content-center" style="width:20%">
+            <h3>daehee</h3>
+            <h3>Lim</h3>
+          </div>
+          <div class="d-flex justify-content-center" style="width:20%">
+            <h3 class="cm">ByeongHak</h3>
+            <h3>Jeong</h3>
+          </div>
+          <div class=" d-flex justify-content-center" style="width:20%">
+            <h3 class="wd">kiyeon</h3>
+            <h3>Han</h3>
+          </div>
+          <div class="d-flex justify-content-center" style="width:20%">
+            <h3 class="gd">sukyung</h3>
+            <h3>Hong</h3>
+          </div>
+        </div>
+        <div class="row full-screen no-gutters">
+          <div class="hover-screen" style="width:20%;">
+            <h2 style="margin-left: -70px;"><a href="https://github.com/ponyong">Backend</a></h2>
+          </div>
+
+          <div class=" hover-screen" style="width:20%">
+            <h2 style="margin-left: -70px;"><a href="https://github.com/daehi4u">Backend</a></h2>
+          </div>
+          <div class="hover-screen" style="width:20%">
+            <h2 style="margin-left: -70px;"><a href="https://github.com/haaagi">Frontend</a></h2>
+          </div>
+          <div class="hover-screen" style="width:20%">
+            <h2 style="margin-left: -70px;">
+              <a href="https://github.com/Han-kiyeon">Frontend</a>
+            </h2>
+          </div>
+
+          <div class="hover-screen" style="width:20%">
+            <h2 style="margin-left: -70px;"><a href="https://github.com/sooya14">Frontend</a></h2>
+          </div>
+        </div>
+        <div
+          class="row no-gutters team-inf d-flex justify-content-center align-items-center"
+          id="team-inf"
+        >
+          <span class="close-icon" id="close">X</span>
+          <div class="col-5 img-container">
+            <img
+              src="https://images.pexels.com/photos/888956/pexels-photo-888956.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
+              alt=""
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-4 team-inf-container">
+            <h3>AYAKKABI</h3>
+            <p class="text">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe, commodi.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div
-      class="row no-gutters team-inf d-flex justify-content-center align-items-center"
-      id="team-inf"
-    >
-      <span class="close-icon" id="close">X</span>
-      <div class="col-5 img-container">
-        <img
-          src="https://images.pexels.com/photos/888956/pexels-photo-888956.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-          alt=""
-          class="img-fluid"
-        />
-      </div>
-      <div class="col-4 team-inf-container">
-        <h3>AYAKKABI</h3>
-        <p class="text">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe, commodi.
-        </p>
-      </div>
-    </div>
-  </div>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

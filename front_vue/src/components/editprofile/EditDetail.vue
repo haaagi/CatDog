@@ -126,7 +126,8 @@ export default {
     onSave() {
       const userNickname = sessionStorage.getItem('nickname');
       this.editInfo.img = sessionStorage.getItem('profileFile');
-      if (this.editInfo.img.constructor.name != String) {
+      // console.log(this.editInfo);
+      if (this.editInfo.img === null) {
         this.editInfo.img = this.userInfo.profileimg;
       }
       if (this.editInfo.nickname === '') {
@@ -139,6 +140,7 @@ export default {
             nickname: this.editInfo.nickname,
           })
           .then(res => {
+            console.log(this.editInfo.img);
             console.log(res);
             sessionStorage.removeItem('nickname');
             sessionStorage.setItem('nickname', res.data.nickname);

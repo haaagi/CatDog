@@ -14,6 +14,7 @@
       <template v-slot:default>
         <thead>
           <tr>
+            <th class="text-left">종류</th>
             <th class="text-left">글 제목</th>
             <th class="text-right">작성자</th>
             <th class="text-right">작성일</th>
@@ -21,7 +22,31 @@
         </thead>
 
         <tbody v-for="post in boardList" :key="post.title">
-          <tr>
+          <tr
+            v-if="!post.type"
+            style="background-color:lemonchiffon; font-size: x-large; font-style:italic"
+          >
+            <td>
+              공지사항
+            </td>
+
+            <router-link
+              :to="{
+                name: 'selectedboard',
+                params: { post: post },
+              }"
+              style="color: black; text-decoration: none;"
+            >
+              <td style="padding-top: 12px">{{ post.title }}</td>
+            </router-link>
+            <td class="text-right">{{ post.nickname }}</td>
+            <td class="text-right">{{ post.modifiedDate }}</td>
+          </tr>
+          <tr v-else>
+            <td>
+              Q&A
+            </td>
+
             <router-link
               :to="{
                 name: 'selectedboard',
