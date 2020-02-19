@@ -47,6 +47,7 @@
           </v-card-actions>
         </v-col>
       </v-card-title>
+
       <v-card-text>
         <!-- 내용 나오는 부분  -->
         <v-row>
@@ -61,7 +62,7 @@
           <!-- 내용 해쉬태그 댓글  -->
           <v-col cols="12" sm="4" md="4">
             <v-card-text class="title">
-              <td scope="col" colspan="20" v-html="usercontents"></td>
+              <td scope="col" colspan="20" v-html="selectedPost.contents"></td>
               <!-- {{ this.usercontents }} -->
             </v-card-text>
 
