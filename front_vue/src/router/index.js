@@ -21,6 +21,7 @@ import Board from '../views/Board.vue';
 import writeBoard from '../components/writeBoard.vue';
 import selectedBoard from '../components/selectedBoard.vue';
 import updateBoard from '../components/updateBoard.vue';
+import Chat from '../views/Chat';
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ const router = new VueRouter({
       path: '/modal',
       name: 'modal',
       component: ModalPost,
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: Chat,
     },
     {
       path: '/main',
