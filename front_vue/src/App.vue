@@ -39,6 +39,7 @@
             <li><a href="/userdetail">my page</a></li>
             <li><a href="board">Board</a></li>
             <li><a href="aboutus">About Us</a></li>
+            <li><a href="/chat">Chat</a></li>
           </div>
 
           <div v-else>
