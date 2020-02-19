@@ -26,6 +26,7 @@ import Board from '../views/Board.vue';
 import writeBoard from '../components/writeBoard.vue';
 import selectedBoard from '../components/selectedBoard.vue';
 import updateBoard from '../components/updateBoard.vue';
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({

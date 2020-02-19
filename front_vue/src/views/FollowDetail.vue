@@ -44,10 +44,15 @@
           <div class="profile-stats">
             <ul>
               <li>
-                <span class="profile-stat-count"></span
-                ><v-btn text large disabled style="color: black;"
-                  >{{ followInfo.post_cnt }} posts</v-btn
-                >
+                <span class="profile-stat-count"></span>
+                <v-row justify="center">
+                  <v-dialog scrollable max-width="300px">
+                    <template v-slot:activator="{ off }">
+                      <v-btn text color="primary" v-on="on">{{ followInfo.post_cnt }} post</v-btn>
+                    </template>
+                    <v-card> </v-card>
+                  </v-dialog>
+                </v-row>
               </li>
               <v-layout>
                 <li>

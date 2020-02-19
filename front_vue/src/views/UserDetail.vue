@@ -23,20 +23,33 @@
 
           <!-- 프로필 수정 버튼  -->
           <div class="profile-user-settings">
-            <h1 class="profile-user-name">{{ userInfo.nickname }}</h1>
+            <!-- <h1 class="profile-user-name">{{ userInfo.nickname }}</h1>
             <router-link to="/editprofile">
               <button class="btn profile-edit-btn">Edit Profile</button>
+            </router-link> -->
+
+            <h1 class="profile-user-name">{{ userInfo.nickname }}</h1>
+            <router-link to="/editprofile">
+              <v-btn text icon large style="color: rgb(34, 136, 150); margin-left: 10px;">
+                <v-icon>mdi-settings</v-icon>
+              </v-btn>
             </router-link>
           </div>
 
           <!-- 포스팅 수 팔로잉 팔로워 버튼 -->
           <div class="profile-stats">
             <ul>
+              <!-- 포스팅 카운트 -->
               <li>
-                <span class="profile-stat-count"></span
-                ><v-btn text large disabled style="color: black;"
-                  >{{ userInfo.post_cnt }} posts</v-btn
-                >
+                <span class="profile-stat-count"></span>
+                <v-row justify="center">
+                  <v-dialog scrollable max-width="300px">
+                    <template v-slot:activator="{ off }">
+                      <v-btn text color="primary" v-on="on">{{ userInfo.post_cnt }} post</v-btn>
+                    </template>
+                    <v-card> </v-card>
+                  </v-dialog>
+                </v-row>
               </li>
               <v-layout>
                 <li>
@@ -160,9 +173,7 @@
             <p><span class="profile-real-name"></span>{{ userInfo.pr }}</p>
           </div>
         </div>
-        <!-- End of profile section -->
       </div>
-      <!-- End of container -->
     </header>
 
     <!-- 포스팅 리스트 -->
@@ -224,21 +235,7 @@ export default {
 </script>
 
 <style scoped>
-.menu-btn {
-}
-
-/*
-
-All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310). 
-        
-The 'supports' rule will only run if your browser supports CSS grid.
-
-Flexbox and floats are used as a fallback so that browsers which don't support grid will still recieve a similar layout.
-
-*/
-
-/* Base Styles */
-
+/* 이전 버전  */
 :root {
   font-size: 10px;
 }
@@ -288,8 +285,6 @@ img {
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
 }
-
-/* Profile Section */
 
 .profile {
   padding: 5rem 0;
@@ -341,7 +336,6 @@ img {
 }
 
 .profile-settings-btn {
-  /* font-size: 2rem; */
   font-size: 1px;
   margin-left: 1rem;
 }
@@ -374,8 +368,6 @@ img {
 .profile-edit-btn {
   font-weight: 600;
 }
-
-/* Gallery Section */
 
 .gallery {
   display: flex;
@@ -437,8 +429,6 @@ img {
   object-fit: cover;
 }
 
-/* Loader */
-
 .loader {
   width: 5rem;
   height: 5rem;
@@ -448,8 +438,6 @@ img {
   margin: 0 auto;
   animation: loader 500ms linear infinite;
 }
-
-/* Media Query */
 
 @media screen and (max-width: 40rem) {
   .profile {
@@ -531,21 +519,11 @@ img {
   }
 }
 
-/* Spinner Animation */
-
 @keyframes loader {
   to {
     transform: rotate(360deg);
   }
 }
-
-/*
-
-The following code will only run if your browser supports CSS grid.
-
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling. 
-
-*/
 
 @supports (display: grid) {
   .profile {
@@ -595,7 +573,6 @@ Remove or comment-out the code block below to see how the browser will fall-back
     .profile-edit-btn,
     .profile-stats,
     .profile-bio {
-      /* grid-column: 1 / -1; */
       grid-column: 1 / -1;
     }
 
