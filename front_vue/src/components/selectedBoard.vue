@@ -20,9 +20,9 @@
             <v-icon>{{ icons.mdiDelete }}</v-icon>
           </v-btn>
         </router-link>
-        <div>
-          {{ onePost.contents }}
-        </div>
+        <td scope="col" colspan="20" v-html="onePost.contents">
+          <!-- {{ onePost.contents }} -->
+        </td>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
@@ -30,8 +30,8 @@
       <v-card-title>Comments</v-card-title>
       <v-list three-line v-for="(item, index) in reviewList" :key="index">
         <v-row style="margin-left:20px;">
-          <v-list-item-avatar>
-            <div v-if="!item.user || item.user.img === null">
+          <v-list-item-avatar style="margin-right: 20px;">
+            <div v-if="item.user.img === null || item.user.img === ''">
               <v-icon>mdi-dog</v-icon>
             </div>
             <div v-else>
@@ -54,15 +54,15 @@
           label="Comment"
           placeholder="댓글을 남겨주세요"
           outlined
-          style="max-width: 1000px; margin-left: 50px;"
+          style="max-width: 1000px; margin-left: 50px; margin-top: 20px;"
         ></v-text-field>
-        <v-btn @click="reviewSubmit" icon style="margin-top: 15px;">
+        <v-btn @click="reviewSubmit" icon style="margin-top: 30px;">
           <v-icon>mdi-send</v-icon>
         </v-btn>
       </v-row>
 
       <!-- 뒤로가기  -->
-      <v-card-actions style="float:right">
+      <v-card-actions style="float:right; margin-right: 60px;">
         <router-link to="/board">
           <v-btn color="deep-purple lighten-2" text>
             Back
@@ -100,6 +100,7 @@ export default {
   },
   created() {
     this.onePost = this.post;
+    this.onePost.contents = this.onePost.contents.replace(/(\n|\r\n)/g, '<br>');
 
     axios.get(HOST + 'api/board/boarddetail/' + this.post.bid).then(res => {
       this.reviewList = res.data;

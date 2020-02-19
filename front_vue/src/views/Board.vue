@@ -1,11 +1,13 @@
 <template>
   <v-container>
-    <v-layout>
-      <v-flex lg8>
+    <v-layout style="margin-top:50px;">
+      <v-flex>
         <h1>Q&A게시판</h1>
       </v-flex>
-      <v-flex lg4>
-        <router-link to="writeBoard"><v-btn>글 작성하기</v-btn></router-link>
+      <v-flex style="">
+        <router-link to="writeBoard"
+          ><v-btn style="float: right; margin-top: 10px;">글 작성하기</v-btn></router-link
+        >
       </v-flex>
     </v-layout>
     <v-simple-table height="800px">

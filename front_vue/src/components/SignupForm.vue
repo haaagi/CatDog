@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-app>
+  <v-container class="signupform">
+    <v-app class="signupform">
       <v-row justify="center" align="center">
         <v-card elevation="24" max-width="474" color="amber" class="px-6 pb-2">
           <v-card-title class="title py-8 pl-10 mb-3">
@@ -8,7 +8,7 @@
               CatDog SignUp
             </div>
             <v-spacer></v-spacer>
-            <v-btn text icon>
+            <v-btn to="/" text icon>
               <v-icon>close</v-icon>
             </v-btn>
           </v-card-title>
@@ -164,7 +164,7 @@
             <v-btn text class="font-weight-bold" large @click.prevent="signup(userInput)"
               >회원가입</v-btn
             >
-            <v-btn to="/login" text class="font-weight-bold" large>로그인</v-btn>
+            <!-- <v-btn to="/login" text class="font-weight-bold" large>로그인</v-btn> -->
           </v-card-actions>
         </v-card>
       </v-row>
@@ -240,4 +240,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.signupform {
+  background-color: whitesmoke;
+}
+</style>

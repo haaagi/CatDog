@@ -4,7 +4,7 @@
       <div class="container">
         <div class="profile">
           <div class="profile-image">
-            <div v-if="followInfo.profileimg === null">
+            <div v-if="followInfo.profileimg === null || followInfo.profileimg === ''">
               <img
                 style="width: 200px; height: 200px;"
                 src="https://image.flaticon.com/icons/svg/1077/1077063.svg"
@@ -23,7 +23,7 @@
           <div class="profile-user-settings">
             <h1 class="profile-user-name">{{ followInfo.nickname }}</h1>
             <div v-if="followCheck">
-              <v-btn class="ma-2" outlined color="blue" @click="onClickFollow(followInfo.nickname)"
+              <v-btn class="ma-2" outlined @click="onClickFollow(followInfo.nickname)"
                 >팔로우 취소
               </v-btn>
             </div>
@@ -33,31 +33,6 @@
               <v-btn class="ma-2" outlined color="blue" @click="onClickFollow(followInfo.nickname)"
                 >팔로우
               </v-btn>
-              <!-- <v-dialog v-model="dialog_follow" persistent max-width="600px">
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on">팔로잉</v-btn>
-                </template>
-                <v-card>
-                  <v-card-title>
-                    <span class="">@{{ userInfo.nickname }}님의 팔로우를 취소하시겠습니까?</span>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-container>
-                      <v-btn
-                        class="ma-2"
-                        color="blue"
-                        @click="onClickFollow(userInfo.nickname)"
-                        text
-                        >팔로우 취소</v-btn
-                      >
-                    </v-container>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="dialog_follow = false">Close</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog> -->
             </div>
 
             <button class="btn profile-settings-btn" aria-label="profile settings">
@@ -70,167 +45,118 @@
             <ul>
               <li>
                 <span class="profile-stat-count"></span
-                ><v-btn text large>{{ followInfo.post_cnt }} posts</v-btn>
+                ><v-btn text large disabled style="color: black;"
+                  >{{ followInfo.post_cnt }} posts</v-btn
+                >
               </li>
+              <v-layout>
+                <li>
+                  <span class="profile-stat-count"></span>
+                  <v-row justify="center">
+                    <v-dialog v-model="dialog" scrollable max-width="300px">
+                      <template v-slot:activator="{ on }">
+                        <v-btn text color="primary" v-on="on">{{ followerCnt }}followers</v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>Follower List</v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text style="height: 400px;">
+                          <v-list subheader>
+                            <!-- 팔로워의 상세페이지로 이동하기 @click 설정하기!!  -->
+                            <v-list-item v-for="follower in followerList" :key="follower.nickname">
+                              <v-list-item-avatar>
+                                <div v-if="follower.img === '' || follower.img === null">
+                                  <v-avatar color="">
+                                    <v-icon>mdi-dog</v-icon>
+                                  </v-avatar>
+                                </div>
+                                <div v-else>
+                                  <v-avatar>
+                                    <img :src="follower.img" alt="" />
+                                  </v-avatar>
+                                </div>
+                              </v-list-item-avatar>
 
-              <li>
-                <span class="profile-stat-count"></span>
-
-                <v-row justify="center">
-                  <v-dialog v-model="dialog" scrollable max-width="300px">
-                    <template v-slot:activator="{ on }">
-                      <v-btn text color="black" v-on="on"
-                        >{{ followInfo.follower_cnt }}followers</v-btn
-                      >
-                    </template>
-                    <v-card>
-                      <v-card-title>Follower List</v-card-title>
-                      <v-divider></v-divider>
-                      <v-card-text style="height: 400px;">
-                        <v-list subheader>
-                          <!-- 팔로워의 상세페이지로 이동하기 @click 설정하기!!  -->
-                          <v-list-item
-                            v-for="follower in followInfo.followerList"
-                            :key="follower.nickname"
+                              <v-list-item-content>
+                                <router-link
+                                  :to="{
+                                    name: 'followdetail',
+                                    params: { nickname: follower.nickname },
+                                  }"
+                                  style="color: rgb(34, 136, 150);   text-decoration: none;"
+                                >
+                                  <v-list-item-title>{{ follower.nickname }}</v-list-item-title>
+                                </router-link>
+                              </v-list-item-content>
+                            </v-list-item>
+                          </v-list>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                          <v-btn style="color: rgb(34, 136, 150);" text @click="dialog = false"
+                            >Close</v-btn
                           >
-                            <v-list-item-avatar>
-                              <div v-if="follower.img === null">
-                                <v-avatar color="">
-                                  <v-icon>mdi-dog</v-icon>
-                                </v-avatar>
-                              </div>
-                              <div v-else>
-                                <v-avatar>
-                                  <img :src="follower.img" alt="" />
-                                </v-avatar>
-                              </div>
-                            </v-list-item-avatar>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-row>
+                </li>
 
-                            <v-list-item-content>
-                              <router-link
-                                :to="{
-                                  name: 'followdetail',
-                                  params: { nickname: follower.nickname },
-                                }"
-                              >
-                                <v-list-item-title>{{ follower.nickname }}</v-list-item-title>
-                              </router-link>
-                            </v-list-item-content>
-                          </v-list-item>
-                        </v-list>
-                      </v-card-text>
-                      <v-divider></v-divider>
-                      <v-card-actions>
-                        <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-row>
-              </li>
+                <li>
+                  <span class="profile-stat-count"></span>
+                  <v-row justify="center">
+                    <v-dialog v-model="dialog_f" scrollable max-width="300px">
+                      <template v-slot:activator="{ on }">
+                        <v-btn text color="primary" v-on="on">{{ followingCnt }} following</v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>Following List</v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text style="height: 400px;">
+                          <v-list subheader>
+                            <!-- 팔로워의 상세페이지로 이동하기 @click 설정하기!!  -->
+                            <v-list-item
+                              v-for="following in followingList"
+                              :key="following.nickname"
+                            >
+                              <v-list-item-avatar>
+                                <div v-if="following.img === '' || following.img === null">
+                                  <v-avatar>
+                                    <v-icon>mdi-dog</v-icon>
+                                  </v-avatar>
+                                </div>
+                                <div v-else>
+                                  <v-avatar>
+                                    <img :src="following.img" alt="" />
+                                  </v-avatar>
+                                </div>
+                              </v-list-item-avatar>
 
-              <li>
-                <span class="profile-stat-count"></span>
-                <v-row justify="center">
-                  <v-dialog v-model="dialog" scrollable max-width="300px">
-                    <template v-slot:activator="{ on }">
-                      <v-btn text color="black" dark v-on="on">{{ followerCnt }}followers</v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title>Follower List</v-card-title>
-                      <v-divider></v-divider>
-                      <v-card-text style="height: 400px;">
-                        <v-list subheader>
-                          <!-- 팔로워의 상세페이지로 이동하기 @click 설정하기!!  -->
-                          <v-list-item
-                            v-for="follower in followInfo.followerList"
-                            :key="follower.nickname"
+                              <v-list-item-content>
+                                <router-link
+                                  :to="{
+                                    name: 'followdetail',
+                                    params: { nickname: following.nickname },
+                                  }"
+                                  style="color: rgb(34, 136, 150);   text-decoration: none;"
+                                >
+                                  <v-list-item-title>{{ following.nickname }}</v-list-item-title>
+                                </router-link>
+                              </v-list-item-content>
+                            </v-list-item>
+                          </v-list>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                          <v-btn style="color: rgb(34, 136, 150);" text @click="dialog_f = false"
+                            >Close</v-btn
                           >
-                            <v-list-item-avatar>
-                              <div v-if="follower.img === null">
-                                <v-avatar color="">
-                                  <v-icon>mdi-dog</v-icon>
-                                </v-avatar>
-                              </div>
-                              <div v-else>
-                                <v-avatar>
-                                  <img :src="follower.img" alt="" />
-                                </v-avatar>
-                              </div>
-                            </v-list-item-avatar>
-
-                            <v-list-item-content>
-                              <router-link
-                                :to="{
-                                  name: 'followdetail',
-                                  params: { nickname: follower.nickname },
-                                }"
-                              >
-                                <v-list-item-title>{{ follower.nickname }}</v-list-item-title>
-                              </router-link>
-                            </v-list-item-content>
-                          </v-list-item>
-                        </v-list>
-                      </v-card-text>
-                      <v-divider></v-divider>
-                      <v-card-actions>
-                        <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-row>
-              </li>
-
-              <li>
-                <span class="profile-stat-count"></span>
-                <v-row justify="center">
-                  <v-dialog v-model="dialog_f" scrollable max-width="300px">
-                    <template v-slot:activator="{ on }">
-                      <v-btn text color="black" dark v-on="on">{{ followingCnt }} following</v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title>Following List</v-card-title>
-                      <v-divider></v-divider>
-                      <v-card-text style="height: 400px;">
-                        <v-list subheader>
-                          <!-- 팔로워의 상세페이지로 이동하기 @click 설정하기!!  -->
-                          <v-list-item
-                            v-for="following in followInfo.followingList"
-                            :key="following.nickname"
-                          >
-                            <v-list-item-avatar>
-                              <div v-if="following.img === null">
-                                <v-avatar color="">
-                                  <v-icon>mdi-dog</v-icon>
-                                </v-avatar>
-                              </div>
-                              <div v-else>
-                                <v-avatar>
-                                  <img :src="following.img" alt="" />
-                                </v-avatar>
-                              </div>
-                            </v-list-item-avatar>
-
-                            <v-list-item-content>
-                              <router-link
-                                :to="{
-                                  name: 'followdetail',
-                                  params: { nickname: following.nickname },
-                                }"
-                              >
-                                <v-list-item-title>{{ following.nickname }}</v-list-item-title>
-                              </router-link>
-                            </v-list-item-content>
-                          </v-list-item>
-                        </v-list>
-                      </v-card-text>
-                      <v-divider></v-divider>
-                      <v-card-actions>
-                        <v-btn color="blue darken-1" text @click="dialog_f = false">Close</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-row>
-              </li>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-row>
+                </li>
+              </v-layout>
             </ul>
           </div>
 
@@ -280,6 +206,8 @@ export default {
       dialog_follow: false,
       followingCnt: null,
       followerCnt: null,
+      followerList: null,
+      followingList: null,
 
       text: 'center',
       icon: 'justify',
@@ -301,6 +229,8 @@ export default {
         this.followInfo = res.data;
         this.followingCnt = res.data.following_cnt;
         this.followerCnt = res.data.follower_cnt;
+        this.followingList = res.data.followingList;
+        this.followerList = res.data.followerList;
         console.log(this.followInfo);
 
         // const follower = sessionStorage.getItem('nickname');
@@ -345,6 +275,8 @@ export default {
             .then(res => {
               this.followingCnt = res.data.following_cnt;
               this.followerCnt = res.data.follower_cnt;
+              this.followingList = res.data.followingList;
+              this.followerList = res.data.followerList;
             })
             .catch(err => console.error(err));
         })
@@ -360,8 +292,8 @@ export default {
 
 /*
 
-All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310). 
-        
+All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310).
+
 The 'supports' rule will only run if your browser supports CSS grid.
 
 Flexbox and floats are used as a fallback so that browsers which don't support grid will still recieve a similar layout.
@@ -673,7 +605,7 @@ img {
 
 The following code will only run if your browser supports CSS grid.
 
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling. 
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling.
 
 */
 

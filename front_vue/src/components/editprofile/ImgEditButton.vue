@@ -87,16 +87,16 @@ export default {
     dialog: false,
     sheet: false,
 
-    //
-    profileFile: '',
+    profileFile: '', // 임그루에 담긴 파일
   }),
   methods: {
     onSubmit() {
       const userNickname = sessionStorage.getItem('nickname');
+      sessionStorage.setItem('profileFile', this.profileFile);
       console.log(userNickname);
-      axios.put(HOST + 'auth/user/update/' + userNickname, { img: this.profileFile }).then(res => {
-        console.log(res);
-      });
+      // axios.put(HOST + 'auth/user/update/' + userNickname, { img: this.profileFile }).then(res => {
+      //   console.log(res);
+      // });
       this.dialog = false;
     },
     onSave(event) {

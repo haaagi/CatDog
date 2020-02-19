@@ -61,7 +61,8 @@
           <!-- 내용 해쉬태그 댓글  -->
           <v-col cols="12" sm="4" md="4">
             <v-card-text class="title">
-              {{ this.usercontents }}
+              <td scope="col" colspan="20" v-html="usercontents"></td>
+              <!-- {{ this.usercontents }} -->
             </v-card-text>
 
             <v-item v-for="(hash, i) in selectedPost.hashtags" :key="i">
