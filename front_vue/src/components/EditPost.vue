@@ -147,7 +147,6 @@ export default {
   //   },
   methods: {
     submitEdit() {
-      this.$emit('updateContent');
       this.editContents.content = this.propContent;
       axios
         .put(HOST + 'auth/posts/update/' + this.selectedPost.pid, this.editContents)
