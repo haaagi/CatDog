@@ -15,7 +15,7 @@ import FollowDetail from '../views/FollowDetail.vue';
 import TagDetail from '../views/TagPage.vue';
 import PageNotFound from '@/views/PageNotFound';
 import Search from '../views/Search.vue';
-
+import Chat from '../views/Chat.vue';
 import AboutUs from '../views/AboutUs.vue';
 import Board from '../views/Board.vue';
 import writeBoard from '../components/writeBoard.vue';
@@ -132,6 +132,11 @@ const router = new VueRouter({
       name: 'updateboard',
       component: updateBoard,
       props: true,
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: Chat,
     },
     // {
     //   path: '/search?keyword=:keywoed',

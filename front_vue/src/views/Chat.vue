@@ -50,7 +50,7 @@
         <md-field>
           <label>Your Message</label>
           <md-input v-model="message"></md-input>
-          <md-button class="md-primary md-raised" @keyup.enter="sendMessage">Submit</md-button>
+          <md-button class="md-primary md-raised" @click="sendMessage">Submit</md-button>
         </md-field>
       </md-app-content>
     </md-app>
