@@ -60,7 +60,7 @@
                   <v-row justify="center">
                     <v-dialog v-model="dialog" scrollable max-width="300px">
                       <template v-slot:activator="{ on }">
-                        <v-btn text color="primary" v-on="on">{{ followerCnt }}followers</v-btn>
+                        <v-btn text color="primary" v-on="on">{{ followerCnt }} followers</v-btn>
                       </template>
                       <v-card>
                         <v-card-title>Follower List</v-card-title>
