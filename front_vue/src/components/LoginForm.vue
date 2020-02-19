@@ -40,6 +40,7 @@
                       type="password"
                       label="password"
                       placeholder="password"
+                      @keyup.enter="login(credentials)"
                     ></v-text-field>
                   </v-col>
                 </v-row>
