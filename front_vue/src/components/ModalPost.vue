@@ -17,13 +17,13 @@
                 <div v-if="!selectedPost.profileimg">
                   <img
                     src="../assets/img/paw.png"
-                    style="height:40px; width:40px; margin-right: 10px;"
+                    style="height:60px; width:60px; margin-right: 10px; border-radius: 50%;"
                   />
                 </div>
                 <div v-else>
                   <img
                     :src="selectedPost.profileimg"
-                    style="height:40px; width:40px; margin-right: 10px;"
+                    style="height:60px; width:60px; margin-right: 10px; border-radius: 50%;"
                   />
                 </div>
               </div>
@@ -116,13 +116,13 @@
                       <div v-if="!item.user.img">
                         <img
                           src="../assets/img/paw.png"
-                          style="height:20px; width:20px; margin-right: 10px;"
+                          style="height:40px; width:40px; margin-right: 10px;border-radius: 50%;"
                         />
                       </div>
                       <div v-else>
                         <img
                           :src="item.user.img"
-                          style="height:20px; width:20px; margin-right: 10px;"
+                          style="height:40px; width:40px; margin-right: 10px;border-radius: 50%;"
                         />
                       </div>
                     </div>
@@ -140,12 +140,14 @@
             </div>
             <v-divider></v-divider>
             <!-- 댓글 입력창  -->
+
             <v-row>
               <v-text-field
                 v-model="review.contents"
                 label="Comment"
                 placeholder="댓글을 남겨주세요"
                 outlined
+                @keyup.enter="reviewSubmit"
               ></v-text-field>
               <v-btn icon @click="reviewSubmit" style="margin-top: 10px;">
                 <v-icon l>{{ icons.mdiSend }}</v-icon>
