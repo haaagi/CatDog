@@ -107,13 +107,14 @@ const actions = {
           .catch(err => {
             if (!err.response) {
               // no reponse
+              alert('통신환경이 불안정합니다...');
               commit('pushError', 'Network Error..');
             } else if (err.response.status === 400) {
-              commit('pushError', 'Invalid username or password');
+              alert('유요하지 않은 아이디나 비밀번호 입니다');
             } else if (err.response.status === 500) {
-              commit('pushError', 'Internal Server error. Please try again later');
+              alert('네트워크 에러입니다');
             } else {
-              commit('pushError', 'Some error occured');
+              alert('통신환경이 불안정합니다...');
             }
             commit('setLoading', false);
           });
