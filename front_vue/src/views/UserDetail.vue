@@ -219,6 +219,7 @@ export default {
     };
   },
   beforeCreate() {
+    console.log('beforeCreate :');
     const userNickname = sessionStorage.getItem('nickname');
     API
       // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
@@ -229,6 +230,38 @@ export default {
         console.log(this.userInfo.postsList);
       })
       .catch(err => console.error(err));
+  },
+
+  created() {
+    console.log('created :');
+  },
+  beforeMount() {
+    console.log('beforeMount :');
+  },
+  mounted() {
+    console.log('mounted :');
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate :');
+  },
+  updated() {
+    console.log('updated :');
+    const userNickname = sessionStorage.getItem('nickname');
+    API
+      // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
+      .get('auth/myPage/' + userNickname)
+      .then(res => {
+        this.userInfo = res.data;
+        console.log(this.userInfo);
+        console.log(this.userInfo.postsList);
+      })
+      .catch(err => console.error(err));
+  },
+  beforeDestroy() {
+    console.log('beforeDestroy :');
+  },
+  destroyed() {
+    console.log('destroyed :');
   },
 };
 </script>
