@@ -66,8 +66,7 @@
 </template>
 
 <script>
-const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 export default {
   props: {
     post: Object,
@@ -78,7 +77,7 @@ export default {
     };
   },
   beforeCreate() {
-    axios.get(HOST + 'api/board/list').then(res => {
+    API.get('api/board/list').then(res => {
       console.log(res);
       this.boardList = res.data;
     });
@@ -111,7 +110,7 @@ export default {
   },
 
   // beforeUpdate() {
-  //   axios.get(HOST + 'api/board/list').then(res => {
+  //   API.get(HOST + 'api/board/list').then(res => {
   //     console.log(res);
   //     this.boardList = res.data;
   //   });

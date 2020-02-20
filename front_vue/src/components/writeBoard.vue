@@ -23,15 +23,14 @@
   </v-container>
 </template>
 <script>
-const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 export default {
   data() {
     return {
       board: {
         title: '',
         contents: '',
-        type: 0,
+        type: 1,
         nickname: '',
       },
     };
@@ -39,11 +38,11 @@ export default {
   methods: {
     onSubmit() {
       this.board.nickname = sessionStorage.getItem('nickname');
-      axios.post(HOST + 'auth/board/upload', this.board).then(res => {
+      API.post('auth/board/upload', this.board).then(res => {
         console.log(res);
         this.board.title = '';
         this.board.contents = '';
-        this.board.type = 0;
+        this.board.type = 1;
         this.board.nickname = '';
       });
     },

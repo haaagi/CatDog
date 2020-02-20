@@ -74,8 +74,7 @@
 </template>
 <script>
 import { mdiDelete, mdiPencil } from '@mdi/js';
-const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 export default {
   props: {
     post: Object,
@@ -102,7 +101,7 @@ export default {
     this.onePost = this.post;
     this.onePost.contents = this.onePost.contents.replace(/(\n|\r\n)/g, '<br>');
 
-    axios.get(HOST + 'api/board/boarddetail/' + this.post.bid).then(res => {
+    API.get('api/board/boarddetail/' + this.post.bid).then(res => {
       this.reviewList = res.data;
       console.log(this.reviewList);
     });
@@ -110,12 +109,12 @@ export default {
   methods: {
     onDelete() {
       const bid = this.post.bid;
-      axios.delete(HOST + 'auth/board/delete/' + bid);
+      API.delete('auth/board/delete/' + bid);
     },
     reviewSubmit() {
       this.review.nickname = sessionStorage.getItem('nickname');
       this.review.bid = this.post.bid;
-      axios.post(HOST + 'auth/board/comment/', this.review).then(res => {
+      API.post('auth/board/comment/', this.review).then(res => {
         console.log(res);
         this.reviewList = res.data;
         this.review.contents = '';

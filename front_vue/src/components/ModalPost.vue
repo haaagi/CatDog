@@ -162,8 +162,7 @@
 <script>
 import EditPost from './EditPost';
 import { mdiAccount, mdiPencil, mdiDelete, mdiArrowRightBoldBox, mdiSend } from '@mdi/js';
-const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 export default {
   name: 'ModalPost',
   components: { EditPost },
@@ -204,15 +203,14 @@ export default {
     console.log('create :');
 
     this.pid = this.selectedPost;
-    axios.get(HOST + 'auth/posts/comment/' + this.selectedPost.pid).then(res => {
+    API.get('auth/posts/comment/' + this.selectedPost.pid).then(res => {
       // console.log(this.selectedPost);
       this.items = res.data;
     });
     this.realContent = this.selectedPost.contents;
     // 좋아요 체크하기 위한
     this.userNickname = sessionStorage.getItem('nickname');
-    axios
-      .get(HOST + 'api/posts/like/likeslist/' + this.selectedPost.pid)
+    API.get('api/posts/like/likeslist/' + this.selectedPost.pid)
       .then(res => {
         console.log(res);
         this.likeList = res.data;
@@ -247,15 +245,14 @@ export default {
   watch: {
     selectedPost: function() {
       this.pid = this.selectedPost;
-      axios.get(HOST + 'auth/posts/comment/' + this.selectedPost.pid).then(res => {
+      API.get('auth/posts/comment/' + this.selectedPost.pid).then(res => {
         // console.log(this.selectedPost);
         this.items = res.data;
       });
       this.realContent = this.selectedPost.contents;
       // 좋아요 체크하기 위한
       this.userNickname = sessionStorage.getItem('nickname');
-      axios
-        .get(HOST + 'api/posts/like/likeslist/' + this.selectedPost.pid)
+      API.get('api/posts/like/likeslist/' + this.selectedPost.pid)
         .then(res => {
           console.log(res);
           this.likeList = res.data;
@@ -276,7 +273,7 @@ export default {
     },
     // 댓글 리스트
     reviewSubmit() {
-      axios.post(HOST + 'auth/posts/comment', this.review).then(res => {
+      API.post('auth/posts/comment', this.review).then(res => {
         console.log(res.data);
         this.items = res.data;
         console.lvog(this.items);
@@ -284,23 +281,22 @@ export default {
       });
     },
     deletePost() {
-      axios.delete(HOST + 'auth/posts/delete/' + this.selectedPost.pid).then(res => {
+      API.delete('auth/posts/delete/' + this.selectedPost.pid).then(res => {
         console.log(res);
         this.dialog = false;
       });
     },
     // 좋아요
     onClickLike() {
-      axios
-        .post(HOST + 'auth/posts/likesup/', {
-          pid: this.selectedPost.pid,
-          nickname: this.userNickname,
-        })
+      API.post('auth/posts/likesup/', {
+        pid: this.selectedPost.pid,
+        nickname: this.userNickname,
+      })
         .then(res => {
           console.log(res);
           this.likeCheck = res.data;
           console.log(this.likeCheck);
-          axios.get(HOST + 'api/posts/postdetail/' + this.selectedPost.pid).then(res => {
+          API.get('api/posts/postdetail/' + this.selectedPost.pid).then(res => {
             console.log(res);
             this.likeCnt = res.data.likes;
           });
@@ -309,7 +305,7 @@ export default {
     },
     // 수정완료후 호출
     postUpdate() {
-      axios.get(HOST + 'api/posts/postdetail/' + this.selectedPost.pid).then(res => {
+      API.get('api/posts/postdetail/' + this.selectedPost.pid).then(res => {
         console.log(res);
         //alert(res.data.contents);
         this.usercontents = res.data.contents;

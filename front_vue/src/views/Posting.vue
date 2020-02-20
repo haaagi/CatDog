@@ -65,7 +65,7 @@
 
 <script>
 const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 export default {
   name: 'Posting',
   data() {
@@ -84,7 +84,7 @@ export default {
     onSubmit() {
       this.postingFile.nickname = sessionStorage.getItem('nickname');
       this.postingFile.content = this.postingFile.content.replace(/(\n|\r\n)/g, '<br>');
-      axios.post(HOST + 'auth/posts/posting', this.postingFile).then(res => {
+      API.post('auth/posts/posting', this.postingFile).then(res => {
         console.log(res);
         this.dialog = false;
         this.postingFile.content = null;

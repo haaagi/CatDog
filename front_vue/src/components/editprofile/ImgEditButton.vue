@@ -77,8 +77,7 @@
 </template>
 
 <script>
-const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../../plugins/api';
 
 export default {
   name: 'ImgEditButton',
@@ -94,9 +93,6 @@ export default {
       const userNickname = sessionStorage.getItem('nickname');
       sessionStorage.setItem('profileFile', this.profileFile);
       console.log(userNickname);
-      // axios.put(HOST + 'auth/user/update/' + userNickname, { img: this.profileFile }).then(res => {
-      //   console.log(res);
-      // });
       this.dialog = false;
     },
     onSave(event) {
@@ -106,25 +102,23 @@ export default {
       for (let key of fd.entries()) {
         console.log(key[0] + ' ' + key[1]);
       }
-      axios
-        .post('https://api.imgur.com/3/image', fd, {
-          headers: {
-            // 'Access-Control-Allow-Origin': '*',
-            Authorization: 'Client-ID 1001abddfee2596',
-          },
-        })
-        .then(res => {
-          console.log(res);
-          console.log(res.data.data.link);
-          this.profileFile = res.data.data.link;
-          console.log(this.profileFile);
-        });
+      API.post('https://api.imgur.com/3/image', fd, {
+        headers: {
+          // 'Access-Control-Allow-Origin': '*',
+          Authorization: 'Client-ID 1001abddfee2596',
+        },
+      }).then(res => {
+        console.log(res);
+        console.log(res.data.data.link);
+        this.profileFile = res.data.data.link;
+        console.log(this.profileFile);
+      });
     },
     onClickDelete() {
       console.log('삭제하기');
       const userNickname = sessionStorage.getItem('nickname');
 
-      axios.put(HOST + 'auth/user/update/' + userNickname, { img: '' }).then(res => {
+      API.put('auth/user/update/' + userNickname, { img: '' }).then(res => {
         console.log(res.data.img);
       });
       this.dialog = false;

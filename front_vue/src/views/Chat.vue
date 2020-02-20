@@ -1,6 +1,6 @@
 <template>
   <v-app style="background-color:whitesmoke">
-    <v-container>
+    <v-container style="padding-top: 20px">
       <v-card width="500" class="mx-auto">
         <v-system-bar color="amber darken-1" dark>
           <v-spacer></v-spacer>
@@ -16,21 +16,21 @@
           <v-spacer></v-spacer>
         </v-app-bar>
 
-        <v-container id="scroll-target" style="max-height: 500px" class="overflow-y-auto">
+        <v-container
+          fluid
+          id="scroll-target"
+          style="background-color:peachpuff max-height: 500px"
+          class="overflow-y-auto"
+        >
           <v-row dense v-scroll:#scroll-target="onScroll">
-            <v-textarea
-              style="font-family:fantasy"
-              height="500"
-              v-model="textarea"
-              disabled
-              auto-grow
-            >
-            </v-textarea>
+            <v-textarea auto-grow height="450" v-model="textarea" disabled> </v-textarea>
           </v-row>
         </v-container>
         <v-container>
-          <v-row cols="6">
-            <v-text-field @keyup.enter="sendMessage" type="text" v-model="message"> </v-text-field>
+          <v-row>
+            <v-text-field shaped @keyup.enter="sendMessage" type="text" v-model="message">
+            </v-text-field>
+
             <v-btn @click="sendMessage">보내기</v-btn>
           </v-row>
         </v-container>
@@ -64,7 +64,7 @@ export default {
   created() {
     this.$socket.on('chat', data => {
       console.log(data);
-      this.textarea += data.sender + ':    ' + data.message + '\n';
+      this.textarea += data.sender + '\n' + data.message + '\n';
     });
   },
   data() {
@@ -86,7 +86,7 @@ export default {
         sender: userNickname,
         message: this.message,
       });
-      this.textarea += userNickname + ':' + this.message + '\n';
+      this.textarea += userNickname + ':' + '\n' + this.message + '\n';
       this.message = '';
     },
   },

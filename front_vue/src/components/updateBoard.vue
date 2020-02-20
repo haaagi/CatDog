@@ -40,8 +40,7 @@
   </div>
 </template>
 <script>
-const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 
 export default {
   props: {
@@ -63,14 +62,12 @@ export default {
     onSubmit() {
       const bid = this.pastPost.bid;
 
-      axios
-        .put(HOST + 'auth/board/update/' + bid, {
-          title: this.pastPost.title,
-          contents: this.pastPost.contents,
-        })
-        .then(res => {
-          console.log(res);
-        });
+      API.put('auth/board/update/' + bid, {
+        title: this.pastPost.title,
+        contents: this.pastPost.contents,
+      }).then(res => {
+        console.log(res);
+      });
     },
   },
 };
