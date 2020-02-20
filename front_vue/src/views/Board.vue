@@ -91,7 +91,7 @@ export default {
   },
   mounted() {
     console.log('mounted :');
-    axios.get(HOST + 'api/board/list').then(res => {
+    API.get('api/board/list').then(res => {
       console.log(res);
       this.boardList = res.data;
     });
