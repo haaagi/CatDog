@@ -38,8 +38,8 @@
             <li><a href="/info">introduce dog</a></li>
 
             <li><a href="board">Board</a></li>
-            <li><a href="aboutus">About Us</a></li>
             <li><a href="/chat">Chat</a></li>
+            <li><a href="aboutus">About Us</a></li>
           </div>
 
           <div v-else>
@@ -51,6 +51,7 @@
 
           <div class="fh5co-footer">
             <p><span> Copyright 2020. Cat&Dog Co.</span> <span> All Rights Reserved</span></p>
+
             <ul>
               <li>
                 <a href="https://github.com/ponyong"><i class="icon-phone"></i></a>
