@@ -43,7 +43,7 @@ export default {
         console.log(res);
         this.board.title = '';
         this.board.contents = '';
-        this.board.type = 0;
+        this.board.type = 1;
         this.board.nickname = '';
       });
     },
