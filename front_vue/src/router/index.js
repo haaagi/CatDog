@@ -21,7 +21,7 @@ import Board from '../views/Board.vue';
 import writeBoard from '../components/writeBoard.vue';
 import selectedBoard from '../components/selectedBoard.vue';
 import updateBoard from '../components/updateBoard.vue';
-import Chat from '../views/Chat';
+// import Chat from '../views/Chat';
 
 Vue.use(VueRouter);
 
