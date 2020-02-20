@@ -70,7 +70,7 @@ export default {
         this.modal = false;
         this.post = [];
         this.length = 0;
-        axios.get(HOST + 'hashtag/' + this.$route.params.tagname).then(res => {
+        API.get('hashtag/' + this.$route.params.tagname).then(res => {
           this.postList = res.data;
           this.length = this.postList.length;
           this.flag = true;
