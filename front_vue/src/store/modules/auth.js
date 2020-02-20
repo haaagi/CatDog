@@ -59,6 +59,7 @@ const actions = {
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('nickname');
     router.push('/login');
+    alert('로그아웃이 되었습니다');
   },
   pushError: ({ commit }, error) => {
     commit('pushError', error);
@@ -93,6 +94,9 @@ const actions = {
               commit('setLoading', false);
               commit('isStart');
               router.push('/main');
+              alert(
+                '로그인이 되었습니다\n 처음 접속하신 분은 검색창에 강아지 종류나 강아지를 검색해 보세요 ^o^',
+              );
             } else {
               alert('아이디 또는 패스워드가 틀렸습니다');
               commit('setLoading', false);
@@ -103,13 +107,14 @@ const actions = {
           .catch(err => {
             if (!err.response) {
               // no reponse
+              alert('통신환경이 불안정합니다...');
               commit('pushError', 'Network Error..');
             } else if (err.response.status === 400) {
-              commit('pushError', 'Invalid username or password');
+              alert('유요하지 않은 아이디나 비밀번호 입니다');
             } else if (err.response.status === 500) {
-              commit('pushError', 'Internal Server error. Please try again later');
+              alert('네트워크 에러입니다');
             } else {
-              commit('pushError', 'Some error occured');
+              alert('통신환경이 불안정합니다...');
             }
             commit('setLoading', false);
           });
