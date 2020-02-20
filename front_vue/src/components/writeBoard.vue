@@ -31,7 +31,7 @@ export default {
       board: {
         title: '',
         contents: '',
-        type: 0,
+        type: 1,
         nickname: '',
       },
     };
