@@ -1,6 +1,5 @@
 import API from '../../plugins/api';
 import router from '../../router';
-const HOST = process.env.VUE_APP_SERVER_HOST;
 const state = {
   token: null,
   errors: [],
