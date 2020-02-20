@@ -48,6 +48,24 @@
             </router-link>
             <li style="margin-top: 30px;"><a href="aboutus">About Us</a></li>
           </div>
+
+          <div class="fh5co-footer">
+            <p><span> Copyright 2020. Cat&Dog Co.</span> <span> All Rights Reserved</span></p>
+            <ul>
+              <li>
+                <a href="#"><i class="icon-facebook2"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="icon-twitter2"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="icon-instagram"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="icon-linkedin2"></i></a>
+              </li>
+            </ul>
+          </div>
         </ul>
       </nav>
     </aside>
