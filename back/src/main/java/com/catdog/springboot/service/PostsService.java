@@ -139,7 +139,8 @@ public class PostsService {
                         tagsRepository.save(Tags.builder().hashtags(hashtags).posts(posts).build());
                     }
                     else {
-                        tagsRepository.save(Tags.builder().hashtags(checkhashtags).posts(posts).build());
+                        Tags tagcheck = tagsRepository.findByPostsPidAndHashtagsHid(posts.getPid(), checkhashtags.getHid());
+                        if(tagcheck == null) tagsRepository.save(Tags.builder().hashtags(checkhashtags).posts(posts).build());
                     }
                 }else {
                     Hashtags checkhashtags = hashtagsRepository.findByContent(tag);
@@ -149,7 +150,8 @@ public class PostsService {
                         tagsRepository.save(Tags.builder().hashtags(hashtags).posts(posts).build());
                     }
                     else {
-                        tagsRepository.save(Tags.builder().hashtags(checkhashtags).posts(posts).build());
+                        Tags tagcheck = tagsRepository.findByPostsPidAndHashtagsHid(posts.getPid(), checkhashtags.getHid());
+                        if(tagcheck == null) tagsRepository.save(Tags.builder().hashtags(checkhashtags).posts(posts).build());
                     }
                 }
 
