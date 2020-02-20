@@ -82,9 +82,7 @@
 
 <script>
 import ImgEditButton from './ImgEditButton';
-
-const HOST = process.env.VUE_APP_SERVER_HOST;
-const axios = require('axios');
+import API from '../../plugins/api';
 
 export default {
   name: 'EditDetail',
@@ -133,26 +131,23 @@ export default {
       if (this.editInfo.nickname === '') {
         alert('닉네임을 한글자 이상 설정해주세요.');
       } else {
-        axios
-          .put(HOST + 'auth/user/update/' + userNickname, {
-            img: this.editInfo.img,
-            pr: this.editInfo.pr,
-            nickname: this.editInfo.nickname,
-          })
-          .then(res => {
-            console.log(this.editInfo.img);
-            console.log(res);
-            sessionStorage.removeItem('nickname');
-            sessionStorage.setItem('nickname', res.data.nickname);
-            sessionStorage.removeItem('profileFile');
-          });
+        API.put('auth/user/update/' + userNickname, {
+          img: this.editInfo.img,
+          pr: this.editInfo.pr,
+          nickname: this.editInfo.nickname,
+        }).then(res => {
+          console.log(this.editInfo.img);
+          console.log(res);
+          sessionStorage.removeItem('nickname');
+          sessionStorage.setItem('nickname', res.data.nickname);
+          sessionStorage.removeItem('profileFile');
+        });
       }
     },
   },
   beforeCreate() {
     const userNickname = sessionStorage.getItem('nickname');
-    axios
-      .get(HOST + 'auth/myPage/' + userNickname)
+    API.get('auth/myPage/' + userNickname)
       .then(res => {
         this.userInfo = res.data;
         console.log(res);

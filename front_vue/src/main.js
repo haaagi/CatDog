@@ -9,7 +9,7 @@ import 'vue-material/dist/vue-material.css';
 import 'vue-material/dist/theme/black-green-light.css';
 import Directives from './plugins/directives';
 import io from 'socket.io-client';
-const socket = io('http://70.12.247.57:8081/');
+const socket = io('http://13.125.92.171:8081/');
 Vue.prototype.$socket = socket;
 Vue.use(VueMaterial);
 Vue.use(Directives);

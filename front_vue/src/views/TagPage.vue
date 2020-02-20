@@ -35,8 +35,7 @@
   </div>
 </template>
 <script>
-const HOST = process.env.VUE_APP_SERVER_HOST;
-const axios = require('axios');
+import API from '../plugins/api';
 import ModalPost from '../components/ModalPost.vue';
 export default {
   components: { ModalPost },
@@ -68,7 +67,7 @@ export default {
     this.addWord();
   },
   created() {
-    axios.get(HOST + 'hashtag/' + this.$route.params.tagname).then(res => {
+    API.get('hashtag/' + this.$route.params.tagname).then(res => {
       this.postList = res.data;
       this.length = this.postList.length;
       this.flag = true;

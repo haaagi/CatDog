@@ -95,8 +95,7 @@
 </template>
 
 <script>
-const HOST = process.env.VUE_APP_SERVER_HOST;
-const axios = require('axios');
+import API from '../plugins/api';
 
 export default {
   data() {
@@ -108,8 +107,7 @@ export default {
   },
   mounted() {
     this.keyword = this.$route.query.keyword;
-    axios
-      .get(HOST + 'auth/user/search/' + this.$route.query.keyword)
+    API.get('auth/user/search/' + this.$route.query.keyword)
       .then(res => {
         // let list = res.data;
         // this.userInfo = list;
