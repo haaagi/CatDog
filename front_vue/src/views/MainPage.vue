@@ -20,8 +20,7 @@
   </div>
 </template>
 <script>
-const HOST = process.env.VUE_APP_SERVER_HOST;
-const axios = require('axios');
+import API from '../plugins/api';
 import Banner from '../components/Banner.vue';
 import ModalPost from '../components/ModalPost.vue';
 import Hint from '../components/hint.vue';
@@ -55,7 +54,7 @@ export default {
     this.addWord();
   },
   created() {
-    axios.get(HOST + 'api/posts/list/' + sessionStorage.getItem('nickname')).then(res => {
+    API.get('api/posts/list/' + sessionStorage.getItem('nickname')).then(res => {
       this.postList = res.data;
       this.flag = true;
       this.total = this.postList.length;

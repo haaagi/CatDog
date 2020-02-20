@@ -116,8 +116,7 @@
 </template>
 <script>
 import { mdiAccount, mdiPencil, mdiDelete, mdiArrowRightBoldBox } from '@mdi/js';
-const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 export default {
   name: 'ModalPost',
   props: {
@@ -148,17 +147,15 @@ export default {
   methods: {
     submitEdit() {
       this.editContents.content = this.propContent;
-      axios
-        .put(HOST + 'auth/posts/update/' + this.selectedPost.pid, this.editContents)
-        .then(res => {
-          console.log(this.editContents.content);
-          console.log(res);
-          this.$emit('post');
-        });
+      API.put('auth/posts/update/' + this.selectedPost.pid, this.editContents).then(res => {
+        console.log(this.editContents.content);
+        console.log(res);
+        this.$emit('post');
+      });
       this.dialog = false;
     },
     deletePost() {
-      axios.delete(HOST + 'auth/posts/delete/' + this.selectedPost.pid).then(res => {
+      API.delete('auth/posts/delete/' + this.selectedPost.pid).then(res => {
         console.log(res);
         this.dialog = false;
       });

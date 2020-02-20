@@ -66,8 +66,7 @@
 </template>
 
 <script>
-const axios = require('axios');
-const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 export default {
   props: {
     post: Object,
@@ -78,13 +77,40 @@ export default {
     };
   },
   beforeCreate() {
+    API.get('api/board/list').then(res => {
+      console.log(res);
+      this.boardList = res.data;
+    });
+  },
+
+  created() {
+    console.log('created :');
+  },
+  beforeMount() {
+    console.log('beforeMount :');
+  },
+  mounted() {
+    console.log('mounted :');
     axios.get(HOST + 'api/board/list').then(res => {
       console.log(res);
       this.boardList = res.data;
     });
   },
+  beforeUpdate() {
+    console.log('beforeUpdate :');
+  },
+  updated() {
+    console.log('updated :');
+  },
+  beforeDestroy() {
+    console.log('beforeDestroy :');
+  },
+  destroyed() {
+    console.log('destroyed :');
+  },
+
   // beforeUpdate() {
-  //   axios.get(HOST + 'api/board/list').then(res => {
+  //   API.get(HOST + 'api/board/list').then(res => {
   //     console.log(res);
   //     this.boardList = res.data;
   //   });

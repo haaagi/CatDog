@@ -35,8 +35,7 @@
   </div>
 </template>
 <script>
-const HOST = process.env.VUE_APP_SERVER_HOST;
-const axios = require('axios');
+import API from '../plugins/api';
 import ModalPost from '../components/ModalPost.vue';
 export default {
   components: { ModalPost },
@@ -60,6 +59,49 @@ export default {
         this.addWord();
       }
     },
+    '$route.params.tagname': {
+      handler: function() {
+        this.bottom = false;
+        this.words = [];
+        this.Index = 0;
+        this.postList = [];
+        this.test = 'test';
+        this.flag = false;
+        this.modal = false;
+        this.post = [];
+        this.length = 0;
+        API.get('hashtag/' + this.$route.params.tagname).then(res => {
+          this.postList = res.data;
+          this.length = this.postList.length;
+          this.flag = true;
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+        });
+      },
+    },
   },
   mounted() {
     window.addEventListener('scroll', () => {
@@ -68,7 +110,7 @@ export default {
     this.addWord();
   },
   created() {
-    axios.get(HOST + 'hashtag/' + this.$route.params.tagname).then(res => {
+    API.get('hashtag/' + this.$route.params.tagname).then(res => {
       this.postList = res.data;
       this.length = this.postList.length;
       this.flag = true;

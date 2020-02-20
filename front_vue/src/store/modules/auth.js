@@ -1,6 +1,5 @@
-const axios = require('axios');
+import API from '../../plugins/api';
 import router from '../../router';
-const HOST = process.env.VUE_APP_SERVER_HOST;
 const state = {
   token: null,
   errors: [],
@@ -83,8 +82,7 @@ const actions = {
         // commit('pushError', 'password must be at least 8');
         commit('setLoading', false);
       } else {
-        axios
-          .post(HOST + 'api/user/signin', credentials)
+        API.post('api/user/signin', credentials)
           .then(res => {
             console.log(res);
             if (res.data.accessToken.length >= 15) {
@@ -139,8 +137,7 @@ const actions = {
       else if (userInput.password.length < 8) {
         alert('비밀번호는 8글자 이상으로 설정해주세요.');
       } else {
-        axios
-          .post(HOST + 'api/user/signup', userInput)
+        API.post('api/user/signup', userInput)
           .then(res => {
             console.log(res);
             if (res.status === 200) {

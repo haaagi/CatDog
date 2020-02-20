@@ -195,9 +195,8 @@
 
 <script>
 import ModalPost from '../components/ModalPost';
-const HOST = process.env.VUE_APP_SERVER_HOST;
-const axios = require('axios');
-
+// const HOST = process.env.VUE_APP_SERVER_HOST;
+import API from '../plugins/api';
 export default {
   name: 'Userdetail',
   components: { ModalPost },
@@ -221,9 +220,9 @@ export default {
   },
   beforeCreate() {
     const userNickname = sessionStorage.getItem('nickname');
-    axios
+    API
       // .get(HOST + 'auth/Mypage/' + userEmail, null, options)
-      .get(HOST + 'auth/myPage/' + userNickname)
+      .get('auth/myPage/' + userNickname)
       .then(res => {
         this.userInfo = res.data;
         console.log(this.userInfo);

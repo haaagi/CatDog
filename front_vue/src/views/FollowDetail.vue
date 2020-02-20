@@ -192,8 +192,7 @@
 </template>
 
 <script>
-const HOST = process.env.VUE_APP_SERVER_HOST;
-const axios = require('axios');
+import API from '../plugins/api';
 import ModalPost from '../components/ModalPost';
 export default {
   name: 'Userdetail',
@@ -228,8 +227,7 @@ export default {
     };
   },
   beforeCreate() {
-    axios
-      .get(HOST + 'auth/myPage/' + this.$route.params.nickname)
+    API.get('auth/myPage/' + this.$route.params.nickname)
       .then(res => {
         this.followInfo = res.data;
         this.followingCnt = res.data.following_cnt;
@@ -245,8 +243,7 @@ export default {
 
     // 팔로우 체크하기 위한
     const userNickname = sessionStorage.getItem('nickname');
-    axios
-      .get(HOST + 'auth/myPage/' + userNickname)
+    API.get('auth/myPage/' + userNickname)
       .then(res => {
         let userInfo = res.data;
         this.userFollowingList = userInfo.followingnicknameList;
@@ -267,16 +264,14 @@ export default {
   methods: {
     onClickFollow(following) {
       const follower = sessionStorage.getItem('nickname');
-      axios
-        .get(HOST + 'auth/follow/save/' + follower + '/' + following)
+      API.get('auth/follow/save/' + follower + '/' + following)
         .then(res => {
           console.log(res);
           this.followCheck = res.data;
           console.log(this.followCheck);
 
           // 팔로우 수 바로 반영
-          axios
-            .get(HOST + 'auth/myPage/' + this.$route.params.nickname)
+          API.get('auth/myPage/' + this.$route.params.nickname)
             .then(res => {
               this.followingCnt = res.data.following_cnt;
               this.followerCnt = res.data.follower_cnt;
