@@ -23,7 +23,14 @@
           class="overflow-y-auto"
         >
           <v-row dense v-scroll:#scroll-target="onScroll">
-            <v-textarea auto-grow height="450" v-model="textarea" disabled> </v-textarea>
+            <v-textarea
+              style="font-weight: bold;"
+              auto-grow
+              height="450"
+              v-model="textarea"
+              disabled
+            >
+            </v-textarea>
           </v-row>
         </v-container>
         <v-container>

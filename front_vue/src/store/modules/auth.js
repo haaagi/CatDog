@@ -60,6 +60,7 @@ const actions = {
     sessionStorage.removeItem('email');
     sessionStorage.removeItem('nickname');
     router.push('/login');
+    alert('로그아웃이 되었습니다');
   },
   pushError: ({ commit }, error) => {
     commit('pushError', error);
@@ -95,6 +96,9 @@ const actions = {
               commit('setLoading', false);
               commit('isStart');
               router.push('/main');
+              alert(
+                '로그인이 되었습니다\n 처음 접속하신 분은 검색창에 강아지 종류나 강아지를 검색해 보세요 ^o^',
+              );
             } else {
               alert('아이디 또는 패스워드가 틀렸습니다');
               commit('setLoading', false);
