@@ -134,7 +134,7 @@ const actions = {
       else if (userInput.password.length < 8) {
         alert('비밀번호는 8글자 이상으로 설정해주세요.');
       } else {
-        API.post(HOST + 'api/user/signup', userInput)
+        API.post('api/user/signup', userInput)
           .then(res => {
             console.log(res);
             if (res.status === 200) {
