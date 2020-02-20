@@ -83,6 +83,33 @@ export default {
       this.boardList = res.data;
     });
   },
+
+  created() {
+    console.log('created :');
+  },
+  beforeMount() {
+    console.log('beforeMount :');
+  },
+  mounted() {
+    console.log('mounted :');
+    axios.get(HOST + 'api/board/list').then(res => {
+      console.log(res);
+      this.boardList = res.data;
+    });
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate :');
+  },
+  updated() {
+    console.log('updated :');
+  },
+  beforeDestroy() {
+    console.log('beforeDestroy :');
+  },
+  destroyed() {
+    console.log('destroyed :');
+  },
+
   // beforeUpdate() {
   //   axios.get(HOST + 'api/board/list').then(res => {
   //     console.log(res);

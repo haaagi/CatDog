@@ -6,7 +6,7 @@
           type="text"
           name="keyword"
           style=" border-style:solid; border-color:white; font-size:25px; width:70%; height:50px; font-size: 22px;
-    font-weight: 600;    text-align: center;"
+    font-weight: 600; text-align: center;"
           :value="keyword"
         />
         <button type="submit" formaction="/search">
@@ -78,7 +78,7 @@
                       </h1>
                     </center>
                   </td>
-                  <td style="font-size:50px; align-content:center;">
+                  <td style="font-size:40px; align-content:center; padding-bottom: 15px;">
                     {{ item.content }}
                   </td>
                 </tr>

@@ -60,6 +60,49 @@ export default {
         this.addWord();
       }
     },
+    '$route.params.tagname': {
+      handler: function() {
+        this.bottom = false;
+        this.words = [];
+        this.Index = 0;
+        this.postList = [];
+        this.test = 'test';
+        this.flag = false;
+        this.modal = false;
+        this.post = [];
+        this.length = 0;
+        axios.get(HOST + 'hashtag/' + this.$route.params.tagname).then(res => {
+          this.postList = res.data;
+          this.length = this.postList.length;
+          this.flag = true;
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+          this.words.push({
+            resource: this.postList[this.Index++].img,
+            //resource: 'https://source.unsplash.com/random/' + Math.floor(600 + Math.random() * 100),
+            tag: Math.random(),
+          });
+        });
+      },
+    },
   },
   mounted() {
     window.addEventListener('scroll', () => {
