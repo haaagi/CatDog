@@ -53,16 +53,19 @@
             <p><span> Copyright 2020. Cat&Dog Co.</span> <span> All Rights Reserved</span></p>
             <ul>
               <li>
-                <a href="#"><i class="icon-facebook2"></i></a>
+                <a href="https://github.com/ponyong"><i class="icon-phone"></i></a>
               </li>
               <li>
-                <a href="#"><i class="icon-twitter2"></i></a>
+                <a href="https://github.com/daehi4u"><i class="icon-facebook2"></i></a>
               </li>
               <li>
-                <a href="#"><i class="icon-instagram"></i></a>
+                <a href="https://github.com/haaagi"><i class="icon-twitter2"></i></a>
               </li>
               <li>
-                <a href="#"><i class="icon-linkedin2"></i></a>
+                <a href="https://github.com/Han-kiyeon"><i class="icon-instagram"></i></a>
+              </li>
+              <li>
+                <a href="https://github.com/sooya14"><i class="icon-linkedin2"></i></a>
               </li>
             </ul>
           </div>

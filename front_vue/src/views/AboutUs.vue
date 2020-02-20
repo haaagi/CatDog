@@ -35,23 +35,25 @@
         </div>
         <div class="row full-screen no-gutters">
           <div class="hover-screen" style="width:20%;">
-            <h2 style="margin-left: -70px;"><a href="https://github.com/ponyong">Backend</a></h2>
+            <h2 style="margin-left: -70px;">Backend</h2>
           </div>
 
           <div class=" hover-screen" style="width:20%">
-            <h2 style="margin-left: -70px;"><a href="https://github.com/daehi4u">Backend</a></h2>
-          </div>
-          <div class="hover-screen" style="width:20%">
-            <h2 style="margin-left: -70px;"><a href="https://github.com/haaagi">Frontend</a></h2>
+            <h2 style="margin-left: -70px;">Backend</h2>
           </div>
           <div class="hover-screen" style="width:20%">
             <h2 style="margin-left: -70px;">
-              <a href="https://github.com/Han-kiyeon">Frontend</a>
+              Frontend
+            </h2>
+          </div>
+          <div class="hover-screen" style="width:20%">
+            <h2 style="margin-left: -70px;">
+              Frontend
             </h2>
           </div>
 
           <div class="hover-screen" style="width:20%">
-            <h2 style="margin-left: -70px;"><a href="https://github.com/sooya14">Frontend</a></h2>
+            <h2 style="margin-left: -70px;">Frontend</h2>
           </div>
         </div>
         <div
@@ -86,7 +88,6 @@ export default {};
 
 a {
   color: white;
-  text-decoration: none;
 }
 
 .box {
@@ -231,10 +232,10 @@ h3 {
   padding-left: 5rem;
   box-sizing: border-box;
   margin-bottom: 2rem;
-  color: black;
+  color: white;
 }
 .text {
-  color: black;
+  color: white;
   padding-left: 5rem;
 }
 </style>
