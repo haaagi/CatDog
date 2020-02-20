@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TagsRepository extends JpaRepository<Tags,Long> {
     List<Tags> findAllByPostsPid(Long pid);
-
+    Tags findByPostsPidAndHashtagsHid(Long pid, Long hid);
     @Query(value = "select pid from tags where hid = ?1", nativeQuery = true)
     List<Long> findpids(Long pid);
 
