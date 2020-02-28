@@ -2,9 +2,12 @@ package com.catdog.springboot.domain.posts;
 
 import com.catdog.springboot.domain.BaseTimeEntity;
 import com.catdog.springboot.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -16,28 +19,28 @@ public class Posts extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
+    
+    @Column
+    private String img;
 
-    @Column(length = 500 , nullable = false)
-    private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column
     private String content;
 
-    private String author;
-
+    @JsonBackReference
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "uid")
     private User user;
 
     @Builder
-    public Posts(User user, String title, String content, String author) {
+    public Posts(User user, String img, String content) {
         this.user = user;
-        this.title = title;
+        this.img = img;
         this.content = content;
-        this.author = author;
     }
-    public void update(String title, String content) {
-        this.title = title;
+
+    public void update( String content) {
         this.content = content;
     }
 

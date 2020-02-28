@@ -1,11 +1,11 @@
 package com.catdog.springboot.config.auth.dto;
 
+//import com.catdog.springboot.domain.user.Role;
 import com.catdog.springboot.domain.user.Role;
 import com.catdog.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.xml.ws.BindingType;
 import java.util.Map;
 
 @Getter
@@ -14,15 +14,15 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String name;
     private String email;
-    private String picture;
+    private String img;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String img) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
         this.email = email;
-        this.picture = picture;
+        this.img = img;
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
@@ -39,7 +39,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
-                .picture((String) response.get("profile_image"))
+                .img((String) response.get("profile_image"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -49,7 +49,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .picture((String) attributes.get("picture"))
+                .img((String) attributes.get("img"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -59,8 +59,12 @@ public class OAuthAttributes {
         return User.builder()
                 .name(name)
                 .email(email)
-                .picture(picture)
-                .role(Role.GUEST)
+                .phonenumber("")
+                .likepet("")
+                .mypet("")
+                .birthday("")
+                .nickname("")
+                .password("")
                 .build();
     }
 }

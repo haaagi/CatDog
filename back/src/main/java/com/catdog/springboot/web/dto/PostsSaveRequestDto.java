@@ -9,22 +9,23 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class PostsSaveRequestDto {
-    private String title;
+    private String nickname;
+    private String img;
     private String content;
-    private String author;
+    private String hashtags;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author) {
-        this.title = title;
+    public PostsSaveRequestDto(String nickname, String img, String content, String hashtags) {
+        this.nickname = nickname;
+        this.img = img;
         this.content = content;
-        this.author = author;
+        this.hashtags = hashtags;
     }
 
     public Posts toEntity(User user) {
         return Posts.builder()
-                .title(title)
+                .img(img)
                 .content(content)
-                .author(author)
                 .user(user)
                 .build();
     }

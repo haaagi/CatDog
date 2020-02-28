@@ -10,7 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
+//import com.catdog.springboot.property.FileUploadProperties;
+
 @SpringBootApplication
+//@EnableConfigurationProperties({
+//        FileUploadProperties.class
+//})
 public class Application implements WebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -21,8 +26,9 @@ public class Application implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor).addPathPatterns("/api/**")
-                .excludePathPatterns(Arrays.asList("/api/user/**"));
+        registry.addInterceptor(jwtInterceptor).addPathPatterns("/test/**")
+                .excludePathPatterns(Arrays.asList("/auth/**"))
+                .excludePathPatterns(Arrays.asList("/api/**"));
     }
     @Override
     public void addCorsMappings(CorsRegistry registry) {

@@ -13,39 +13,50 @@ public class PostsApiController {
 
     private final PostsService postsService;
 
-    @GetMapping("/api/v1/posts")
+    @GetMapping("/api/posts/list") //포스트 리스트 가져오기 (메인화면에 사용)
     public List<PostsListResponseDto> list() {
-        return postsService.findAllAsc();
+        return postsService.findAll();
     }
 
-    @PostMapping("/api/v1/posts")
+    @GetMapping("/api/posts/list/{nickname}") //포스트 리스트 가져오기 (메인화면에 사용)
+    public List<PostsListResponseDto> list(@PathVariable String nickname) {
+        return postsService.findAll(nickname);
+    }
+
+    @GetMapping("/api/posts/postdetail/{mynickname}/{pid}")
+    public PostsResponseDto detail(@PathVariable String mynickname, @PathVariable Long pid) {
+        return postsService.detail(mynickname, pid);
+    }
+
+    @GetMapping("/api/posts/postdetail/{pid}")
+    public PostsResponseDto2 detail (@PathVariable Long pid){
+        return postsService.detail2(pid);
+    }
+
+    @PostMapping("/auth/posts/posting") // 게시글 업로드
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
     }
 
-    @PutMapping("/api/v1/posts/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
-        return postsService.update(id, requestDto);
+    @PutMapping("/auth/posts/update/{pid}") // 게시글 수정
+    public void update(@PathVariable Long pid, @RequestBody PostsUpdateRequestDto requestDto) {
+        System.out.println(requestDto.getContent());
+        postsService.update(pid, requestDto);
     }
 
-    @DeleteMapping("/api/v1/posts/{id}")
-    public Long delete(@PathVariable Long id) {
-        postsService.delete(id);
-        return id;
+    @DeleteMapping("/auth/posts/delete/{pid}") //게시글 삭제
+    public void delete(@PathVariable Long pid) {
+        postsService.delete(pid);
     }
 
-    @GetMapping("/api/v1/posts/{id}")
-    public PostsResponseDto findById(@PathVariable Long id) {
-        return postsService.findById(id);
-    }
 
-    @GetMapping("/api/v1/posts/list")
-    public List<PostsListResponseDto> findAll() {
-        return postsService.findAllAsc();
-    }
-
-    @PostMapping("/api/v1/posts/likesup")
-    public Long likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
+    @PostMapping("/auth/posts/likesup")  //좋아요 누를때
+    public boolean likesup(@RequestBody PostsLikesupRequestDto likesupRequestDto) {
         return postsService.likesup(likesupRequestDto);
+    }
+
+    @GetMapping("/api/posts/like/likeslist/{pid}")
+    public List<String> likeslist(@PathVariable Long pid){
+        return postsService.likeslist(pid);
     }
 }

@@ -1,19 +1,21 @@
 package com.catdog.springboot.web.dto;
 
-import com.catdog.springboot.domain.posts.Posts;
+import com.catdog.springboot.domain.comment.Comment;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class PostsResponseDto {
-    private Long id;
-    private String title;
-    private String content;
-    private String author;
+  private List<Comment> comment;
+  private boolean islike;
 
-    public PostsResponseDto(Posts entity) {
-        this.id = entity.getPid();
-        this.title = entity.getTitle();
-        this.content = entity.getContent();
-        this.author = entity.getAuthor();
+    @Builder
+    public PostsResponseDto(List comment, boolean islike) {
+        this.comment = comment;
+        this.islike = islike;
     }
 }
